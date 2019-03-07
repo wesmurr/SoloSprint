@@ -6,7 +6,7 @@ package software_masters.planner_networking;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author lee.kendall
+ * @author lee.kendalll
  *
  */
 public class Department {

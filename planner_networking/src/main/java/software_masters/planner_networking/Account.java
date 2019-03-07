@@ -4,7 +4,7 @@
 package software_masters.planner_networking;
 
 /**
- * @author lee kendall
+ * @author lee kendalll
  * @author wesley murray
  *
  */
