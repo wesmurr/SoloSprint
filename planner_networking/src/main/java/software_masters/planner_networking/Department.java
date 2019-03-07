@@ -21,7 +21,7 @@ public class Department {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public PlanFile getPlan(String year)
+	public PlanFile getPlan(String year) throws IllegalArgumentException
 	{
 		return null;
 	}
@@ -31,7 +31,7 @@ public class Department {
 		
 	}
 	
-	public void removePlan(String year)
+	public void removePlan(String year) 
 	{
 		
 	}

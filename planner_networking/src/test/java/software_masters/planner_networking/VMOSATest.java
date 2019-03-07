@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import junit.framework.TestCase;
+
 
 /**
  * @author Courtney and Jack
@@ -15,8 +17,7 @@ import org.junit.Test;
  */
 public class VMOSATest
 {
-
-	@Test
+		@Test
 	public void test()
 	{
 		try{

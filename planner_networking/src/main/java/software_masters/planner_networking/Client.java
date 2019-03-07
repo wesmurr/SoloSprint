@@ -14,6 +14,8 @@ public class Client {
 	 * 
 	 */
 	private String cookie;
+	private PlanFile currPlanFile;
+	private Node currNode;
 	
 	
 	public Client() 
@@ -21,7 +23,7 @@ public class Client {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String logIn(String username, String password)
+	public String login(String username, String password)
 	{
 		return null;
 	}
@@ -36,24 +38,47 @@ public class Client {
 		return null;
 	}
 	
-	public boolean pushFile(PlanFile plan)
+	public void pushFile(PlanFile plan) throws IllegalArgumentException
 	{
-		return false;
 	}
 	
-	public boolean addUser(String username, String password, String departmentName, boolean isAdmin)
+	public void addUser(String username, String password, String departmentName, boolean isAdmin) throws IllegalArgumentException
 	{
-		return false;
 	}
 	
-	public boolean flagPlan(String departmentName, String year)
+	public void flagPlan(String departmentName, String year, boolean canEdit) throws IllegalArgumentException
 	{
-		return false;
 	}
 	
-	public boolean addDepartment(String departmentName)
+	public void addDepartment(String departmentName) throws IllegalArgumentException
 	{
-		return false;
 	}
+	
+	public void addBranch() throws IllegalArgumentException 
+	{
+
+	}
+	
+	public void removeBranch() throws IllegalArgumentException
+	{
+		
+	}
+	
+	public void editData(String data)
+	{
+		
+	}
+	
+	public String getData()
+	{
+		return null;
+	}
+	
+	public void setYear()
+	{
+		
+	}
+	
+	
 
 }

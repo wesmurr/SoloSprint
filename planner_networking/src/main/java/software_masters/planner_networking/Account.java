@@ -23,7 +23,7 @@ public class Account {
 		
 	}
 	
-	public String testCredentials(String password)
+	public String testCredentials(String password) throws IllegalArgumentException //returns cookie
 	{
 		return null;
 	}
