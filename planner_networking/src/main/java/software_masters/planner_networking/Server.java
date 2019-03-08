@@ -4,6 +4,8 @@
 package software_masters.planner_networking;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
+import java.rmi.Remote;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -11,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *
  */
 
-public class Server {
+public class Server implements Remote, Serializable {
 
 	/**
 	 * 
@@ -21,9 +23,8 @@ public class Server {
 	private ConcurrentHashMap<String, Department> departmentMap;
 	private ConcurrentHashMap<String, Plan> planTemplateMap;
 	
-	public Server() 
+	public Server() //Needs to create admin account Admin, admin cookie 0
 	{
-		// TODO Auto-generated constructor stub
 	}
 	
 	public String logIn(String username, String password) throws IllegalArgumentException
@@ -73,6 +74,62 @@ public class Server {
 		
 	}
 	
+	/**
+	 * @return the loginMap
+	 */
+	public ConcurrentHashMap<String, Account> getLoginMap() {
+		return loginMap;
+	}
+
+	/**
+	 * @param loginMap the loginMap to set
+	 */
+	public void setLoginMap(ConcurrentHashMap<String, Account> loginMap) {
+		this.loginMap = loginMap;
+	}
+
+	/**
+	 * @return the cookieMap
+	 */
+	public ConcurrentHashMap<String, Account> getCookieMap() {
+		return cookieMap;
+	}
+
+	/**
+	 * @param cookieMap the cookieMap to set
+	 */
+	public void setCookieMap(ConcurrentHashMap<String, Account> cookieMap) {
+		this.cookieMap = cookieMap;
+	}
+
+	/**
+	 * @return the departmentMap
+	 */
+	public ConcurrentHashMap<String, Department> getDepartmentMap() {
+		return departmentMap;
+	}
+
+	/**
+	 * @param departmentMap the departmentMap to set
+	 */
+	public void setDepartmentMap(ConcurrentHashMap<String, Department> departmentMap) {
+		this.departmentMap = departmentMap;
+	}
+
+	/**
+	 * @return the planTemplateMap
+	 */
+	public ConcurrentHashMap<String, Plan> getPlanTemplateMap() {
+		return planTemplateMap;
+	}
+
+	/**
+	 * @param planTemplateMap the planTemplateMap to set
+	 */
+	public void setPlanTemplateMap(ConcurrentHashMap<String, Plan> planTemplateMap) {
+		this.planTemplateMap = planTemplateMap;
+	}
+
 	public static void main(String[] args)
 	{
 

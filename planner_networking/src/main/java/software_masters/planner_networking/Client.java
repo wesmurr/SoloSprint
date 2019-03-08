@@ -16,14 +16,15 @@ public class Client {
 	private String cookie;
 	private PlanFile currPlanFile;
 	private Node currNode;
+	private Server server;
 	
 	
-	public Client() 
+	public Client(Server server) 
 	{
-		// TODO Auto-generated constructor stub
+		this.server = server;
 	}
 	
-	public String login(String username, String password)
+	public String login(String username, String password) throws IllegalArgumentException
 	{
 		return null;
 	}
