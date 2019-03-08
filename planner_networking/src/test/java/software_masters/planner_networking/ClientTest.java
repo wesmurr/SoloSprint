@@ -59,6 +59,7 @@ public class ClientTest {
 	/**Verifies that the login method works by returning a valid cookie from a valid login.
 	 * The server is initialized with two accounts - an Admin(Username admin, password admin, cookie 0) and a normal user (Username user, password user, cookie 1)
 	 * The server is also initialized with one department - default
+	 * The default department has a default plan file - (year: "2019", candEdit: true, Plan null)
 	 */
 	@Test
 	public void testLogin() {
@@ -70,6 +71,7 @@ public class ClientTest {
 		
 		//Checks valid logins
 		assertEquals("1", testClient.login("user", "user"));
+		assertEquals("1",testClient.getCookie());
 		assertEquals("0", testClient.login("admin", "admin"));
 	}
 		
@@ -88,9 +90,12 @@ public class ClientTest {
 		testClient.login("admin", "admin");
 		testClient.addUser("newUser", "newUser", "default", false);
 		
-		//If no exception is thrown when the new user logs in, then the previous addUser method must have succeeded
+		//test if account was actually created and correct department was added
 		ConcurrentHashMap<String, Account> loginMap = testServer.getLoginMap();
 		assertTrue(loginMap.containsKey("newUser"));
+		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		assertEquals(departmentMap.get("default"),loginMap.get("newUser").getDepartment());
+
 		
 		//Verifies an exception is thrown when admins attempt to add a user with a non-existent department
 		testClient.login("admin", "admin");
@@ -111,15 +116,41 @@ public class ClientTest {
 		testClient.login("admin", "admin");
 		testClient.addDepartment("newDepartment");
 		
-		//If no exception is thrown when the new user logs in, then the previous addUser method must have succeeded
+		//verifies the department object was created and added to hash
 		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		assertTrue(departmentMap.containsKey("newDepartment"));
 
 	}
 	
+	@Test
+	public void testFlagPlan() {
+		//tests non-admin flagFile
+		testClient.login("user", "user");
+		assertThrows(IllegalArgumentException.class, () -> testClient.flagPlan("default","2019",false));
+		
+		//tests admin can flag file. 
+		testClient.login("admin", "admin");
+		testClient.flagPlan("default","2019",true);
+		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		PlanFile file=departmentMap.get("default").getPlan("2019");
+		assertTrue(file.isCanEdit());
+		
+		//tests exception is thrown if try to flag invalid file. 
+		assertThrows(IllegalArgumentException.class, () -> testClient.flagPlan("default","2000",true));
+
+	}
 	
 	@Test
 	public void testGetPlan() {
-		fail("Not yet implemented");
+		//plan does not exist throws exception 
+		testClient.login("user", "user");
+		assertThrows(IllegalArgumentException.class, () -> testClient.getPlan("2000"));
+				
+		//otherwise ok
+		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		
+		
+		
 	}
 
 	@Test
@@ -129,11 +160,6 @@ public class ClientTest {
 
 	@Test
 	public void testPushFile() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFlagPlan() {
 		fail("Not yet implemented");
 	}
 

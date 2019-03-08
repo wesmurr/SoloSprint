@@ -28,4 +28,68 @@ public class PlanFile {
 		this.plan = plan;
 	}
 
+	/**
+	 * @return the year
+	 */
+	public String getYear()
+	{
+		return year;
+	}
+
+	/**
+	 * @param year the year to set
+	 */
+	public void setYear(String year)
+	{
+		this.year = year;
+	}
+
+	/**
+	 * @return the department
+	 */
+	public Department getDepartment()
+	{
+		return department;
+	}
+
+	/**
+	 * @param department the department to set
+	 */
+	public void setDepartment(Department department)
+	{
+		this.department = department;
+	}
+
+	/**
+	 * @return the canEdit
+	 */
+	public boolean isCanEdit()
+	{
+		return canEdit;
+	}
+
+	/**
+	 * @param canEdit the canEdit to set
+	 */
+	public void setCanEdit(boolean canEdit)
+	{
+		this.canEdit = canEdit;
+	}
+
+	/**
+	 * @return the plan
+	 */
+	public Plan getPlan()
+	{
+		return plan;
+	}
+
+	/**
+	 * @param plan the plan to set
+	 */
+	public void setPlan(Plan plan)
+	{
+		this.plan = plan;
+	}
+
 }

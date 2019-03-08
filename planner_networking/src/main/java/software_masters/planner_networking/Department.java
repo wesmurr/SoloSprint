@@ -36,4 +36,20 @@ public class Department {
 		
 	}
 
+	/**
+	 * @return the planFileMap
+	 */
+	public ConcurrentHashMap<String, PlanFile> getPlanFileMap()
+	{
+		return planFileMap;
+	}
+
+	/**
+	 * @param planFileMap the planFileMap to set
+	 */
+	public void setPlanFileMap(ConcurrentHashMap<String, PlanFile> planFileMap)
+	{
+		this.planFileMap = planFileMap;
+	}
+
 }

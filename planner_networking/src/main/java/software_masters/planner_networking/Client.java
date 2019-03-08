@@ -79,6 +79,70 @@ public class Client {
 	{
 		
 	}
+
+	/**
+	 * @return the cookie
+	 */
+	public String getCookie()
+	{
+		return cookie;
+	}
+
+	/**
+	 * @param cookie the cookie to set
+	 */
+	public void setCookie(String cookie)
+	{
+		this.cookie = cookie;
+	}
+
+	/**
+	 * @return the currPlanFile
+	 */
+	public PlanFile getCurrPlanFile()
+	{
+		return currPlanFile;
+	}
+
+	/**
+	 * @param currPlanFile the currPlanFile to set
+	 */
+	public void setCurrPlanFile(PlanFile currPlanFile)
+	{
+		this.currPlanFile = currPlanFile;
+	}
+
+	/**
+	 * @return the currNode
+	 */
+	public Node getCurrNode()
+	{
+		return currNode;
+	}
+
+	/**
+	 * @param currNode the currNode to set
+	 */
+	public void setCurrNode(Node currNode)
+	{
+		this.currNode = currNode;
+	}
+
+	/**
+	 * @return the server
+	 */
+	public Server getServer()
+	{
+		return server;
+	}
+
+	/**
+	 * @param server the server to set
+	 */
+	public void setServer(Server server)
+	{
+		this.server = server;
+	}
 	
 	
 
