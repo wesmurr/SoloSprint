@@ -57,6 +57,16 @@ public class Department {
 	{
 		planFileMap.remove(year);
 	}
+	
+	/**
+	 * Checks if the plan exists within this department
+	 * @param year
+	 * @return
+	 */
+	public boolean containsPlan(String year)
+	{
+		return this.planFileMap.containsKey(year);
+	}
 
 	/**
 	 * @return the planFileMap
