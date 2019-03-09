@@ -173,8 +173,7 @@ public class ClientTest {
 		
 		//build expected file.
 		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
-		Department dept=departmentMap.get("default");
-		PlanFile centreBase=new PlanFile(null,dept,true,new Centre());
+		PlanFile centreBase=new PlanFile(null,true,new Centre());
 		
 		//test that retrieved business plan outline matches expected
 		assertEquals(centreBase,testClient.getPlanOutline("Centre"));

@@ -10,20 +10,17 @@ package software_masters.planner_networking;
 public class PlanFile {
 
 	private String year;
-	private Department department;
 	private boolean canEdit;
 	private Plan plan;
 	
 	/**
 	 * @param year
-	 * @param department
 	 * @param canEdit
 	 * @param plan
 	 */
-	public PlanFile(String year, Department department, boolean canEdit, Plan plan) 
+	public PlanFile(String year, boolean canEdit, Plan plan) 
 	{
 		this.year = year;
-		this.department = department;
 		this.canEdit = canEdit;
 		this.plan = plan;
 	}
@@ -42,22 +39,6 @@ public class PlanFile {
 	public void setYear(String year)
 	{
 		this.year = year;
-	}
-
-	/**
-	 * @return the department
-	 */
-	public Department getDepartment()
-	{
-		return department;
-	}
-
-	/**
-	 * @param department the department to set
-	 */
-	public void setDepartment(Department department)
-	{
-		this.department = department;
 	}
 
 	/**
@@ -108,11 +89,6 @@ public class PlanFile {
 		PlanFile other = (PlanFile) obj;
 		if (canEdit != other.canEdit)
 			return false;
-		if (department == null)
-		{
-			if (other.department != null)
-				return false;
-		} 
 		if (plan == null)
 		{
 			if (other.plan != null)

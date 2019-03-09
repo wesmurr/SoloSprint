@@ -27,6 +27,7 @@ public class Server implements Remote, Serializable {
 	
 	public Server() //Needs to create admin account Admin, admin cookie 0
 	{
+		
 	}
 	
 	public String logIn(String username, String password) throws IllegalArgumentException
@@ -66,7 +67,7 @@ public class Server implements Remote, Serializable {
 		
 	}
 	
-	public Server load() throws FileNotFoundException
+	public static Server load() throws FileNotFoundException
 	{
 		return null;
 	}
@@ -121,14 +122,14 @@ public class Server implements Remote, Serializable {
 	/**
 	 * @return the planTemplateMap
 	 */
-	public ConcurrentHashMap<String, Plan> getPlanTemplateMap() {
+	public ConcurrentHashMap<String, PlanFile> getPlanTemplateMap() {
 		return planTemplateMap;
 	}
 
 	/**
 	 * @param planTemplateMap the planTemplateMap to set
 	 */
-	public void setPlanTemplateMap(ConcurrentHashMap<String, Plan> planTemplateMap) {
+	public void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap) {
 		this.planTemplateMap = planTemplateMap;
 	}
 

@@ -5,75 +5,51 @@ import static org.junit.Assert.*;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
-//
+
+
+
+/**
+ * @author Wesley Murray
+ * @author Lee Kendall
+ * 
+ * This class verifies that server is working properly.
+ * initialized with two accounts - an Admin(Username: admin, password: admin, cookie: 0) and a normal user (Username: user, password: user, cookie: 1)
+ * initialized with one department - (name: default)
+ * The default department has a default plan file - (year: "2019", candEdit: true, Plan Centre_Plan_1)
+ * planTemplateMap is initialized with VMOSA and Centre
+ *
+ */
 public class ServerTest {
 
+	static Server testServer;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		testServer=new Server();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
 	}
 
-	@Test
-	public void testServer() {
-		fail("Not yet implemented");
-	}
 
-	@Test
-	public void testLogIn() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPlan() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPlanOutline() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSaveFile() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddUser() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testFlagPlan() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testAddDepartment() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * This method tests that a new type of business plan can be added to server by a developer
+	 */
 	@Test
 	public void testAddPlanTemplate() {
-		fail("Not yet implemented");
+		Plan Iowa_State=new IowaState();
+		PlanFile Iowa_test=new PlanFile(null,true,Iowa_State);
+		testServer.addPlanTemplate("IowaState", Iowa_test);
+		assertEquals(Iowa_test,testServer.getPlanOutline("IowaState","1"));
 	}
 
 	@Test
-	public void testLoad() {
-		fail("Not yet implemented");
-	}
+	public void testSerialization() throws Exception {
+		testServer.save();
+		Server temp=Server.load();
+		assertEquals(testServer,temp);
 
-	@Test
-	public void testSave() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testMain() {
-		fail("Not yet implemented");
 	}
 
 }
