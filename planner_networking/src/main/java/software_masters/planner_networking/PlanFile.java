@@ -92,4 +92,40 @@ public class PlanFile {
 		this.plan = plan;
 	}
 
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PlanFile other = (PlanFile) obj;
+		if (canEdit != other.canEdit)
+			return false;
+		if (department == null)
+		{
+			if (other.department != null)
+				return false;
+		} 
+		if (plan == null)
+		{
+			if (other.plan != null)
+				return false;
+		} else if (!plan.equals(other.plan))
+			return false;
+		if (year == null)
+		{
+			if (other.year != null)
+				return false;
+		} else if (!year.equals(other.year))
+			return false;
+		return true;
+	}
+
 }

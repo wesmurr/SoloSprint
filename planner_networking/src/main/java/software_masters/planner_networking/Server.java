@@ -1,6 +1,3 @@
-/**
- * 
- */
 package software_masters.planner_networking;
 
 import java.io.FileNotFoundException;
@@ -9,19 +6,24 @@ import java.rmi.Remote;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author lee.kendalll
+ * @author Lee Kendall
+ * @author Wesley Murray
+ * 
+ * This class is the server for our business planner application
  *
+ * initialized with two accounts - an Admin(Username: admin, password: admin, cookie: 0) and a normal user (Username: user, password: user, cookie: 1)
+ * initialized with one department - (name: default)
+ * The default department has a default plan file - (year: "2019", candEdit: true, Plan Centre_Plan_1)
+ * planTemplateMap is initialized with VMOSA and Centre
  */
 
 public class Server implements Remote, Serializable {
 
-	/**
-	 * 
-	 */
+	private static final long serialVersionUID = 1L;
 	private ConcurrentHashMap<String, Account> loginMap;
 	private ConcurrentHashMap<String, Account> cookieMap;
 	private ConcurrentHashMap<String, Department> departmentMap;
-	private ConcurrentHashMap<String, Plan> planTemplateMap;
+	private ConcurrentHashMap<String, PlanFile> planTemplateMap;
 	
 	public Server() //Needs to create admin account Admin, admin cookie 0
 	{
@@ -59,7 +61,7 @@ public class Server implements Remote, Serializable {
 	{
 	}
 	
-	public void addPlanTemplate(String name,Plan plan) throws IllegalArgumentException
+	public void addPlanTemplate(String name,PlanFile plan) throws IllegalArgumentException
 	{
 		
 	}

@@ -4,7 +4,7 @@
 package software_masters.planner_networking;
 
 /**
- * @author lee kendallll
+ * @author lee kendall
  *
  */
 
@@ -29,17 +29,17 @@ public class Client {
 		return null;
 	}
 	
-	public PlanFile getPlan(String year)
+	public PlanFile getPlan(String year) throws IllegalArgumentException
 	{
 		return null;
 	}
 	
-	public PlanFile getPlanOutline(String name)
+	public PlanFile getPlanOutline(String name) throws IllegalArgumentException
 	{
 		return null;
 	}
 	
-	public void pushFile(PlanFile plan) throws IllegalArgumentException
+	public void pushPlan(PlanFile plan) throws IllegalArgumentException
 	{
 	}
 	
