@@ -59,7 +59,7 @@ public class Server implements Remote, Serializable {
 	 * @param password
 	 * @param departmentName
 	 * @param isAdmin
-	 * @param cookie of the admin
+	 * @param cookie of the admin 
 	 * @throws IllegalArgumentException
 	 */
 	public void addUser(String username, String password, String departmentName, boolean isAdmin, String cookie) throws IllegalArgumentException
