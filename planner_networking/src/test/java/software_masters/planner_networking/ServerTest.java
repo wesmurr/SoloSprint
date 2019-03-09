@@ -44,6 +44,9 @@ public class ServerTest {
 		assertEquals(Iowa_test,testServer.getPlanOutline("IowaState","1"));
 	}
 
+	/** Tests that the server can be saved to xml and reloaded correctly
+	 * @throws Exception
+	 */
 	@Test
 	public void testSerialization() throws Exception {
 		testServer.save();

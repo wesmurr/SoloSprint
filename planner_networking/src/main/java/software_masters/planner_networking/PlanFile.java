@@ -4,11 +4,14 @@
 package software_masters.planner_networking;
 
 /**
- * @author lee.kendalll
+ * @author lee.kendall
+ * @author wesley murray
  *
  */
 public class PlanFile {
-
+/**
+ * Object contains plan object, along with a year and a canEdit flag
+ */
 	private String year;
 	private boolean canEdit;
 	private Plan plan;
@@ -25,6 +28,15 @@ public class PlanFile {
 		this.plan = plan;
 	}
 
+	/**
+	 * Default constructor for serialization
+	 */
+	public PlanFile() 
+	{
+		this.year = null;
+		this.canEdit = false;
+		this.plan = null;
+	}
 	/**
 	 * @return the year
 	 */

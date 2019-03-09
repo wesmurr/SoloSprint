@@ -3,6 +3,7 @@ package software_masters.planner_networking;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.rmi.Remote;
+import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -50,8 +51,67 @@ public class Server implements Remote, Serializable {
 		
 	}
 	
+	/**
+	 * Adds new user to loginMap, generates new cookie for user and adds to cookieMap. Throws exception if user isn't
+	 * an admin or the department doesn't exist.
+	 * 
+	 * @param username
+	 * @param password
+	 * @param departmentName
+	 * @param isAdmin
+	 * @param cookie of the admin
+	 * @throws IllegalArgumentException
+	 */
 	public void addUser(String username, String password, String departmentName, boolean isAdmin, String cookie) throws IllegalArgumentException
 	{
+		if (!this.cookieMap.get(cookie).isAdmin())
+		{
+			throw new IllegalArgumentException("You're not an admin");
+		}
+		
+		if (!this.departmentMap.contains(departmentName))
+		{
+			throw new IllegalArgumentException("Deparment doesn't exist");
+		}
+		
+		String newCookie = cookieMaker();
+		Department newDept = this.departmentMap.get(departmentName);
+		Account newAccount = new Account(password, newCookie, newDept, isAdmin);
+		this.loginMap.put(username, newAccount);
+		this.cookieMap.put(cookie, newAccount);
+		
+	}
+	
+	/**
+	 * Helper method to randomly generate a 25-character cookie. This method regenerates a cookie if it already exists in the cookieMap. 
+	 * @return String cookie
+	 */
+	private String cookieMaker()
+	{
+	    int leftLimit = 33; // letter 'a'
+	    int rightLimit = 122; // letter 'z'
+	    int targetStringLength = 25;
+	    Random random = new Random();
+	    String generatedString;
+	    StringBuilder buffer = new StringBuilder(targetStringLength);
+	    for (int i = 0; i < targetStringLength; i++) {
+	        int randomLimitedInt = leftLimit + (int) 
+	          (random.nextFloat() * (rightLimit - leftLimit + 1));
+	        buffer.append((char) randomLimitedInt);
+	    }
+	    generatedString = buffer.toString();
+	    
+	    while(this.cookieMap.containsKey(generatedString))
+	    {
+		    buffer = new StringBuilder(targetStringLength);
+		    for (int i = 0; i < targetStringLength; i++) {
+		        int randomLimitedInt = leftLimit + (int) 
+		          (random.nextFloat() * (rightLimit - leftLimit + 1));
+		        buffer.append((char) randomLimitedInt);
+		    	}
+	    generatedString = buffer.toString();
+	    }
+		return generatedString;
 	}
 	
 	public void flagPlan(String departmentName, String year, boolean canEdit, String cookie) throws IllegalArgumentException
