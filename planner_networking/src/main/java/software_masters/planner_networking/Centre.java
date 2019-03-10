@@ -11,13 +11,6 @@ import java.util.ArrayList;
  */
 public class Centre extends Plan
 {
-	// name of plan, set by client
-	public String name;
-	// list of default nodes
-	public ArrayList<String> defaultNodes = new ArrayList<String>(); 
-	//pointer to top of IowaState plan tree
-	public Node root;
-	
 	
 	// constructor
 	// clears list of default nodes
@@ -151,4 +144,5 @@ public class Centre extends Plan
 	{
 		this.name = name;
 	}
+
 }

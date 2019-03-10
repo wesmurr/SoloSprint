@@ -12,14 +12,6 @@ import java.util.ArrayList;
 public class VMOSA extends Plan
 {
 	
-	// name of plan, set by client
-	public String name;
-	//array of default nodes for a VMOSA plan
-	public ArrayList<String> defaultNodes = new ArrayList<String>(); 
-	//root is a pointer for the first node in the VMOSA plan tree
-	public Node root;
-
-	
 	// constructor
 	// clears default nodes so information is not duplicated
 	// sets strings in default nodes
