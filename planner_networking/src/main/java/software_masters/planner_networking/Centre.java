@@ -1,25 +1,17 @@
-/**
- * 
- */
 package software_masters.planner_networking;
 
 import java.util.ArrayList;
 
 /**
  * @author Courtney and Jack
- *
+ * @author wesley and lee. 
  */
 public class Centre extends Plan
 {
 	
-	// constructor
-	// clears list of default nodes
-	// sets default strings in defaultNodes
-	// adds node for each string in list
-	
 	public Centre()
 	{
-		defaultNodes.clear();
+		defaultNodes= new ArrayList<String>();
 		setDefaultStrings();
 		addDefaultNodes();
 	}
@@ -34,22 +26,7 @@ public class Centre extends Plan
 		defaultNodes.add("Results");
 	}
 	
-	// make nodes for all of the strings in defaultNodes
-	// Create pointer for tree called root
-	private void addDefaultNodes()
-	{
-		root = new Node(null, defaultNodes.get(0), null, null);
-		Node newParent = new Node(root, defaultNodes.get(1), null, null);
-		root.addChild(newParent);
-		addNode(newParent);		
-	}
-	
-	
-	
-	// addNode method from abstract Plan class
-	// cannot add to Mission since there can only be one
-	// makes node and sets to parent, uses for loop to iterate through the list of names
-//  to add the nodes that follow
+
 	/**
 	 * Take a Node parent and adds the required children and returns a boolean
 	 * true if added
@@ -102,47 +79,6 @@ public class Centre extends Plan
 			return true;
 
 		}
-	}
-	
-	//Getter and setters
-	/**
-	 * returns the root node
-	 * @return Node root node
-	 * 
-	 */
-	public Node getRoot()
-	{
-		return root;
-	}
-	
-	/**
-	 * returns a list of default node strings
-	 * @return ArrayList list of default node strings
-	 * 
-	 */
-	public ArrayList<String> getList()
-	{
-		return defaultNodes;
-	}
-	
-	/**
-	 * returns a string name of the plan
-	 * @return String name of plan
-	 * 
-	 */
-	public String getName()
-	{
-		return name;
-	}
-
-	/**
-	 * takes a string name and sets plan name
-	 * @param name name to set as plan name
-	 * 
-	 */
-	public void setName(String name)
-	{
-		this.name = name;
 	}
 
 }

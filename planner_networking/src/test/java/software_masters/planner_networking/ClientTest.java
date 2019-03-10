@@ -44,7 +44,7 @@ public class ClientTest {
 			Registry registry;
 			try
 			{
-				registry = LocateRegistry.createRegistry(1099);
+				registry = LocateRegistry.createRegistry(1079);
 				ServerImplementation server = new ServerImplementation();
 //				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
 				registry.rebind("server",server);

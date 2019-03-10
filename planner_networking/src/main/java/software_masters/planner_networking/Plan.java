@@ -1,23 +1,25 @@
-/**
- * 
- */
 package software_masters.planner_networking;
 
 import java.util.ArrayList;
 
 /**
  * @author Courtney and Jack
+ * @author wesley and lee. 
  *
  */
 public abstract class Plan
 {
-	// name of plan, set by client
 	public String name;
-	// list of default nodes
 	public ArrayList<String> defaultNodes = new ArrayList<String>(); 
-	//pointer to top of IowaState plan tree
 	public Node root;
 	
+	protected void addDefaultNodes()
+	{
+		root = new Node(null, defaultNodes.get(0), null, null);
+		Node newParent = new Node(root, defaultNodes.get(1), null, null);
+		root.addChild(newParent);
+		addNode(newParent);		
+	}
 	//abstract methods addNode, removeNode, getRoot, getList 
 	//   to be implemented in concrete classes
 	
@@ -25,15 +27,6 @@ public abstract class Plan
 	
 	abstract public boolean removeNode(Node Node);
 	
-	abstract public Node getRoot();
-	
-	abstract public ArrayList<String> getList();
-
-	abstract public String getName();
-
-	abstract public void setName(String name);
-	
-	//set data for the given node
 	/**
 	 * Takes a Node node and String data
 	 * Sets data for the node
@@ -44,6 +37,45 @@ public abstract class Plan
 	public void setNodeData(Node node, String data)
 	{
 		node.setData(data);
+	}
+	
+	/**
+	 * returns the root node
+	 * @return Node root node
+	 * 
+	 */
+	public Node getRoot()
+	{
+		return root;
+	}
+	
+	/**
+	 * returns a list of default node strings
+	 * @return ArrayList list of default node strings
+	 */
+	public ArrayList<String> getList()
+	{
+		return defaultNodes;
+	}
+	
+	/**
+	 * returns a String name of plan
+	 * @return String strings of plan name
+	 * 
+	 */
+	public String getName()
+	{
+		return name;
+	}
+
+	/**
+	 * Takes a String name and sets name of plan
+	 * @param name name to set as plan name
+	 * 
+	 */
+	public void setName(String name)
+	{
+		this.name = name;
 	}
 
 	/* (non-Javadoc)

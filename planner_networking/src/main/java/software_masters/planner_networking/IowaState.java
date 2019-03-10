@@ -1,24 +1,18 @@
-/**
- * 
- */
 package software_masters.planner_networking;
 
 import java.util.ArrayList;
 
 /**
  * @author Courtney and Jack
+ * @author wesley and lee. 
  *
  */
 public class IowaState extends Plan
 {
 
-	// constructor
-	// clears list of default nodes
-	// sets default strings in defaultNodes
-	// adds node for each string in list
 	public IowaState()
 	{
-		defaultNodes.clear();
+		defaultNodes= new ArrayList<String>();
 		setDefaultStrings();
 		addDefaultNodes();
 	}
@@ -35,28 +29,6 @@ public class IowaState extends Plan
 		defaultNodes.add("Action Plan");
 		defaultNodes.add("Assessment");
 	}
-	
-
-	// make nodes for all of the strings in defaultNodes
-	// Create pointer for tree called root
-	private void addDefaultNodes()
-	{
-		root = new Node(null, defaultNodes.get(0), null, null);
-		Node newNode = new Node(root, defaultNodes.get(1), null, null);
-		root.addChild(newNode);
-		addNode(newNode);
-				
-			
-	}
-	
-	
-	
-	
-	
-	// addNode method from abstract Plan class
-	// cannot add to Vision or Mission since there can only be one
-	// makes node and sets to parent, uses for loop to iterate through the list of names
-	//     to add the nodes that follow
 	
 	/**
 	 * Takes a Node parent and returns a boolean
@@ -85,10 +57,7 @@ public class IowaState extends Plan
 			return true;
 		}
 	}
-	
-	// remove a node if it is allowed to be removed
-	// cannot be removed if it is the only child of its parent
-	//     or if it is the root node
+
 	/**
 	 * Takes a Node nodeRemove and returns a boolean
 	 * true if removed
@@ -112,48 +81,5 @@ public class IowaState extends Plan
 			return true;
 
 		}
-	}
-	
-	//Getter and setters
-	/**
-	 * returns the root node
-	 * @return Node root node
-	 * 
-	 */
-	public Node getRoot()
-	{
-		return root;
-	}
-	
-	
-	/**
-	 * returns a list of strings for the default nodes
-	 * @return ArrayList list of default node strings
-	 * 
-	 */
-	public ArrayList<String> getList()
-	{
-		return defaultNodes;
-	}
-	
-	/**
-	 * returns a string of the plan name
-	 * @return String plan name
-	 * 
-	 */
-	public String getName()
-	{
-		return name;
-	}
-
-	
-	/**
-	 * Takes a String name and sets the name of the plan
-	 * @param name name to set plan name as
-	 * 
-	 */
-	public void setName(String name)
-	{
-		this.name = name;
 	}
 }
