@@ -2,6 +2,9 @@ package software_masters.planner_networking;
 
 import static org.junit.Assert.*;
 
+import java.util.Enumeration;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -41,7 +44,8 @@ public class ServerTest {
 		Plan Iowa_State=new IowaState();
 		PlanFile Iowa_test=new PlanFile(null,true,Iowa_State);
 		testServer.addPlanTemplate("IowaState", Iowa_test);
-		assertEquals(Iowa_test,testServer.getPlanOutline("IowaState","1"));
+		PlanFile other=testServer.getPlanOutline("IowaState","1");
+		assertEquals(Iowa_test,other);
 	}
 
 	/** Tests that the server can be saved to xml and reloaded correctly
@@ -50,9 +54,10 @@ public class ServerTest {
 	@Test
 	public void testSerialization() throws Exception {
 		testServer.save();
+		Server test=testServer;
 		Server temp=Server.load();
 		assertEquals(testServer,temp);
 
 	}
-
+		
 }

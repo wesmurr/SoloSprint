@@ -1,5 +1,8 @@
 package software_masters.planner_networking;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
 import java.io.BufferedInputStream;
@@ -13,6 +16,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Enumeration;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -74,7 +78,7 @@ public class Server implements Remote, Serializable {
 	 */
 	public String logIn(String username, String password) throws IllegalArgumentException
 	{
-		if(!this.loginMap.contains(username))//checks username is valid
+		if(!this.loginMap.containsKey(username))//checks username is valid
 		{
 			throw new IllegalArgumentException("Invalid username and/or password");
 
@@ -117,7 +121,7 @@ public class Server implements Remote, Serializable {
 	{
 		cookieChecker(cookie);//checks that cookie is valid
 
-		if (!this.planTemplateMap.contains(name))//checks plan template exists
+		if (!this.planTemplateMap.containsKey(name))//checks plan template exists
 		{
 			throw new IllegalArgumentException("Plan outline doesn't exist");
 
@@ -310,7 +314,7 @@ public class Server implements Remote, Serializable {
 	 */
 	private void cookieChecker(String cookie) throws IllegalArgumentException
 	{
-		if (!this.cookieMap.contains(cookie))
+		if (!this.cookieMap.containsKey(cookie))
 		{
 			throw new IllegalArgumentException("Need to log in");
 
@@ -338,7 +342,7 @@ public class Server implements Remote, Serializable {
 	 */
 	private void departmentChecker(String name) throws IllegalArgumentException
 	{
-		if (!this.departmentMap.contains(name))
+		if (!this.departmentMap.containsKey(name))
 		{
 			throw new IllegalArgumentException("Deparment doesn't exist");
 		}
@@ -423,5 +427,62 @@ public class Server implements Remote, Serializable {
 		
 		
 		
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Server other = (Server) obj;
+		if (cookieMap == null)
+		{
+			if (other.cookieMap != null)
+				return false;
+		} 
+		else if (!Server.<String,Account>hashesEqual(cookieMap,other.cookieMap))
+			return false;
+		if (departmentMap == null)
+		{
+			if (other.departmentMap != null)
+				return false;
+		} 
+		else if (!Server.<String,Department>hashesEqual(departmentMap,other.departmentMap))
+			return false;
+		if (loginMap == null)
+		{
+			if (other.loginMap != null)
+				return false;
+		} 
+		else if (!Server.<String,Account>hashesEqual(loginMap,other.loginMap))
+			return false;
+		if (planTemplateMap == null)
+		{
+			if (other.planTemplateMap != null)
+				return false;
+		}
+		else if (!Server.<String,PlanFile>hashesEqual(planTemplateMap,other.planTemplateMap))
+			return false;
+		return true;
+	}
+	
+	private static <K,V> boolean hashesEqual(ConcurrentHashMap<K,V> map1,ConcurrentHashMap<K,V> map2){
+		for(Enumeration<K> keyList=map1.keys();keyList.hasMoreElements();) {
+			K key=keyList.nextElement();
+			if(!map1.containsKey(key))
+				return false;
+			if(!map2.containsKey(key))
+				return false;
+			if(!map1.get(key).equals(map2.get(key)))
+				return false;
+		}
+		return true;
 	}
 }
