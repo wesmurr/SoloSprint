@@ -3,6 +3,7 @@ package software_masters.planner_networking;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
@@ -44,10 +45,11 @@ public class ClientTest {
 			try
 			{
 				registry = LocateRegistry.createRegistry(1099);
-				Server server = new Server();
+				ServerImplementation server = new ServerImplementation();
 				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
 				registry.rebind("server",stub);
 				testServer = (Server)registry.lookup("server");
+				assertTrue(server.equals(testServer));
 				testClient = new Client(testServer);
 			} catch (Exception e)
 			{
@@ -65,9 +67,11 @@ public class ClientTest {
 	
 
 	/**Verifies that the login method works by returning a valid cookie from a valid login.
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testLogin() {
+	public void testLogin() throws IllegalArgumentException, RemoteException {
 		
 		//Checks invalid cases
 		assertThrows(IllegalArgumentException.class, () -> testClient.login("invalidUsername", "invalidPassword"));
@@ -82,10 +86,12 @@ public class ClientTest {
 		
 
 	/**Verifies addUser method works and that only admins can call it
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 * 
 	 */
 	@Test
-	public void testAddUser() {
+	public void testAddUser() throws IllegalArgumentException, RemoteException {
 		
 		//tests non-admin addUser
 		testClient.login("user", "user");
@@ -110,9 +116,11 @@ public class ClientTest {
 	
 	/**
 	 * Verifies addDepartment method works and that only admins can call it
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testAddDepartment() {
+	public void testAddDepartment() throws IllegalArgumentException, RemoteException {
 		//tests non-admin addDepartment
 		testClient.login("user", "user");
 		assertThrows(IllegalArgumentException.class, () -> testClient.addDepartment("newDepartment"));
@@ -129,9 +137,11 @@ public class ClientTest {
 	
 	/**
 	 * This method verifies that only admins can flag a plan as editable.
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testFlagPlan() {
+	public void testFlagPlan() throws IllegalArgumentException, RemoteException {
 		//tests non-admin flagFile
 		testClient.login("user", "user");
 		assertThrows(IllegalArgumentException.class, () -> testClient.flagPlan("default","2019",false));
@@ -151,9 +161,11 @@ public class ClientTest {
 	/**
 	 * This method verifies that the client can retrieve plans that exist.
 	 * Throws exception if plan does not exist.
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testGetPlan() {
+	public void testGetPlan() throws IllegalArgumentException, RemoteException {
 		//plan does not exist throws exception 
 		testClient.login("user", "user");
 		assertThrows(IllegalArgumentException.class, () -> testClient.getPlan("2000"));
@@ -167,9 +179,10 @@ public class ClientTest {
 	/**
 	 * This method verifies that the client can retrieve plan outlines that exist.
 	 * Throws exception if plan outline does not exist.
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testGetPlanOutline() {
+	public void testGetPlanOutline() throws RemoteException {
 		
 		testClient.login("user", "user");
 		
@@ -188,9 +201,11 @@ public class ClientTest {
 
 	/**
 	 * Verifies the client can push plans if and only if the planfile flag canEdit is true.
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testpushPlan() {
+	public void testpushPlan() throws IllegalArgumentException, RemoteException {
 		//change canEdit flag to false for default planfile
 		testClient.login("admin", "admin");
 		testClient.flagPlan("default", "2019", false);
@@ -219,10 +234,12 @@ public class ClientTest {
 
 	/**
 	 * verifies client can add a branch to plan only if the root of that branch is allowed to be copied.
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 * 
 	 */
 	@Test
-	public void testAddBranch() {
+	public void testAddBranch() throws IllegalArgumentException, RemoteException {
 		testClient.login("user", "user");
 		////////////////////////////////////Centre example/////////////////////////////////////////////
 		testClient.getPlan("2019");
@@ -270,9 +287,11 @@ public class ClientTest {
 	/**
 	 * This method verifies that the centre template enforces remove branch constraints.
 	 * Cannot remove node if only one exists.
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 */
 	@Test
-	public void testCentreRemoveBranch() {
+	public void testCentreRemoveBranch() throws IllegalArgumentException, RemoteException {
 		testClient.login("user", "user");
 		////////////////////////////////////Centre example/////////////////////////////////////////////
 		testClient.getPlan("2019"); 

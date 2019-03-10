@@ -2,6 +2,7 @@ package software_masters.planner_networking;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
 import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -28,7 +29,7 @@ public class ServerTest {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		testServer=new Server();
+		testServer=(Server) new ServerImplementation();
 	}
 
 	@AfterClass
@@ -38,9 +39,10 @@ public class ServerTest {
 
 	/**
 	 * This method tests that a new type of business plan can be added to server by a developer
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testAddPlanTemplate() {
+	public void testAddPlanTemplate() throws RemoteException {
 		Plan Iowa_State=new IowaState();
 		PlanFile Iowa_test=new PlanFile(null,true,Iowa_State);
 		testServer.addPlanTemplate("IowaState", Iowa_test);
@@ -55,7 +57,7 @@ public class ServerTest {
 	public void testSerialization() throws Exception {
 		testServer.save();
 		Server test=testServer;
-		Server temp=Server.load();
+		Server temp=ServerImplementation.load();
 		assertEquals(testServer,temp);
 
 	}

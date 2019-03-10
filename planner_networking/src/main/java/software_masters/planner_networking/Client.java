@@ -3,6 +3,8 @@
  */
 package software_masters.planner_networking;
 
+import java.rmi.RemoteException;
+
 /**
  * @author lee kendall
  *
@@ -36,7 +38,7 @@ public class Client {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public String login(String username, String password) throws IllegalArgumentException
+	public String login(String username, String password) throws IllegalArgumentException, RemoteException
 	{
 		return server.logIn(username, password);
 	}
@@ -47,7 +49,7 @@ public class Client {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public void getPlan(String year) throws IllegalArgumentException
+	public void getPlan(String year) throws IllegalArgumentException, RemoteException
 	{
 		this.currPlanFile = server.getPlan(year, this.cookie);
 		this.currNode = this.currPlanFile.getPlan().getRoot();
@@ -60,7 +62,7 @@ public class Client {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public void getPlanOutline(String name) throws IllegalArgumentException
+	public void getPlanOutline(String name) throws IllegalArgumentException, RemoteException
 	{
 		this.currPlanFile = server.getPlanOutline(name, this.cookie);
 		this.currNode = this.currPlanFile.getPlan().getRoot();
@@ -73,7 +75,7 @@ public class Client {
 	 * @param plan
 	 * @throws IllegalArgumentException
 	 */
-	public void pushPlan(PlanFile plan) throws IllegalArgumentException
+	public void pushPlan(PlanFile plan) throws IllegalArgumentException, RemoteException
 	{
 		server.savePlan(plan, this.cookie);
 	}
@@ -87,7 +89,7 @@ public class Client {
 	 * @param isAdmin
 	 * @throws IllegalArgumentException
 	 */
-	public void addUser(String username, String password, String departmentName, boolean isAdmin) throws IllegalArgumentException
+	public void addUser(String username, String password, String departmentName, boolean isAdmin) throws IllegalArgumentException, RemoteException
 	{
 		server.addUser(username, password, departmentName, isAdmin, this.cookie);
 	}
@@ -99,7 +101,7 @@ public class Client {
 	 * @param canEdit
 	 * @throws IllegalArgumentException
 	 */
-	public void flagPlan(String departmentName, String year, boolean canEdit) throws IllegalArgumentException
+	public void flagPlan(String departmentName, String year, boolean canEdit) throws IllegalArgumentException, RemoteException
 	{
 		server.flagPlan(departmentName, year, canEdit, this.cookie);
 
@@ -110,7 +112,7 @@ public class Client {
 	 * @param departmentName
 	 * @throws IllegalArgumentException
 	 */
-	public void addDepartment(String departmentName) throws IllegalArgumentException
+	public void addDepartment(String departmentName) throws IllegalArgumentException, RemoteException
 	{
 		server.addDepartment(departmentName, this.cookie);
 
