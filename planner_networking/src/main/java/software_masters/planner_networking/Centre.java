@@ -66,7 +66,7 @@ public class Centre extends Plan
 	public boolean removeNode(Node nodeRemove)
 	{
 		if ((nodeRemove.getName() == root.getName()) 
-				|| nodeRemove.getParent().children.size()==1 || nodeRemove==null)
+				|| nodeRemove.getParent().getChildren().size()==1 || nodeRemove==null)
 		{
 		
 			throw new IllegalArgumentException("Cannot remove this node");

@@ -44,7 +44,7 @@ public class ClientTest {
 			Registry registry;
 			try
 			{
-				registry = LocateRegistry.createRegistry(1079);
+				registry = LocateRegistry.createRegistry(1075);
 				ServerImplementation server = new ServerImplementation();
 //				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
 				registry.rebind("server",server);
@@ -257,6 +257,8 @@ public class ClientTest {
 		///////////////////////////////////VMOSA example///////////////////////////////////////////////
 		Plan VMOSA_test=new VMOSA();
 		root=VMOSA_test.getRoot();
+		PlanFile vmosaTest = new PlanFile("2018", true, VMOSA_test);
+		testClient.setCurrPlanFile(vmosaTest);
 		//try adding second mission should throw exception
 		testClient.setCurrNode(root.getChildren().get(0));
 		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
@@ -266,6 +268,8 @@ public class ClientTest {
 		///////////////////////////////////Iowa state example///////////////////////////////////////////////
 		Plan IOWA_test=new IowaState();
 		root=IOWA_test.getRoot();
+		PlanFile iowaTest = new PlanFile("2017", true, IOWA_test);
+		testClient.setCurrPlanFile(iowaTest);
 		//try adding second mission should throw exception
 		testClient.setCurrNode(root.getChildren().get(0));
 		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
@@ -297,6 +301,7 @@ public class ClientTest {
 	public void testCentreRemoveBranch() throws IllegalArgumentException, RemoteException {
 		testClient.login("user", "user");
 		////////////////////////////////////Centre example/////////////////////////////////////////////
+		Client tClient = testClient;
 		testClient.getPlan("2019"); 
 		PlanFile test = testClient.getCurrPlanFile();
 		Node root=test.getPlan().getRoot();
@@ -305,6 +310,7 @@ public class ClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
 		//try removing goal should throw exception bc only one exists
 		testClient.setCurrNode(root.getChildren().get(0));//goal level
+		testClient.removeBranch();
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
 		//add second goal and verify that it can be removed
 		testClient.setCurrNode(root.getChildren().get(0));//at goal level
