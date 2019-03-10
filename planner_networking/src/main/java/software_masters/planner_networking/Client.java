@@ -38,9 +38,9 @@ public class Client {
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
-	public String login(String username, String password) throws IllegalArgumentException, RemoteException
+	public void login(String username, String password) throws IllegalArgumentException, RemoteException
 	{
-		return server.logIn(username, password);
+		this.cookie=server.logIn(username, password);
 	}
 	
 	/**

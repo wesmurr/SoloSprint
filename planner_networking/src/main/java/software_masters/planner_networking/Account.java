@@ -36,7 +36,6 @@ public class Account {
 	 * @param isAdmin
 	 */
 	public Account(String password, String cookie, Department department, boolean isAdmin) {
-		super();
 		this.password = password;
 		this.cookie = cookie;
 		this.department = department;

@@ -1,7 +1,5 @@
 package software_masters.planner_networking;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.beans.XMLDecoder;
 import java.beans.XMLEncoder;
@@ -11,7 +9,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -32,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * planTemplateMap is initialized with VMOSA and Centre
  */
 
-public class ServerImplementation implements Serializable, Server {
+public class ServerImplementation extends UnicastRemoteObject implements Server {
 
 	private static final long serialVersionUID = 1L;
 	private ConcurrentHashMap<String, Account> loginMap = new ConcurrentHashMap<String, Account>();
@@ -43,7 +40,7 @@ public class ServerImplementation implements Serializable, Server {
 	/**Initializes server with default objects listed above for testing
 	 * 
 	 */
-	public ServerImplementation() 
+	public ServerImplementation() throws RemoteException
 	{
 		Department dpt = new Department();
 		this.departmentMap.put("default", dpt);
@@ -164,7 +161,7 @@ public class ServerImplementation implements Serializable, Server {
 		Department newDept = this.departmentMap.get(departmentName);
 		Account newAccount = new Account(password, newCookie, newDept, isAdmin);
 		this.loginMap.put(username, newAccount);
-		this.cookieMap.put(cookie, newAccount);
+		this.cookieMap.put(newAccount.getCookie(), newAccount);
 		
 	}
 	
@@ -300,6 +297,7 @@ public class ServerImplementation implements Serializable, Server {
 	 */
 	private void adminChecker(String cookie)
 	{
+		Account temp=this.cookieMap.get(cookie);
 		if (!this.cookieMap.get(cookie).isAdmin())//Checks that user is admin
 		{
 			throw new IllegalArgumentException("You're not an admin");

@@ -46,11 +46,12 @@ public class ClientTest {
 			{
 				registry = LocateRegistry.createRegistry(1099);
 				ServerImplementation server = new ServerImplementation();
-				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
-				registry.rebind("server",stub);
+//				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
+				registry.rebind("server",server);
 				testServer = (Server)registry.lookup("server");
-				assertTrue(server.equals(testServer));
 				testClient = new Client(testServer);
+				ConcurrentHashMap<String, Account> loginMap=testServer.getLoginMap();
+				testServer.logIn("user", "user");
 			} catch (Exception e)
 			{
 				// TODO Auto-generated catch block
@@ -79,9 +80,10 @@ public class ClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.login("invalidUsername", "user"));
 		
 		//Checks valid logins
-		assertEquals("1", testClient.login("user", "user"));
+		testClient.login("user", "user");
 		assertEquals("1",testClient.getCookie());
-		assertEquals("0", testClient.login("admin", "admin"));
+		testClient.login("admin", "admin");
+		assertEquals("0", testClient.getCookie());
 	}
 		
 
@@ -103,6 +105,7 @@ public class ClientTest {
 		
 		//test if account was actually created and correct department was added
 		ConcurrentHashMap<String, Account> loginMap = testServer.getLoginMap();
+		ConcurrentHashMap<String, Account> cookieMap = testServer.getCookieMap();
 		assertTrue(loginMap.containsKey("newUser"));
 		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
 		assertEquals(departmentMap.get("default"),loginMap.get("newUser").getDepartment());
