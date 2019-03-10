@@ -13,6 +13,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 
+
 /**
  * @author Lee Kendall
  * @author Wes Murray
@@ -159,7 +160,8 @@ public class ClientTest {
 				
 		//verify obtained plan is as expected
 		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
-		assertEquals(departmentMap.get("default").getPlan("2019"),testClient.getPlan("2019"));
+		testClient.getPlan("2019");
+		assertEquals(departmentMap.get("default").getPlan("2019"), testClient.getCurrPlanFile());
 	}
 
 	/**
@@ -176,7 +178,8 @@ public class ClientTest {
 		PlanFile centreBase=new PlanFile(null,true,new Centre());
 		
 		//test that retrieved business plan outline matches expected
-		assertEquals(centreBase,testClient.getPlanOutline("Centre"));
+		testClient.getPlanOutline("Centre");
+		assertEquals(centreBase,testClient.getCurrPlanFile());
 		
 		//if plan outline does not exist throw exception
 		assertThrows(IllegalArgumentException.class, () -> testClient.getPlanOutline("invalid_outline"));
@@ -194,7 +197,8 @@ public class ClientTest {
 		
 		//edit existing default planfile
 		testClient.login("user", "user");
-		PlanFile test=testClient.getPlan("2019");
+		testClient.getPlan("2019");
+		PlanFile test=testClient.getCurrPlanFile();
 		Plan temp=test.getPlan(); //if issues later verify shallow not deep copy
 		temp.setName("Centre_Plan_2");
 		
@@ -208,7 +212,8 @@ public class ClientTest {
 		//verifies test file now on server is the same as the object that was pushed
 		testClient.login("user", "user");
 		testClient.pushPlan(test);
-		assertEquals(test,testClient.getPlan("2019"));
+		testClient.getPlan("2019");
+		assertEquals(test,testClient.getCurrPlanFile());
 
 	}
 
@@ -220,7 +225,8 @@ public class ClientTest {
 	public void testAddBranch() {
 		testClient.login("user", "user");
 		////////////////////////////////////Centre example/////////////////////////////////////////////
-		PlanFile test=testClient.getPlan("2019");
+		testClient.getPlan("2019");
+		PlanFile test = testClient.getCurrPlanFile();
 		Node root=test.getPlan().getRoot();
 		//try adding second mission should throw exception
 		testClient.setCurrNode(root);
@@ -269,7 +275,8 @@ public class ClientTest {
 	public void testCentreRemoveBranch() {
 		testClient.login("user", "user");
 		////////////////////////////////////Centre example/////////////////////////////////////////////
-		PlanFile test=testClient.getPlan("2019");
+		testClient.getPlan("2019"); 
+		PlanFile test = testClient.getCurrPlanFile();
 		Node root=test.getPlan().getRoot();
 		//try removing mission should throw exception
 		testClient.setCurrNode(root);//mission level

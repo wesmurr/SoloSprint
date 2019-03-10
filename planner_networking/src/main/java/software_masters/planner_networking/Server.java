@@ -135,7 +135,7 @@ public class Server implements Remote, Serializable {
 	 * @param cookie
 	 * @throws IllegalArgumentException
 	 */
-	public void saveFile(PlanFile plan, String cookie) throws IllegalArgumentException
+	public void savePlan(PlanFile plan, String cookie) throws IllegalArgumentException
 	{
 		cookieChecker(cookie);//checks that cookie is valid
 		

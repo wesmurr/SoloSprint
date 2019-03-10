@@ -11,6 +11,8 @@ package software_masters.planner_networking;
 public class Client {
 
 	/**
+	 * This class represents the client which users interact with. It includes methods for retrieving and editing business plans,
+	 * keeping track of the user's cookie after login.
 	 * 
 	 */
 	private String cookie;
@@ -19,65 +21,136 @@ public class Client {
 	private Server server;
 	
 	
-	public Client(Server server) 
-	{
+	/**
+	 * Sets the client's server.
+	 * @param server
+	 */
+	public Client(Server server) {
 		this.server = server;
 	}
 	
+	/**
+	 * Logs in, returns cookie
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
 	public String login(String username, String password) throws IllegalArgumentException
 	{
-		return null;
+		return server.logIn(username, password);
 	}
 	
-	public PlanFile getPlan(String year) throws IllegalArgumentException
+	/**
+	 * Returns planFile object from the user's department given a year. Throws exception if that planFile doesn't exist.
+	 * @param year
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
+	public void getPlan(String year) throws IllegalArgumentException
 	{
-		return null;
+		this.currPlanFile = server.getPlan(year, this.cookie);
+		this.currNode = this.currPlanFile.getPlan().getRoot();
 	}
 	
-	public PlanFile getPlanOutline(String name) throws IllegalArgumentException
+	/**
+	 * 	
+	 *Returns a blank plan outline given a name. Throws exception if the plan outline doesn't exist.
+	 * @param name
+	 * @return
+	 * @throws IllegalArgumentException
+	 */
+	public void getPlanOutline(String name) throws IllegalArgumentException
 	{
-		return null;
+		this.currPlanFile = server.getPlanOutline(name, this.cookie);
+		this.currNode = this.currPlanFile.getPlan().getRoot();
 	}
 	
+	/**
+	 *Saves planFile to the user's department if that planFile is marked as editable. 
+	 * If not editable, an exception is thrown. An exception is also thrown if a newly
+	 * created planFile is not assigned a year.
+	 * @param plan
+	 * @throws IllegalArgumentException
+	 */
 	public void pushPlan(PlanFile plan) throws IllegalArgumentException
 	{
+		server.savePlan(plan, this.cookie);
 	}
 	
+	/**
+	 * Adds new user to loginMap, generates new cookie for user and adds to cookieMap. Throws exception if user isn't
+	 * an admin or the department doesn't exist.
+	 * @param username
+	 * @param password
+	 * @param departmentName
+	 * @param isAdmin
+	 * @throws IllegalArgumentException
+	 */
 	public void addUser(String username, String password, String departmentName, boolean isAdmin) throws IllegalArgumentException
 	{
+		server.addUser(username, password, departmentName, isAdmin, this.cookie);
 	}
 	
+	/**
+	 * Sets whether or not a planFile is editable
+	 * @param departmentName
+	 * @param year
+	 * @param canEdit
+	 * @throws IllegalArgumentException
+	 */
 	public void flagPlan(String departmentName, String year, boolean canEdit) throws IllegalArgumentException
 	{
-	}
-	
-	public void addDepartment(String departmentName) throws IllegalArgumentException
-	{
-	}
-	
-	public void addBranch() throws IllegalArgumentException 
-	{
+		server.flagPlan(departmentName, year, canEdit, this.cookie);
 
 	}
 	
-	public void removeBranch() throws IllegalArgumentException
+	/**
+	 * Adds a new department
+	 * @param departmentName
+	 * @throws IllegalArgumentException
+	 */
+	public void addDepartment(String departmentName) throws IllegalArgumentException
 	{
-		
+		server.addDepartment(departmentName, this.cookie);
+
 	}
 	
+	/**
+	 * Adds a new branch to the business plan tree if allowed
+	 * @throws IllegalArgumentException
+	 */
+	public void addBranch() throws IllegalArgumentException 
+	{
+		this.currPlanFile.getPlan().addNode(this.currNode.getParent());
+	}
+	
+	/**
+	 * Removes a branch from the business plan tree if at least one duplicate exists
+	 * @throws IllegalArgumentException
+	 */
+	public void removeBranch() throws IllegalArgumentException
+	{
+		this.currPlanFile.getPlan().removeNode(this.currNode);
+	}
+	
+	/**
+	 * Sets the data held in the currently accessed node
+	 * @param data
+	 */
 	public void editData(String data)
 	{
-		
+		this.currNode.setData(data);
 	}
 	
 	public String getData()
 	{
-		return null;
+		return this.currNode.getData();
 	}
 	
-	public void setYear()
+	public void setYear(String year)
 	{
-		
+		this.currPlanFile.setYear(year);
 	}
 
 	/**
