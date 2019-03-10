@@ -381,30 +381,7 @@ public class ServerImplementation extends UnicastRemoteObject implements Server 
 		this.planTemplateMap = planTemplateMap;
 	}
 
-	public static void main(String[] args) throws RemoteException
-	{
-		ServerImplementation server;
-		try {
-			server = ServerImplementation.load();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
-		
-		ServerImplementation stub = (ServerImplementation)UnicastRemoteObject.exportObject(server, 0);
-		Registry registry = LocateRegistry.getRegistry();
-		try
-		{
-			registry.bind("PlannerServer", stub);
-		} catch (java.rmi.AlreadyBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#equals(java.lang.Object)
@@ -464,5 +441,30 @@ public class ServerImplementation extends UnicastRemoteObject implements Server 
 				return false;
 		}
 		return true;
+	}
+	public static void main(String[] args) throws RemoteException
+	{
+		ServerImplementation server;
+		Registry registry;
+		try {
+			registry = LocateRegistry.createRegistry(1061);
+			server = ServerImplementation.load();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+		
+		//ServerImplementation stub = (ServerImplementation)UnicastRemoteObject.exportObject(server, 0);
+		//registry = LocateRegistry.getRegistry();
+		try
+		{
+			registry.bind("PlannerServer", server);
+		} catch (java.rmi.AlreadyBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 }

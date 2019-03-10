@@ -301,8 +301,9 @@ public class ClientTest {
 	public void testCentreRemoveBranch() throws IllegalArgumentException, RemoteException {
 		testClient.login("user", "user");
 		////////////////////////////////////Centre example/////////////////////////////////////////////
-		Client tClient = testClient;
 		testClient.getPlan("2019"); 
+		Client tClient = testClient;
+		Server tServer = testServer;
 		PlanFile test = testClient.getCurrPlanFile();
 		Node root=test.getPlan().getRoot();
 		//try removing mission should throw exception
