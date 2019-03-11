@@ -8,7 +8,6 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -29,9 +28,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * planTemplateMap is initialized with VMOSA and Centre
  */
 
-public class ServerImplementation extends UnicastRemoteObject implements Server {
+public class ServerImplementation implements Server {
 
-	private static final long serialVersionUID = 1L;
 	private ConcurrentHashMap<String, Account> loginMap = new ConcurrentHashMap<String, Account>();
 	private ConcurrentHashMap<String, Account> cookieMap = new ConcurrentHashMap<String, Account>();
 	private ConcurrentHashMap<String, Department> departmentMap = new ConcurrentHashMap<String, Department>();
@@ -442,20 +440,21 @@ public class ServerImplementation extends UnicastRemoteObject implements Server 
 		}
 		return true;
 	}
+	
 	public static void main(String[] args) throws RemoteException
 	{
-		ServerImplementation server;
+		ServerImplementation server=new ServerImplementation();
 		Registry registry;
-		try {
+//		try {
 			registry = LocateRegistry.createRegistry(1061);
-			server = ServerImplementation.load();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return;
-		}
+//			server = ServerImplementation.load();
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			return;
+//		}
 		
-		//ServerImplementation stub = (ServerImplementation)UnicastRemoteObject.exportObject(server, 0);
+		ServerImplementation stub = (ServerImplementation)UnicastRemoteObject.exportObject(server, 0);
 		//registry = LocateRegistry.getRegistry();
 		try
 		{

@@ -1,31 +1,59 @@
 package software_masters.planner_networking;
 
+import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.rmi.server.UnicastRemoteObject;
+
 
 /**
  * @author Courtney and Jack
  * @author wesley and lee. 
  *
  */
-public abstract class Plan
+public abstract class Plan implements Serializable//extends UnicastRemoteObject
 {
+	private static final long serialVersionUID = 1538776243780396317L;
 	public String name;
 	public ArrayList<String> defaultNodes = new ArrayList<String>(); 
 	public Node root;
 	
-	protected void addDefaultNodes()
+	/**
+	 * @throws RemoteException
+	 */
+	public Plan() throws RemoteException
+	{
+		defaultNodes= new ArrayList<String>();
+		setDefaultStrings();
+		addDefaultNodes();
+	}
+	
+	//creates string array node hierarchy in subclass
+	abstract protected void setDefaultStrings();
+
+	/**
+	 * This class builds default template based on string array
+	 * @throws RemoteException 
+	 */
+	protected void addDefaultNodes() throws RemoteException
 	{
 		root = new Node(null, defaultNodes.get(0), null, null);
 		Node newParent = new Node(root, defaultNodes.get(1), null, null);
 		root.addChild(newParent);
 		addNode(newParent);		
 	}
-	//abstract methods addNode, removeNode, getRoot, getList 
-	//   to be implemented in concrete classes
 	
-	abstract public boolean addNode(Node parent);
+	/**
+	 * @param parent
+	 * @return
+	 */
+	abstract public boolean addNode(Node parent) throws RemoteException,IllegalArgumentException;
 	
-	abstract public boolean removeNode(Node Node);
+	/**
+	 * @param Node
+	 * @return
+	 */
+	abstract public boolean removeNode(Node Node) throws IllegalArgumentException;
 	
 	/**
 	 * Takes a Node node and String data

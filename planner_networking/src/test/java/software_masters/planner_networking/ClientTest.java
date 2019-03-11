@@ -31,6 +31,7 @@ public class ClientTest {
 	 */
 	static Server testServer;
 	static Client testClient;
+	static Server actualServer;
 
 	/**
 	 * @throws Exception
@@ -45,13 +46,17 @@ public class ClientTest {
 			try
 			{
 				registry = LocateRegistry.createRegistry(1075);
+//				String hostName = "127.0.0.1";
+//				registry = LocateRegistry.getRegistry(hostName,1061);
+
 				ServerImplementation server = new ServerImplementation();
-//				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
-				registry.rebind("server",server);
-				testServer = (Server)registry.lookup("server");
+				actualServer=server;
+				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
+				registry.rebind("PlannerServer",stub);
+				testServer = (Server) registry.lookup("PlannerServer");
 				testClient = new Client(testServer);
-				ConcurrentHashMap<String, Account> loginMap=testServer.getLoginMap();
-				testServer.logIn("user", "user");
+				actualServer.getLoginMap();
+				testClient.login("user", "user");
 			} catch (Exception e)
 			{
 				// TODO Auto-generated catch block
@@ -254,6 +259,9 @@ public class ClientTest {
 		//try adding second goal
 		testClient.setCurrNode(root.getChildren().get(0));//at goal level
 		testBranchCopy();
+		Server act=actualServer;
+		Server testServ=testServer;
+		assertEquals(actualServer,testServer);
 		///////////////////////////////////VMOSA example///////////////////////////////////////////////
 		Plan VMOSA_test=new VMOSA();
 		root=VMOSA_test.getRoot();
@@ -282,8 +290,10 @@ public class ClientTest {
 	 * This is a helper method.
 	 * It tests that a branch is added to plan.
 	 * It also verifies that the new branch is a deep copy of the original branch
+	 * @throws RemoteException 
+	 * @throws IllegalArgumentException 
 	 */
-	private void testBranchCopy() {
+	private void testBranchCopy() throws IllegalArgumentException, RemoteException {
 		testClient.addBranch();
 		assertEquals(testClient.getCurrNode(),testClient.getCurrNode().getParent().getChildren().get(1));
 		//assures deep copy not shallow. this is tested by changing one copy and verifying that the original was not changed.
@@ -322,9 +332,10 @@ public class ClientTest {
 	/**
 	 * This method verifies that the VMOSA template enforces remove branch constraints.
 	 * Cannot remove node if only one exists.
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testVMOSARemoveBranch() {
+	public void testVMOSARemoveBranch() throws RemoteException {
 		///////////////////////////////////VMOSA example///////////////////////////////////////////////
 		Plan VMOSA_test=new VMOSA();
 		Node root=VMOSA_test.getRoot();
@@ -343,9 +354,10 @@ public class ClientTest {
 	/**
 	 * This method verifies that the Iowa template enforces remove branch constraints.
 	 * Cannot remove node if only one exists.
+	 * @throws RemoteException 
 	 */
 	@Test
-	public void testIowaRemoveBranch() {
+	public void testIowaRemoveBranch() throws RemoteException {
 		///////////////////////////////////Iowa state example///////////////////////////////////////////////
 		Plan IOWA_test=new IowaState();
 		Node root=IOWA_test.getRoot();

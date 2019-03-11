@@ -1,6 +1,3 @@
-/**
- * 
- */
 package software_masters.planner_networking;
 
 import java.rmi.RemoteException;
@@ -121,8 +118,9 @@ public class Client {
 	/**
 	 * Adds a new branch to the business plan tree if allowed
 	 * @throws IllegalArgumentException
+	 * @throws RemoteException 
 	 */
-	public void addBranch() throws IllegalArgumentException 
+	public void addBranch() throws IllegalArgumentException, RemoteException 
 	{
 		this.currPlanFile.getPlan().addNode(this.currNode.getParent());
 	}

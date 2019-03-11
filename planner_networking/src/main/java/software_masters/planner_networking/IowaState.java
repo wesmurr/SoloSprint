@@ -1,6 +1,6 @@
 package software_masters.planner_networking;
 
-import java.util.ArrayList;
+import java.rmi.RemoteException;
 
 /**
  * @author Courtney and Jack
@@ -10,15 +10,21 @@ import java.util.ArrayList;
 public class IowaState extends Plan
 {
 
-	public IowaState()
+	private static final long serialVersionUID = 3096239674948462908L;
+
+	/**
+	 * @throws RemoteException
+	 */
+	public IowaState() throws RemoteException
 	{
-		defaultNodes= new ArrayList<String>();
-		setDefaultStrings();
-		addDefaultNodes();
+		super();
 	}
-	
+
 	//set strings for default stages IowaState plan
-	private void setDefaultStrings()
+	/* (non-Javadoc)
+	 * @see software_masters.planner_networking.Plan#setDefaultStrings()
+	 */
+	protected void setDefaultStrings()
 	{
 		defaultNodes.add("Vision");
 		defaultNodes.add("Mission");
@@ -36,7 +42,7 @@ public class IowaState extends Plan
 	 * @param parent parent of node to be added
 	 * @return boolean true if added
 	 */
-	public boolean addNode(Node parent)
+	public boolean addNode(Node parent) throws RemoteException,IllegalArgumentException
 	{	
 		if (parent.getName() == "Vision" || parent == null)
 		{
@@ -65,10 +71,10 @@ public class IowaState extends Plan
 	 * @return boolean true if removed
 	 * 
 	 */
-	public boolean removeNode(Node nodeRemove)
+	public boolean removeNode(Node nodeRemove) throws IllegalArgumentException
 	{
-		if (nodeRemove.getName() == root.getName()
-				|| nodeRemove.getParent().children.size()==1 || nodeRemove==null)
+		if (nodeRemove.getName() == this.root.getName()
+				|| nodeRemove.getParent().getChildren().size()==1 || nodeRemove==null)
 		{
 		
 			throw new IllegalArgumentException("Cannot remove this node");
@@ -76,7 +82,7 @@ public class IowaState extends Plan
 	    }
 		else
 		{
-			nodeRemove.parent.removeChild(nodeRemove);
+			nodeRemove.getParent().removeChild(nodeRemove);
 			nodeRemove.setParent(null);
 			return true;
 

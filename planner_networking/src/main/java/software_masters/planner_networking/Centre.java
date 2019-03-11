@@ -1,23 +1,28 @@
 package software_masters.planner_networking;
 
-import java.util.ArrayList;
-
+import java.rmi.RemoteException;
 /**
  * @author Courtney and Jack
  * @author wesley and lee. 
  */
 public class Centre extends Plan
 {
-	
-	public Centre()
-	{
-		defaultNodes= new ArrayList<String>();
-		setDefaultStrings();
-		addDefaultNodes();
-	}
-	//set strings for default stages Centre plan
+	private static final long serialVersionUID = 8094008350302564337L;
 
-	private void setDefaultStrings()
+	/**
+	 * @throws RemoteException
+	 */
+	public Centre() throws RemoteException
+	{
+		super();
+	}
+
+
+	//set strings for default stages Centre plan
+	/* (non-Javadoc)
+	 * @see software_masters.planner_networking.Plan#setDefaultStrings()
+	 */
+	protected void setDefaultStrings()
 	{
 		defaultNodes.add("Mission");
 		defaultNodes.add("Goal");
@@ -33,7 +38,7 @@ public class Centre extends Plan
 	 * @param parent parent of node that needs to be added
 	 * @return boolean true if added
 	 */
-	public boolean addNode(Node parent)
+	public boolean addNode(Node parent) throws RemoteException,IllegalArgumentException
 	{	
 		if (parent == null)
 		{
@@ -63,9 +68,9 @@ public class Centre extends Plan
 	 * @param nodeRemove node to be removed
 	 * @return boolean true if removed
 	 */
-	public boolean removeNode(Node nodeRemove)
+	public boolean removeNode(Node nodeRemove) throws IllegalArgumentException
 	{
-		if ((nodeRemove.getName() == root.getName()) 
+		if ((nodeRemove.getName() == this.root.getName()) 
 				|| nodeRemove.getParent().getChildren().size()==1 || nodeRemove==null)
 		{
 		
@@ -74,7 +79,7 @@ public class Centre extends Plan
 	    }
 		else
 		{
-			nodeRemove.parent.removeChild(nodeRemove);
+			nodeRemove.getParent().removeChild(nodeRemove);
 			nodeRemove.setParent(null);
 			return true;
 

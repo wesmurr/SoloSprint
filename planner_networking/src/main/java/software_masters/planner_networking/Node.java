@@ -1,30 +1,20 @@
-
-/**
- * 
- */
 package software_masters.planner_networking;
 import java.util.ArrayList;
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 /**
  * @author Courtney and Jack
  *
  */
 
-public class Node
+public class Node implements Serializable// extends UnicastRemoteObject
 {
-	Node parent;
-	String name;
-	String data;
-	ArrayList<Node> children = new ArrayList<Node>();
-	
-	
-	//constructor 
-	/*public Node(String name, String data, Node parent)
-	{
-		this.name = name;
-		this.data = data;
-		this.parent = parent;
-		//this.children = children;
-	}*/
+	private static final long serialVersionUID = 5908372020728915437L;
+	private Node parent;
+	private String name;
+	private String data;
+	private ArrayList<Node> children = new ArrayList<Node>();
 	
 	//constructor is data is not known	
 	/**
@@ -35,7 +25,7 @@ public class Node
 	 * @param data data for node
 	 * @param child list of children
 	 */
-	public Node(Node parent, String name, String data, ArrayList<Node> child)
+	public Node(Node parent, String name, String data, ArrayList<Node> child) throws RemoteException
 	{
 		this.name = name;
 		this.parent = parent;
@@ -44,7 +34,7 @@ public class Node
 	}
 	
 	//empty constructor for XML
-	public Node()
+	public Node() throws RemoteException
 	{
 		this(null, "blank",  "empty", null);
 	}

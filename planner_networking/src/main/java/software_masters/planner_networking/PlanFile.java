@@ -1,17 +1,18 @@
-/**
- * 
- */
 package software_masters.planner_networking;
+
+import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * @author lee.kendall
  * @author wesley murray
  *
  */
-public class PlanFile {
-/**
- * Object contains plan object, along with a year and a canEdit flag
- */
+public class PlanFile implements Serializable //extends UnicastRemoteObject 
+{
+
+	private static final long serialVersionUID = 8679415216780269027L;
 	private String year;
 	private boolean canEdit;
 	private Plan plan;
@@ -21,7 +22,7 @@ public class PlanFile {
 	 * @param canEdit
 	 * @param plan
 	 */
-	public PlanFile(String year, boolean canEdit, Plan plan) 
+	public PlanFile(String year, boolean canEdit, Plan plan) throws RemoteException
 	{
 		this.year = year;
 		this.canEdit = canEdit;
@@ -31,7 +32,7 @@ public class PlanFile {
 	/**
 	 * Default constructor for serialization
 	 */
-	public PlanFile() 
+	public PlanFile() throws RemoteException
 	{
 		this.year = null;
 		this.canEdit = false;

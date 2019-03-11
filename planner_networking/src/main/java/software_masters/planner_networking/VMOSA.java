@@ -1,6 +1,6 @@
 package software_masters.planner_networking;
 
-import java.util.ArrayList;
+import java.rmi.RemoteException;
 
 /**
  * @author Courtney and Jack
@@ -9,15 +9,19 @@ import java.util.ArrayList;
  */
 public class VMOSA extends Plan
 {
-
-	public VMOSA()
+	private static final long serialVersionUID = 8514352878071159404L;
+	/**
+	 * @throws RemoteException
+	 */
+	public VMOSA() throws RemoteException
 	{
-		defaultNodes= new ArrayList<String>(); 
-		setDefaultStrings();
-		addDefaultNodes();
+		super();
 	}
-	
-	private void setDefaultStrings()
+
+	/* (non-Javadoc)
+	 * @see software_masters.planner_networking.Plan#setDefaultStrings()
+	 */
+	protected void setDefaultStrings()
 	{
 		defaultNodes.add("Vision");
 		defaultNodes.add("Mission");
@@ -32,8 +36,9 @@ public class VMOSA extends Plan
 	 * True if added
 	 * @param parent parent node of node that needs to be added
 	 * @return boolean true if added
+	 * @throws RemoteException 
 	 */
-	public boolean addNode(Node parent) 
+	public boolean addNode(Node parent) throws RemoteException,IllegalArgumentException
 	{	
 		if (parent.getName() == "Vision" || parent == null)
 		{
@@ -60,11 +65,11 @@ public class VMOSA extends Plan
 	 * @param nodeRemove node to be removed
 	 * @return boolean true is removed
 	 */
-	public boolean removeNode(Node nodeRemove)
+	public boolean removeNode(Node nodeRemove) throws IllegalArgumentException
 
 	{
 		if (nodeRemove.getName() == root.getName()
-				|| nodeRemove.getParent().children.size()==1 || nodeRemove==null)
+				|| nodeRemove.getParent().getChildren().size()==1 || nodeRemove==null)
 
 		{
 		
@@ -73,7 +78,7 @@ public class VMOSA extends Plan
 	    }
 		else
 		{
-			nodeRemove.parent.removeChild(nodeRemove);
+			nodeRemove.getParent().removeChild(nodeRemove);
 			nodeRemove.setParent(null);
 
 			return true;
