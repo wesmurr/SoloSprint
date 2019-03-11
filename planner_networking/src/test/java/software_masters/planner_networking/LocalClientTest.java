@@ -41,6 +41,7 @@ public class LocalClientTest {
 	 */ 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		System.out.println("Starting Test");
 		try
 		{
 			registry = LocateRegistry.createRegistry(1075);
@@ -64,7 +65,7 @@ public class LocalClientTest {
 		registry.unbind("PlannerServer");
         // Unexport; this will also remove us from the RMI runtime
         UnicastRemoteObject.unexportObject(registry, true);
-        System.out.println("closing server");
+        System.out.println("Closing RMI Server");
 	}
 	
 

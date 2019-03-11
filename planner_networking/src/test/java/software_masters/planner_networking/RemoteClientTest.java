@@ -19,7 +19,10 @@ import org.junit.Test;
  * @author Lee Kendall
  * @author Wes Murray
  *
- *Verifies that client methods work correctly.
+ *This test is for the situation where the server and client are running on separate machines.
+ *For this test to work the other machine needs to have a working RMI registry and server. 
+ *This test requires the ip address and port number of the rmi registry running on the other machine in order to work.
+ *This information is located in  the setUpBeforeClass method.
  */
 public class RemoteClientTest {
 	
@@ -31,7 +34,6 @@ public class RemoteClientTest {
 	 */
 	static Server testServer;
 	static Client testClient;
-	static Server actualServer;
 	static Registry registry;
 
 	/**
@@ -41,14 +43,14 @@ public class RemoteClientTest {
 	 */ 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
+		System.out.println("Starting Test");
 		try
 		{
+//			String hostName = "127.0.0.1";
+//			registry = LocateRegistry.getRegistry(hostName,1061);
 			registry = LocateRegistry.createRegistry(1075);
-	//		String hostName = "127.0.0.1";
-	//		registry = LocateRegistry.getRegistry(hostName,1061);
 	
 			ServerImplementation server = new ServerImplementation();
-			actualServer=server;
 			Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
 			registry.rebind("PlannerServer",stub);
 			testServer = (Server) registry.lookup("PlannerServer");
@@ -100,6 +102,8 @@ public class RemoteClientTest {
 		
 		//tests non-admin addUser
 		testClient.login("user", "user");
+		testClient.getPlan("2019");
+		PlanFile base=testClient.getCurrPlanFile();
 		assertThrows(IllegalArgumentException.class, () -> testClient.addUser("newUser", "newUser", "default", false));
 		
 		//tests admin can add new account. 
@@ -107,10 +111,16 @@ public class RemoteClientTest {
 		testClient.addUser("newUser", "newUser", "default", false);
 		
 		//test if account was actually created and correct department was added
-		ConcurrentHashMap<String, Account> loginMap = actualServer.getLoginMap();
-		assertTrue(loginMap.containsKey("newUser"));
-		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-		assertEquals(departmentMap.get("default"),loginMap.get("newUser").getDepartment());
+//		ConcurrentHashMap<String, Account> loginMap = actualServer.getLoginMap();
+//		assertTrue(loginMap.containsKey("newUser"));
+//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
+//		assertEquals(departmentMap.get("default"),loginMap.get("newUser").getDepartment());
+		
+		//verify can successfully obtain default plan using the created account
+		testClient.login("newUser", "newUser");
+		testClient.getPlan("2019");
+		PlanFile test=testClient.getCurrPlanFile();
+		assertEquals(base, test);
 
 		
 		//Verifies an exception is thrown when admins attempt to add a user with a non-existent department
@@ -135,8 +145,12 @@ public class RemoteClientTest {
 		testClient.addDepartment("newDepartment");
 		
 		//verifies the department object was created and added to hash
-		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-		assertTrue(departmentMap.containsKey("newDepartment"));
+//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
+//		assertTrue(departmentMap.containsKey("newDepartment"));
+		
+		//verifies department was created because user cannot be assign a department that does not exist. That would throw an exception.
+		testClient.addUser("testDepartment", "testDepartment", "newDepartment", false);
+		
 
 	}
 	
@@ -154,8 +168,10 @@ public class RemoteClientTest {
 		//tests admin can flag file. 
 		testClient.login("admin", "admin");
 		testClient.flagPlan("default","2019",true);
-		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-		PlanFile file=departmentMap.get("default").getPlan("2019");
+//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
+//		PlanFile file=departmentMap.get("default").getPlan("2019");
+		testClient.getPlan("2019");
+		PlanFile file=testClient.getCurrPlanFile();
 		assertTrue(file.isCanEdit());
 		
 		//tests exception is thrown if try to flag invalid file. 
@@ -176,9 +192,13 @@ public class RemoteClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.getPlan("2000"));
 				
 		//verify obtained plan is as expected
-		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-		testClient.getPlan("2019");
-		assertEquals(departmentMap.get("default").getPlan("2019"), testClient.getCurrPlanFile());
+//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
+		Plan plan = new Centre();
+		plan.setName("Centre_Plan_1");
+		PlanFile planfile = new PlanFile("2016", true,plan);
+		testClient.pushPlan(planfile);
+		testClient.getPlan("2016");
+		assertEquals(planfile, testClient.getCurrPlanFile());
 	}
 
 	/**

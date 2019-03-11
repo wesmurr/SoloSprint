@@ -37,6 +37,8 @@ public class Client {
 	 */
 	public void login(String username, String password) throws IllegalArgumentException, RemoteException
 	{
+		this.currPlanFile=null;
+		this.currNode=null;
 		this.cookie=server.logIn(username, password);
 	}
 	
