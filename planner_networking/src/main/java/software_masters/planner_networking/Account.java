@@ -52,7 +52,7 @@ public class Account {
 	 */
 	public String testCredentials(String password) throws IllegalArgumentException //returns cookie
 	{
-		if (this.getPassword() == password)
+		if (this.getPassword().equals(password))
 		{
 			return cookie;
 		}

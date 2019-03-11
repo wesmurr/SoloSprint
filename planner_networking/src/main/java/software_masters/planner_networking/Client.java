@@ -131,7 +131,9 @@ public class Client {
 	 */
 	public void removeBranch() throws IllegalArgumentException
 	{
+		Node temp=this.currNode;
 		this.currPlanFile.getPlan().removeNode(this.currNode);
+		this.currNode=temp.getParent().getChildren().get(0);
 	}
 	
 	/**

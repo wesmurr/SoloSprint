@@ -56,7 +56,6 @@ public class ClientTest {
 				testServer = (Server) registry.lookup("PlannerServer");
 				testClient = new Client(testServer);
 				actualServer.getLoginMap();
-				testClient.login("user", "user");
 			} catch (Exception e)
 			{
 				// TODO Auto-generated catch block
@@ -109,10 +108,9 @@ public class ClientTest {
 		testClient.addUser("newUser", "newUser", "default", false);
 		
 		//test if account was actually created and correct department was added
-		ConcurrentHashMap<String, Account> loginMap = testServer.getLoginMap();
-		ConcurrentHashMap<String, Account> cookieMap = testServer.getCookieMap();
+		ConcurrentHashMap<String, Account> loginMap = actualServer.getLoginMap();
 		assertTrue(loginMap.containsKey("newUser"));
-		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
 		assertEquals(departmentMap.get("default"),loginMap.get("newUser").getDepartment());
 
 		
@@ -138,7 +136,7 @@ public class ClientTest {
 		testClient.addDepartment("newDepartment");
 		
 		//verifies the department object was created and added to hash
-		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
 		assertTrue(departmentMap.containsKey("newDepartment"));
 
 	}
@@ -157,7 +155,7 @@ public class ClientTest {
 		//tests admin can flag file. 
 		testClient.login("admin", "admin");
 		testClient.flagPlan("default","2019",true);
-		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
 		PlanFile file=departmentMap.get("default").getPlan("2019");
 		assertTrue(file.isCanEdit());
 		
@@ -179,7 +177,7 @@ public class ClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.getPlan("2000"));
 				
 		//verify obtained plan is as expected
-		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
+		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
 		testClient.getPlan("2019");
 		assertEquals(departmentMap.get("default").getPlan("2019"), testClient.getCurrPlanFile());
 	}
@@ -195,7 +193,6 @@ public class ClientTest {
 		testClient.login("user", "user");
 		
 		//build expected file.
-		ConcurrentHashMap<String, Department> departmentMap = testServer.getDepartmentMap();
 		PlanFile centreBase=new PlanFile(null,true,new Centre());
 		
 		//test that retrieved business plan outline matches expected
@@ -259,9 +256,6 @@ public class ClientTest {
 		//try adding second goal
 		testClient.setCurrNode(root.getChildren().get(0));//at goal level
 		testBranchCopy();
-		Server act=actualServer;
-		Server testServ=testServer;
-		assertEquals(actualServer,testServer);
 		///////////////////////////////////VMOSA example///////////////////////////////////////////////
 		Plan VMOSA_test=new VMOSA();
 		root=VMOSA_test.getRoot();
@@ -321,7 +315,6 @@ public class ClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
 		//try removing goal should throw exception bc only one exists
 		testClient.setCurrNode(root.getChildren().get(0));//goal level
-		testClient.removeBranch();
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
 		//add second goal and verify that it can be removed
 		testClient.setCurrNode(root.getChildren().get(0));//at goal level
