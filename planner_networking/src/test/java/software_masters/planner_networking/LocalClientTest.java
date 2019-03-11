@@ -21,7 +21,7 @@ import org.junit.Test;
  *
  *Verifies that client methods work correctly.
  */
-public class ClientTest {
+public class LocalClientTest {
 	
 	/**
 	 * The server is initialized with two accounts - an Admin(Username: admin, password: admin, cookie: 0) and a normal user (Username: user, password: user, cookie: 1)
@@ -32,6 +32,7 @@ public class ClientTest {
 	static Server testServer;
 	static Client testClient;
 	static Server actualServer;
+	static Registry registry;
 
 	/**
 	 * @throws Exception
@@ -40,34 +41,30 @@ public class ClientTest {
 	 */ 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+		try
 		{
-			Registry registry;
-			try
-			{
-				registry = LocateRegistry.createRegistry(1075);
-//				String hostName = "127.0.0.1";
-//				registry = LocateRegistry.getRegistry(hostName,1061);
-
-				ServerImplementation server = new ServerImplementation();
-				actualServer=server;
-				Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
-				registry.rebind("PlannerServer",stub);
-				testServer = (Server) registry.lookup("PlannerServer");
-				testClient = new Client(testServer);
-				actualServer.getLoginMap();
-			} catch (Exception e)
-			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			registry = LocateRegistry.createRegistry(1075);
+			ServerImplementation server = new ServerImplementation();
+			actualServer=server;
+			Server stub = (Server)UnicastRemoteObject.exportObject(server, 0);
+			registry.rebind("PlannerServer",stub);
+			testServer = (Server) registry.lookup("PlannerServer");
+			testClient = new Client(testServer);
+		} catch (Exception e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
+	
 	}
+
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
+		registry.unbind("PlannerServer");
+        // Unexport; this will also remove us from the RMI runtime
+        UnicastRemoteObject.unexportObject(registry, true);
+        System.out.println("closing server");
 	}
 	
 
@@ -306,8 +303,6 @@ public class ClientTest {
 		testClient.login("user", "user");
 		////////////////////////////////////Centre example/////////////////////////////////////////////
 		testClient.getPlan("2019"); 
-		Client tClient = testClient;
-		Server tServer = testServer;
 		PlanFile test = testClient.getCurrPlanFile();
 		Node root=test.getPlan().getRoot();
 		//try removing mission should throw exception
@@ -332,6 +327,8 @@ public class ClientTest {
 		///////////////////////////////////VMOSA example///////////////////////////////////////////////
 		Plan VMOSA_test=new VMOSA();
 		Node root=VMOSA_test.getRoot();
+		PlanFile vmosaTest = new PlanFile("2018", true, VMOSA_test);
+		testClient.setCurrPlanFile(vmosaTest);
 		//try removing mission should throw exception
 		testClient.setCurrNode(root.getChildren().get(0));
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
@@ -354,6 +351,8 @@ public class ClientTest {
 		///////////////////////////////////Iowa state example///////////////////////////////////////////////
 		Plan IOWA_test=new IowaState();
 		Node root=IOWA_test.getRoot();
+		PlanFile iowaTest = new PlanFile("2017", true, IOWA_test);
+		testClient.setCurrPlanFile(iowaTest);
 		//try remove mission should throw exception
 		testClient.setCurrNode(root.getChildren().get(0));
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
