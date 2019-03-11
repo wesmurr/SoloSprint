@@ -66,7 +66,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#logIn(java.lang.String, java.lang.String)
 	 */
-	@Override
+	
 	public String logIn(String username, String password)
 	{
 		if(!this.loginMap.containsKey(username))//checks username is valid
@@ -83,7 +83,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#getPlan(java.lang.String, java.lang.String)
 	 */
-	@Override
+	
 	public PlanFile getPlan(String year, String cookie)
 	{
 		cookieChecker(cookie);//checks that cookie is valid
@@ -101,7 +101,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#getPlanOutline(java.lang.String, java.lang.String)
 	 */
-	@Override
+	
 	public PlanFile getPlanOutline(String name, String cookie)
 	{
 		cookieChecker(cookie);//checks that cookie is valid
@@ -118,7 +118,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#savePlan(software_masters.planner_networking.PlanFile, java.lang.String)
 	 */
-	@Override
+	
 	public void savePlan(PlanFile plan, String cookie)
 	{
 		cookieChecker(cookie);//checks that cookie is valid
@@ -147,7 +147,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#addUser(java.lang.String, java.lang.String, java.lang.String, boolean, java.lang.String)
 	 */
-	@Override
+	
 	public void addUser(String username, String password, String departmentName, boolean isAdmin, String cookie)
 	{
 		cookieChecker(cookie);//checks that cookie is valid and that user is admin
@@ -198,7 +198,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#flagPlan(java.lang.String, java.lang.String, boolean, java.lang.String)
 	 */
-	@Override
+	
 	public void flagPlan(String departmentName, String year, boolean canEdit, String cookie)
 	{
 		cookieChecker(cookie);//checks that cookie is valid and that user is admin
@@ -218,7 +218,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#addDepartment(java.lang.String, java.lang.String)
 	 */
-	@Override
+	
 	public void addDepartment(String departmentName, String cookie)
 	{
 		cookieChecker(cookie);//checks that cookie is valid and that user is admin
@@ -231,7 +231,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#addPlanTemplate(java.lang.String, software_masters.planner_networking.PlanFile)
 	 */
-	@Override
+	
 	public void addPlanTemplate(String name,PlanFile plan)
 	{
 		this.planTemplateMap.put(name, plan);
@@ -255,7 +255,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#save()
 	 */
-	@Override
+	
 	public void save() 
 	{
 		String filename = "PlannerServer.serv";
@@ -318,7 +318,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#getLoginMap()
 	 */
-	@Override
+	
 	public ConcurrentHashMap<String, Account> getLoginMap() {
 		return loginMap;
 	}
@@ -326,7 +326,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#setLoginMap(java.util.concurrent.ConcurrentHashMap)
 	 */
-	@Override
+	
 	public void setLoginMap(ConcurrentHashMap<String, Account> loginMap) {
 		this.loginMap = loginMap;
 	}
@@ -334,7 +334,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#getCookieMap()
 	 */
-	@Override
+	
 	public ConcurrentHashMap<String, Account> getCookieMap() {
 		return cookieMap;
 	}
@@ -342,7 +342,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#setCookieMap(java.util.concurrent.ConcurrentHashMap)
 	 */
-	@Override
+	
 	public void setCookieMap(ConcurrentHashMap<String, Account> cookieMap) {
 		this.cookieMap = cookieMap;
 	}
@@ -350,7 +350,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#getDepartmentMap()
 	 */
-	@Override
+	
 	public ConcurrentHashMap<String, Department> getDepartmentMap() {
 		return departmentMap;
 	}
@@ -358,7 +358,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#setDepartmentMap(java.util.concurrent.ConcurrentHashMap)
 	 */
-	@Override
+	
 	public void setDepartmentMap(ConcurrentHashMap<String, Department> departmentMap) {
 		this.departmentMap = departmentMap;
 	}
@@ -366,7 +366,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#getPlanTemplateMap()
 	 */
-	@Override
+	
 	public ConcurrentHashMap<String, PlanFile> getPlanTemplateMap() {
 		return planTemplateMap;
 	}
@@ -374,7 +374,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#setPlanTemplateMap(java.util.concurrent.ConcurrentHashMap)
 	 */
-	@Override
+	
 	public void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap) {
 		this.planTemplateMap = planTemplateMap;
 	}
@@ -387,7 +387,7 @@ public class ServerImplementation implements Server {
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#equals(java.lang.Object)
 	 */
-	@Override
+	
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
@@ -443,27 +443,26 @@ public class ServerImplementation implements Server {
 	
 	public static void main(String[] args) throws RemoteException
 	{
-		ServerImplementation server=new ServerImplementation();
+		System.out.println("Start Server");
+		ServerImplementation server;
 		Registry registry;
-//		try {
-			registry = LocateRegistry.createRegistry(1061);
-//			server = ServerImplementation.load();
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			return;
-//		}
+		try {
+			registry = LocateRegistry.createRegistry(1062);
+			server = ServerImplementation.load();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			return;
+		}
 		
-		ServerImplementation stub = (ServerImplementation)UnicastRemoteObject.exportObject(server, 0);
-		//registry = LocateRegistry.getRegistry();
+		Server stub = (Server) UnicastRemoteObject.exportObject(server, 0);
 		try
 		{
-			registry.bind("PlannerServer", server);
+			registry.bind("PlannerServer", stub);
 		} catch (java.rmi.AlreadyBoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		System.out.println("Server Stop");
 		
 	}
 }
