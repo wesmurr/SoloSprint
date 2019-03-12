@@ -1,7 +1,9 @@
 package software_masters.planner_networking;
+
 import java.util.ArrayList;
 import java.io.Serializable;
 import java.rmi.RemoteException;
+
 /**
  * @author Courtney and Jack
  *
@@ -14,34 +16,35 @@ public class Node implements Serializable
 	private String name;
 	private String data;
 	private ArrayList<Node> children = new ArrayList<Node>();
-	
-	//constructor is data is not known	
+
+	// constructor is data is not known
 	/**
-	 * Takes a Node parent, String name, String data, and list of children
-	 * Sets values in node
+	 * Takes a Node parent, String name, String data, and list of children Sets
+	 * values in node
+	 * 
 	 * @param parent parent of node
-	 * @param name name of node
-	 * @param data data for node
-	 * @param child list of children
+	 * @param name   name of node
+	 * @param data   data for node
+	 * @param child  list of children
 	 */
 	public Node(Node parent, String name, String data, ArrayList<Node> child) throws RemoteException
 	{
 		this.name = name;
 		this.parent = parent;
 		this.data = data;
-		
+
 	}
-	
-	//empty constructor for XML
+
+	// empty constructor for XML
 	public Node() throws RemoteException
 	{
-		this(null, "blank",  "empty", null);
+		this(null, "blank", "empty", null);
 	}
 
-
-	//Getter and setters
+	// Getter and setters
 	/**
 	 * returns a String name of node
+	 * 
 	 * @return String name of node
 	 */
 	public String getName()
@@ -50,7 +53,8 @@ public class Node implements Serializable
 	}
 
 	/**
-	 * Sets name of node 
+	 * Sets name of node
+	 * 
 	 * @param name name to set as name of node
 	 */
 	public void setName(String name)
@@ -60,6 +64,7 @@ public class Node implements Serializable
 
 	/**
 	 * Returns node's data
+	 * 
 	 * @return String data of node
 	 */
 	public String getData()
@@ -69,6 +74,7 @@ public class Node implements Serializable
 
 	/**
 	 * Takes a String data and sets node's data
+	 * 
 	 * @param data data to set as data of node
 	 */
 	public void setData(String data)
@@ -78,45 +84,48 @@ public class Node implements Serializable
 
 	/**
 	 * returns the parent node
+	 * 
 	 * @return Node parent of node
 	 */
 	public Node getParent()
 	{
 		return parent;
 	}
-  
+
 	/**
 	 * Takes a Node parent and sets the nodes parent
+	 * 
 	 * @param parent parent to set as parent of node
 	 */
 	public void setParent(Node parent)
 	{
 		this.parent = parent;
 	}
-	
+
 	/**
 	 * Returns a list of children nodes
+	 * 
 	 * @return ArrayList list of children
 	 */
 	public ArrayList<Node> getChildren()
 	{
 		return children;
 	}
-	
+
 	//
-	
-	//add a Node child to another node
+
+	// add a Node child to another node
 	/**
 	 * Takes a node child and adds child to child list
+	 * 
 	 * @param child child to be added to this node
 	 */
 	public void addChild(Node child)
 	{
 		this.children.add(child);
 	}
-	
-	
-	//remove child node from a node's children list
+
+	// remove child node from a node's children list
 	/**
 	 * @param child child to be removed from this node
 	 */
@@ -125,7 +134,9 @@ public class Node implements Serializable
 		this.children.remove(child);
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -163,6 +174,5 @@ public class Node implements Serializable
 		}
 		return true;
 	}
-	
 
 }

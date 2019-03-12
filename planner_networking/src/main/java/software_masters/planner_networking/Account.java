@@ -8,34 +8,37 @@ package software_masters.planner_networking;
  * @author wesley murray
  *
  */
-public class Account {
+public class Account
+{
 
 	/**
-	 * Object keeps track of each user's password, cookie, department, and admin state.
+	 * Object keeps track of each user's password, cookie, department, and admin
+	 * state.
 	 */
 	private String password;
 	private String cookie;
 	private Department department;
 	private boolean isAdmin;
-	
+
 	/**
 	 * Default constructor for serialization
 	 */
-	public Account() 
+	public Account()
 	{
 		this.password = null;
 		this.cookie = null;
 		this.department = null;
 		this.isAdmin = false;
 	}
-	
+
 	/**
 	 * @param password
 	 * @param cookie
 	 * @param department
 	 * @param isAdmin
 	 */
-	public Account(String password, String cookie, Department department, boolean isAdmin) {
+	public Account(String password, String cookie, Department department, boolean isAdmin)
+	{
 		this.password = password;
 		this.cookie = cookie;
 		this.department = department;
@@ -43,14 +46,15 @@ public class Account {
 	}
 
 	/**
-	 * Checks if the passed password string corresponds to the account's password, and returns the account's cookie during login. If the password is invalid,
-	 * an exception is thrown.
+	 * Checks if the passed password string corresponds to the account's password,
+	 * and returns the account's cookie during login. If the password is invalid, an
+	 * exception is thrown.
 	 * 
 	 * @param password
 	 * @return String cookie
 	 * @throws IllegalArgumentException
 	 */
-	public String testCredentials(String password) throws IllegalArgumentException //returns cookie
+	public String testCredentials(String password) throws IllegalArgumentException // returns cookie
 	{
 		if (this.getPassword().equals(password))
 		{
@@ -123,7 +127,9 @@ public class Account {
 		this.isAdmin = isAdmin;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

@@ -7,29 +7,33 @@ import java.rmi.RemoteException;
  *
  */
 
-public class Client {
+public class Client
+{
 
 	/**
-	 * This class represents the client which users interact with. It includes methods for retrieving and editing business plans,
-	 * keeping track of the user's cookie after login.
+	 * This class represents the client which users interact with. It includes
+	 * methods for retrieving and editing business plans, keeping track of the
+	 * user's cookie after login.
 	 * 
 	 */
 	private String cookie;
 	private PlanFile currPlanFile;
 	private Node currNode;
 	private Server server;
-	
-	
+
 	/**
 	 * Sets the client's server.
+	 * 
 	 * @param server
 	 */
-	public Client(Server server) {
+	public Client(Server server)
+	{
 		this.server = server;
 	}
-	
+
 	/**
 	 * Logs in, returns cookie
+	 * 
 	 * @param username
 	 * @param password
 	 * @return
@@ -37,13 +41,15 @@ public class Client {
 	 */
 	public void login(String username, String password) throws IllegalArgumentException, RemoteException
 	{
-		this.currPlanFile=null;
-		this.currNode=null;
-		this.cookie=server.logIn(username, password);
+		this.currPlanFile = null;
+		this.currNode = null;
+		this.cookie = server.logIn(username, password);
 	}
-	
+
 	/**
-	 * Returns planFile object from the user's department given a year. Throws exception if that planFile doesn't exist.
+	 * Returns planFile object from the user's department given a year. Throws
+	 * exception if that planFile doesn't exist.
+	 * 
 	 * @param year
 	 * @return
 	 * @throws IllegalArgumentException
@@ -53,10 +59,12 @@ public class Client {
 		this.currPlanFile = server.getPlan(year, this.cookie);
 		this.currNode = this.currPlanFile.getPlan().getRoot();
 	}
-	
+
 	/**
-	 * 	
-	 *Returns a blank plan outline given a name. Throws exception if the plan outline doesn't exist.
+	 * 
+	 * Returns a blank plan outline given a name. Throws exception if the plan
+	 * outline doesn't exist.
+	 * 
 	 * @param name
 	 * @return
 	 * @throws IllegalArgumentException
@@ -66,11 +74,12 @@ public class Client {
 		this.currPlanFile = server.getPlanOutline(name, this.cookie);
 		this.currNode = this.currPlanFile.getPlan().getRoot();
 	}
-	
+
 	/**
-	 *Saves planFile to the user's department if that planFile is marked as editable. 
-	 * If not editable, an exception is thrown. An exception is also thrown if a newly
-	 * created planFile is not assigned a year.
+	 * Saves planFile to the user's department if that planFile is marked as
+	 * editable. If not editable, an exception is thrown. An exception is also
+	 * thrown if a newly created planFile is not assigned a year.
+	 * 
 	 * @param plan
 	 * @throws IllegalArgumentException
 	 */
@@ -78,36 +87,42 @@ public class Client {
 	{
 		server.savePlan(plan, this.cookie);
 	}
-	
+
 	/**
-	 * Adds new user to loginMap, generates new cookie for user and adds to cookieMap. Throws exception if user isn't
-	 * an admin or the department doesn't exist.
+	 * Adds new user to loginMap, generates new cookie for user and adds to
+	 * cookieMap. Throws exception if user isn't an admin or the department doesn't
+	 * exist.
+	 * 
 	 * @param username
 	 * @param password
 	 * @param departmentName
 	 * @param isAdmin
 	 * @throws IllegalArgumentException
 	 */
-	public void addUser(String username, String password, String departmentName, boolean isAdmin) throws IllegalArgumentException, RemoteException
+	public void addUser(String username, String password, String departmentName, boolean isAdmin)
+			throws IllegalArgumentException, RemoteException
 	{
 		server.addUser(username, password, departmentName, isAdmin, this.cookie);
 	}
-	
+
 	/**
 	 * Sets whether or not a planFile is editable
+	 * 
 	 * @param departmentName
 	 * @param year
 	 * @param canEdit
 	 * @throws IllegalArgumentException
 	 */
-	public void flagPlan(String departmentName, String year, boolean canEdit) throws IllegalArgumentException, RemoteException
+	public void flagPlan(String departmentName, String year, boolean canEdit)
+			throws IllegalArgumentException, RemoteException
 	{
 		server.flagPlan(departmentName, year, canEdit, this.cookie);
 
 	}
-	
+
 	/**
 	 * Adds a new department
+	 * 
 	 * @param departmentName
 	 * @throws IllegalArgumentException
 	 */
@@ -116,37 +131,40 @@ public class Client {
 		server.addDepartment(departmentName, this.cookie);
 
 	}
-	
+
 	/**
 	 * Adds a new branch to the business plan tree if allowed
+	 * 
 	 * @throws IllegalArgumentException
-	 * @throws RemoteException 
+	 * @throws RemoteException
 	 */
-	public void addBranch() throws IllegalArgumentException, RemoteException 
+	public void addBranch() throws IllegalArgumentException, RemoteException
 	{
 		this.currPlanFile.getPlan().addNode(this.currNode.getParent());
 	}
-	
+
 	/**
 	 * Removes a branch from the business plan tree if at least one duplicate exists
+	 * 
 	 * @throws IllegalArgumentException
 	 */
 	public void removeBranch() throws IllegalArgumentException
 	{
-		Node temp=this.currNode.getParent();
+		Node temp = this.currNode.getParent();
 		this.currPlanFile.getPlan().removeNode(this.currNode);
-		this.currNode=temp.getChildren().get(0);
+		this.currNode = temp.getChildren().get(0);
 	}
-	
+
 	/**
 	 * Sets the data held in the currently accessed node
+	 * 
 	 * @param data
 	 */
 	public void editData(String data)
 	{
 		this.currNode.setData(data);
 	}
-	
+
 	/**
 	 * @return the data associated with a node
 	 */
@@ -154,7 +172,7 @@ public class Client {
 	{
 		return this.currNode.getData();
 	}
-	
+
 	/**
 	 * @param year
 	 */

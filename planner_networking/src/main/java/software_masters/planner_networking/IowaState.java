@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 
 /**
  * @author Courtney and Jack
- * @author wesley and lee. 
+ * @author wesley and lee.
  *
  */
 public class IowaState extends Plan
@@ -20,8 +20,10 @@ public class IowaState extends Plan
 		super();
 	}
 
-	//set strings for default stages IowaState plan
-	/* (non-Javadoc)
+	// set strings for default stages IowaState plan
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see software_masters.planner_networking.Plan#setDefaultStrings()
 	 */
 	protected void setDefaultStrings()
@@ -35,52 +37,50 @@ public class IowaState extends Plan
 		this.getList().add("Action Plan");
 		this.getList().add("Assessment");
 	}
-	
+
 	/**
-	 * Takes a Node parent and returns a boolean
-	 * true if added
+	 * Takes a Node parent and returns a boolean true if added
+	 * 
 	 * @param parent parent of node to be added
 	 * @return boolean true if added
 	 */
-	public boolean addNode(Node parent) throws RemoteException,IllegalArgumentException
-	{	
+	public boolean addNode(Node parent) throws RemoteException, IllegalArgumentException
+	{
 		if (parent.getName() == "Vision" || parent == null)
 		{
 			throw new IllegalArgumentException("Cannot add to this parent");
-		}
-		else
+		} else
 		{
-		
-			for (int i = (this.getList().indexOf(parent.getName()))+1; i < this.getList().size(); i++)
+
+			for (int i = (this.getList().indexOf(parent.getName())) + 1; i < this.getList().size(); i++)
 			{
-			
+
 				Node newNode = new Node(parent, this.getList().get(i), null, null);
-			
+
 				parent.addChild(newNode);
 				parent = newNode;
-			
+
 			}
 			return true;
 		}
 	}
 
 	/**
-	 * Takes a Node nodeRemove and returns a boolean
-	 * true if removed
+	 * Takes a Node nodeRemove and returns a boolean true if removed
+	 * 
 	 * @param nodeRemove node to be removed
 	 * @return boolean true if removed
 	 * 
 	 */
 	public boolean removeNode(Node nodeRemove) throws IllegalArgumentException
 	{
-		if (nodeRemove.getName() == this.getRoot().getName()
-				|| nodeRemove.getParent().getChildren().size()==1 || nodeRemove==null)
+		if (nodeRemove.getName() == this.getRoot().getName() || nodeRemove.getParent().getChildren().size() == 1
+				|| nodeRemove == null)
 		{
-		
+
 			throw new IllegalArgumentException("Cannot remove this node");
-		
-	    }
-		else
+
+		} else
 		{
 			nodeRemove.getParent().removeChild(nodeRemove);
 			nodeRemove.setParent(null);

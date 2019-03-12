@@ -8,14 +8,14 @@ import java.rmi.RemoteException;
  * @author wesley murray
  *
  */
-public class PlanFile implements Serializable //extends UnicastRemoteObject 
+public class PlanFile implements Serializable // extends UnicastRemoteObject
 {
 
 	private static final long serialVersionUID = 8679415216780269027L;
 	private String year;
 	private boolean canEdit;
 	private Plan plan;
-	
+
 	/**
 	 * @param year
 	 * @param canEdit
@@ -37,6 +37,7 @@ public class PlanFile implements Serializable //extends UnicastRemoteObject
 		this.canEdit = false;
 		this.plan = null;
 	}
+
 	/**
 	 * @return the year
 	 */
@@ -85,8 +86,9 @@ public class PlanFile implements Serializable //extends UnicastRemoteObject
 		this.plan = plan;
 	}
 
-
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override

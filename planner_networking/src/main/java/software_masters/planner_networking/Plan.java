@@ -4,59 +4,59 @@ import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-
 /**
  * @author Courtney and Jack
- * @author wesley and lee. 
+ * @author wesley and lee.
  *
  */
-public abstract class Plan implements Serializable//extends UnicastRemoteObject
+public abstract class Plan implements Serializable// extends UnicastRemoteObject
 {
 	private static final long serialVersionUID = 1538776243780396317L;
 	private String name;
-	private ArrayList<String> defaultNodes = new ArrayList<String>(); 
+	private ArrayList<String> defaultNodes = new ArrayList<String>();
 	private Node root;
-	
+
 	/**
 	 * @throws RemoteException
 	 */
 	public Plan() throws RemoteException
 	{
-		defaultNodes= new ArrayList<String>();
+		defaultNodes = new ArrayList<String>();
 		setDefaultStrings();
 		addDefaultNodes();
 	}
-	
-	//creates string array node hierarchy in subclass
+
+	// creates string array node hierarchy in subclass
 	abstract protected void setDefaultStrings();
 
 	/**
 	 * This class builds default template based on string array
-	 * @throws RemoteException 
+	 * 
+	 * @throws RemoteException
 	 */
 	protected void addDefaultNodes() throws RemoteException
 	{
 		root = new Node(null, defaultNodes.get(0), null, null);
 		Node newParent = new Node(root, defaultNodes.get(1), null, null);
 		root.addChild(newParent);
-		addNode(newParent);		
+		addNode(newParent);
 	}
-	
+
 	/**
 	 * @param parent
 	 * @return
 	 */
-	abstract public boolean addNode(Node parent) throws RemoteException,IllegalArgumentException;
-	
+	abstract public boolean addNode(Node parent) throws RemoteException, IllegalArgumentException;
+
 	/**
 	 * @param Node
 	 * @return
 	 */
 	abstract public boolean removeNode(Node Node) throws IllegalArgumentException;
-	
+
 	/**
-	 * Takes a Node node and String data
-	 * Sets data for the node
+	 * Takes a Node node and String data Sets data for the node
+	 * 
 	 * @param node node to set data for
 	 * @param data data to set in node
 	 * 
@@ -65,9 +65,10 @@ public abstract class Plan implements Serializable//extends UnicastRemoteObject
 	{
 		node.setData(data);
 	}
-	
+
 	/**
 	 * returns the root node
+	 * 
 	 * @return Node root node
 	 * 
 	 */
@@ -75,18 +76,20 @@ public abstract class Plan implements Serializable//extends UnicastRemoteObject
 	{
 		return root;
 	}
-	
+
 	/**
 	 * returns a list of default node strings
+	 * 
 	 * @return ArrayList list of default node strings
 	 */
 	public ArrayList<String> getList()
 	{
 		return defaultNodes;
 	}
-	
+
 	/**
 	 * returns a String name of plan
+	 * 
 	 * @return String strings of plan name
 	 * 
 	 */
@@ -97,6 +100,7 @@ public abstract class Plan implements Serializable//extends UnicastRemoteObject
 
 	/**
 	 * Takes a String name and sets name of plan
+	 * 
 	 * @param name name to set as plan name
 	 * 
 	 */
@@ -105,7 +109,9 @@ public abstract class Plan implements Serializable//extends UnicastRemoteObject
 		this.name = name;
 	}
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -138,6 +144,5 @@ public abstract class Plan implements Serializable//extends UnicastRemoteObject
 			return false;
 		return true;
 	}
-	
-	
+
 }
