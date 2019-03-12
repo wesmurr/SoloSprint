@@ -2,13 +2,15 @@ package software_masters.planner_networking;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
+
 import org.junit.Test;
 
 public class NodeTest
 {
 	
 	@Test
-	public void test()
+	public void test() throws RemoteException
 	{
 		//make node +
 		//add child +
@@ -16,7 +18,6 @@ public class NodeTest
 		//get name, data +
 		//set name, data +
 		//get child when no child
-		//
 		
 		//make tree node and test data methods
 		Node tree = new Node(null, "TreeNode", null, null);
@@ -29,7 +30,7 @@ public class NodeTest
 		tree.setData("Description");
 		assertEquals("Description", tree.getData());
 		assertEquals(null, tree.getParent());
-		assertEquals(true, tree.children.isEmpty());
+		assertEquals(true, tree.getChildren().isEmpty());
 		
 		
 		//make child nodes for tree, test addChild and getParent
@@ -37,17 +38,17 @@ public class NodeTest
 		tree.addChild(n1);
 		assertEquals(tree, n1.getParent());
 		assertEquals("Vision", n1.getName());
-		assertEquals(true, tree.children.contains(n1));
+		assertEquals(true, tree.getChildren().contains(n1));
 		
 		Node n2 = new Node(tree, "node", null, null);
 		tree.addChild(n2);
-		assertEquals(true, tree.children.contains(n2));
+		assertEquals(true, tree.getChildren().contains(n2));
 		assertEquals(tree, n2.getParent());
 		
 		//add child to n2
 		Node n3 = new Node(n2, "node3", null, null);
 		n2.addChild(n3); 
-		assertEquals(true, n2.children.contains(n3));
+		assertEquals(true, n2.getChildren().contains(n3));
 		assertEquals(n2, n3.getParent());
 		
 		// add child to n3
@@ -59,18 +60,12 @@ public class NodeTest
 		
 		//remove child from tree with no other children
 		tree.removeChild(n1);
-		assertEquals(false, tree.children.contains(n1));
+		assertEquals(false, tree.getChildren().contains(n1));
 		
 		//remove child that has children
 		tree.removeChild(n2);
-		assertEquals(false, tree.children.contains(n2));
+		assertEquals(false, tree.getChildren().contains(n2));
 				
-		
-	}
-	
-	public void main(String[] args)
-	{
-		test();
 	}
 
 }

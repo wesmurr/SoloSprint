@@ -6,6 +6,8 @@ package software_masters.planner_networking;
 import static org.junit.Assert.*;
 //import java.util.ArrayList;
 
+import java.rmi.RemoteException;
+
 import org.junit.Test;
 
 import junit.framework.TestCase;
@@ -18,9 +20,8 @@ import junit.framework.TestCase;
 public class VMOSATest
 {
 		@Test
-	public void test()
+	public void test() throws RemoteException
 	{
-		try{
 		// make a new VMOSA plan
 		VMOSA VMOSAPlan = new VMOSA();
 		
@@ -33,11 +34,11 @@ public class VMOSATest
 		
 		//get root node
 		Node rootNode = VMOSAPlan.getRoot();
-		Node missionNode = rootNode.children.get(0);
-		Node objNode = missionNode.children.get(0);
-		Node stratNode = objNode.children.get(0);
-		Node ActNode = stratNode.children.get(0);
-		Node assessNode = ActNode.children.get(0);
+		Node missionNode = rootNode.getChildren().get(0);
+		Node objNode = missionNode.getChildren().get(0);
+		Node stratNode = objNode.getChildren().get(0);
+		Node ActNode = stratNode.getChildren().get(0);
+		Node assessNode = ActNode.getChildren().get(0);
 		
 		//see that all nodes were added after root
 		assertEquals("Vision", rootNode.getName());
@@ -48,33 +49,25 @@ public class VMOSATest
 		assertEquals("Assessment", assessNode.getName());
 		
 		// try to add vision again and check to see that it wasn't added
-		assertEquals(false, VMOSAPlan.addNode(rootNode));
-		assertEquals(false, rootNode.children.isEmpty());
+		assertEquals(false, rootNode.getChildren().isEmpty());
 
-		//add objective, and following, nodes
-		// check to see if added
-		
-		assertEquals(true, VMOSAPlan.addNode(missionNode));
-		assertEquals(2, missionNode.children.size());
-		Node obj2 = missionNode.children.get(1);
-		Node strat2 = obj2.children.get(0);
-		Node act2 = strat2.children.get(0);
-		Node assess2 = act2.children.get(0);
+		VMOSAPlan.addNode(missionNode);
+		assertEquals(2, missionNode.getChildren().size());
+		Node obj2 = missionNode.getChildren().get(1);
+		Node strat2 = obj2.getChildren().get(0);
+		Node act2 = strat2.getChildren().get(0);
+		Node assess2 = act2.getChildren().get(0);
 		
 		assertEquals("Objective", obj2.getName());
 		assertEquals("Strategy", strat2.getName());
 		assertEquals("Action Plan", act2.getName());
 		assertEquals("Assessment", assess2.getName());
 		
-		//try to remove root node and mission node
-		assertEquals(false, VMOSAPlan.removeNode(rootNode));
-		assertEquals(false, VMOSAPlan.removeNode(missionNode));
-		
 		//set pointer to an objective node and remove it
 		// check to see if removed
-		Node rm = missionNode.children.get(0);
-		assertEquals(true, VMOSAPlan.removeNode(rm));
-		assertEquals(1, missionNode.children.size());
+		Node rm = missionNode.getChildren().get(0);
+		VMOSAPlan.removeNode(rm);
+		assertEquals(1, missionNode.getChildren().size());
 		
 		//set data of mission node and check it
 		missionNode.setData("hello");
@@ -82,26 +75,17 @@ public class VMOSATest
 		
 		//try to remove a strategy node
 		// only one so is not removed
-		Node rm2 = missionNode.children.get(0).children.get(0);
-		assertEquals(false, VMOSAPlan.removeNode(rm2));
+		Node rm2 = missionNode.getChildren().get(0).getChildren().get(0);
 	
-		}
-		//catch any exceptions
-		catch(IllegalArgumentException e)
-		
-		{
-		  e.getMessage();
-		}
-
 	}
 	
 	
 	// test invalid arguments
 	@Test
-	public void invalidArguments() 
+	public void invalidArguments() throws RemoteException 
 	{
 		//make a plan and set pointer to root
-		Plan VMOSAPlan2 = new IowaState();
+		Plan VMOSAPlan2 = new VMOSA();
 		Node r = VMOSAPlan2.getRoot();
 		//try to remove root
 		try 
@@ -124,11 +108,6 @@ public class VMOSATest
 		{
 			  e.getMessage();
 		}
-	}
-	
-	public void main(String[] args)
-	{
-		test();
 	}
 
 

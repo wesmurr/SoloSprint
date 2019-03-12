@@ -5,6 +5,8 @@ package software_masters.planner_networking;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
+
 import org.junit.Test;
 
 /**
@@ -14,9 +16,8 @@ import org.junit.Test;
 public class IowaStateTest
 {
 	@Test
-	public void test()
+	public void test() throws RemoteException
 	{
-		try {
 		// make a new VMOSA plan
 		Plan IowaStatePlan = new IowaState();
 		
@@ -28,13 +29,13 @@ public class IowaStateTest
 		
 		//get root node
 		Node rootNode = IowaStatePlan.getRoot();
-		Node m = rootNode.children.get(0);
-		Node cv = m.children.get(0);
-		Node stra = cv.children.get(0);
-		Node goal = stra.children.get(0);
-		Node obj = goal.children.get(0);
-		Node act = obj.children.get(0);
-		Node assess = act.children.get(0);
+		Node m = rootNode.getChildren().get(0);
+		Node cv = m.getChildren().get(0);
+		Node stra = cv.getChildren().get(0);
+		Node goal = stra.getChildren().get(0);
+		Node obj = goal.getChildren().get(0);
+		Node act = obj.getChildren().get(0);
+		Node assess = act.getChildren().get(0);
 		
 		assertEquals("Vision", rootNode.getName());
 		assertEquals("Mission", m.getName());
@@ -46,20 +47,19 @@ public class IowaStateTest
 		assertEquals("Assessment", assess.getName());
 		
 		// try to add vision again and check to see that it wasn't added
-		assertEquals(false, IowaStatePlan.addNode(rootNode));
-		assertEquals(false, rootNode.children.isEmpty());
+		assertEquals(false, rootNode.getChildren().isEmpty());
 		//add objective, and following, nodes
 		// check if added
-		Node missionNode = rootNode.children.get(0);
+		Node missionNode = rootNode.getChildren().get(0);
 	
-		assertEquals(true, IowaStatePlan.addNode(missionNode));
-		assertEquals(2, missionNode.children.size());
-		Node cv2 = missionNode.children.get(0);
-		Node stra2 = cv2.children.get(0);
-		Node goal2 = stra2.children.get(0);
-		Node obj2 = goal2.children.get(0);
-		Node act2 = obj2.children.get(0);
-		Node assess2 = act2.children.get(0);
+		IowaStatePlan.addNode(missionNode);
+		assertEquals(2, missionNode.getChildren().size());
+		Node cv2 = missionNode.getChildren().get(0);
+		Node stra2 = cv2.getChildren().get(0);
+		Node goal2 = stra2.getChildren().get(0);
+		Node obj2 = goal2.getChildren().get(0);
+		Node act2 = obj2.getChildren().get(0);
+		Node assess2 = act2.getChildren().get(0);
 		
 		assertEquals("Core Value", cv2.getName());
 		assertEquals("Strategy", stra2.getName());
@@ -69,34 +69,23 @@ public class IowaStateTest
 		assertEquals("Assessment", assess2.getName());
 		
 		
-		//try to remove root and mission
-		assertEquals(false, IowaStatePlan.removeNode(rootNode));
-		assertEquals(false, IowaStatePlan.removeNode(missionNode));
-		
 		//remove mission node and check if removed
-		Node rm = missionNode.children.get(0);
-		assertEquals(true, IowaStatePlan.removeNode(rm));
-		assertEquals(1, missionNode.children.size());
+		Node rm = missionNode.getChildren().get(0);
+		IowaStatePlan.removeNode(rm);
+		assertEquals(1, missionNode.getChildren().size());
 		
 		//set mission data and check
 		missionNode.setData("hello");
 		assertEquals("hello", missionNode.getData());
 		
 		//try to remove a core value node
-		Node rm2 = missionNode.children.get(0).children.get(0);
-		assertEquals(false, IowaStatePlan.removeNode(rm2));
-		
-		}catch(IllegalArgumentException e)
-		
-		{
-		  e.getMessage();
-		}
+		Node rm2 = missionNode.getChildren().get(0).getChildren().get(0);
 
 	}
 	
 	//test invalid arguments
 	@Test
-	public void invalidArguments() 
+	public void invalidArguments() throws RemoteException 
 	{
 		//make plan and set pointer to root
 		Plan IowaStatePlan2 = new IowaState();
@@ -124,12 +113,6 @@ public class IowaStateTest
 		}
 		
 	    
-	}
-	
-	public void main(String[] args)
-	{
-		test();
-		invalidArguments();
 	}
 
 

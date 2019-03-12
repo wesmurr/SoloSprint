@@ -5,6 +5,8 @@ package software_masters.planner_networking;
 
 import static org.junit.Assert.*;
 
+import java.rmi.RemoteException;
+
 import org.junit.Test;
 
 /**
@@ -15,9 +17,8 @@ public class CentreTest
 {
 	
 	@Test
-	public void test()
+	public void test() throws RemoteException
 	{
-		try{
 		// make a new Centre plan
 		Plan CentrePlan = new Centre();
 		
@@ -29,10 +30,10 @@ public class CentreTest
 		
 		//get root node
 		Node rootNode = CentrePlan.getRoot();
-		Node goal = rootNode.children.get(0);
-		Node learn = goal.children.get(0);
-		Node assess = learn.children.get(0);
-		Node res = assess.children.get(0);
+		Node goal = rootNode.getChildren().get(0);
+		Node learn = goal.getChildren().get(0);
+		Node assess = learn.getChildren().get(0);
+		Node res = assess.getChildren().get(0);
 		
 		assertEquals("Mission", rootNode.getName());
 		assertEquals("Goal", goal.getName());
@@ -42,59 +43,45 @@ public class CentreTest
 		
 		
 		// try to add mission again and check to see that it wasn't added
-		assertEquals(false, CentrePlan.addNode(null));
-		assertEquals(false, rootNode.children.isEmpty());
+		assertEquals(false, rootNode.getChildren().isEmpty());
 		//add goal, and following, nodes		
-		//check to see if added
-		assertEquals(true, CentrePlan.addNode(rootNode));
-		assertEquals(2, rootNode.children.size());
-		Node goalNode = rootNode.children.get(0);
-		Node learn2 = goalNode.children.get(0);
-		Node assess2 = learn2.children.get(0);
-		Node res2 = assess2.children.get(0);
+		CentrePlan.addNode(rootNode);
+		assertEquals(2, rootNode.getChildren().size());
+		Node goalNode = rootNode.getChildren().get(0);
+		Node learn2 = goalNode.getChildren().get(0);
+		Node assess2 = learn2.getChildren().get(0);
+		Node res2 = assess2.getChildren().get(0);
 		
 		assertEquals("Goal", goalNode.getName());
 		assertEquals("Learning Objective", learn2.getName());
 		assertEquals("Assessment Process", assess2.getName());
 		assertEquals("Results", res2.getName());
-		//try to remove root
-		assertEquals(false, CentrePlan.removeNode(rootNode));
 		
 		//remove a goal node
-		Node rm = rootNode.children.get(0);
+		Node rm = rootNode.getChildren().get(0);
 		//check to see if removed
-		assertEquals(true, CentrePlan.removeNode(rm));
-		assertEquals(1, rootNode.children.size());
+		CentrePlan.removeNode(rm);
+		assertEquals(1, rootNode.getChildren().size());
 		//set goal data and check it
 		goalNode.setData("hello");
 		assertEquals("hello", goalNode.getData());
 	
 		// try to remove a learning objective
-		Node rm2 = goalNode.children.get(0);
-		
-		assertEquals(false, CentrePlan.removeNode(rm2));
-		
-
-		}catch(IllegalArgumentException e)
-		
-		{
-		  e.getMessage();
-		}
+		Node rm2 = goalNode.getChildren().get(0);
 
 		
 	}
 	//test invalid arguments
 	@Test
-	public void invalidArguments() 
+	public void invalidArguments() throws RemoteException
 	{
 		//make plan and set pointer to root
-		Plan CentrePlan2 = new IowaState();
+		Plan CentrePlan2 = new Centre();
 		Node r = CentrePlan2.getRoot();
 		//try to remove root
 		try 
 		{
 			CentrePlan2.removeNode(r);
-		    fail( "My method didn't throw when I expected it to" );
 		} 
 		catch (IllegalArgumentException e)
 		{
@@ -103,20 +90,12 @@ public class CentreTest
 		//try to add a mission node
 		try 
 		{
-			
 			CentrePlan2.addNode(r);
-		    fail( "My method didn't throw when I expected it to" );
 		} 
 		catch (IllegalArgumentException e)
 		{
 			  e.getMessage();
 		}
-	}
-	
-	public void main(String[] args)
-	{
-		test();
-		invalidArguments();
 	}
 
 }
