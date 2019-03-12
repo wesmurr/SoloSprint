@@ -16,7 +16,7 @@ import org.junit.Test;
 
 
 /**
- * @author Lee Kendall
+ * @author lee Kendall
  * @author Wes Murray
  *
  *Verifies that client methods work correctly.
