@@ -295,7 +295,6 @@ public class ServerImplementation implements Server {
 	 */
 	private void adminChecker(String cookie)
 	{
-		Account temp=this.cookieMap.get(cookie);
 		if (!this.cookieMap.get(cookie).isAdmin())//Checks that user is admin
 		{
 			throw new IllegalArgumentException("You're not an admin");
@@ -428,6 +427,12 @@ public class ServerImplementation implements Server {
 		return true;
 	}
 	
+	/**
+	 * Compares two hashes for testing
+	 * @param map1
+	 * @param map2
+	 * @return
+	 */
 	private static <K,V> boolean hashesEqual(ConcurrentHashMap<K,V> map1,ConcurrentHashMap<K,V> map2){
 		for(Enumeration<K> keyList=map1.keys();keyList.hasMoreElements();) {
 			K key=keyList.nextElement();
@@ -441,13 +446,18 @@ public class ServerImplementation implements Server {
 		return true;
 	}
 	
+	/**
+	 * Starts the server, allows clients to access it
+	 * @param args
+	 * @throws RemoteException
+	 */
 	public static void main(String[] args) throws RemoteException
 	{
 		System.out.println("Start Server");
 		ServerImplementation server;
 		Registry registry;
 		try {
-			registry = LocateRegistry.createRegistry(1062);
+			registry = LocateRegistry.createRegistry(1059);
 			server = ServerImplementation.load();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -462,7 +472,6 @@ public class ServerImplementation implements Server {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Server Stop");
 		
 	}
 }

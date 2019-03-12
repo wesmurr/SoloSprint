@@ -3,9 +3,6 @@ package software_masters.planner_networking;
 import static org.junit.Assert.*;
 
 import java.rmi.RemoteException;
-import java.util.Enumeration;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -56,7 +53,6 @@ public class ServerTest {
 	@Test
 	public void testSerialization() throws Exception {
 		testServer.save();
-		Server test=testServer;
 		Server temp=ServerImplementation.load();
 		assertEquals(testServer,temp);
 

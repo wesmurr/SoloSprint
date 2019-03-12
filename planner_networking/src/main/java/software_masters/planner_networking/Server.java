@@ -131,9 +131,5 @@ public interface Server extends Remote{
 	 */
 	void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap) throws RemoteException;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-//	boolean equals(Object obj);
 
 }
