@@ -147,11 +147,17 @@ public class Client {
 		this.currNode.setData(data);
 	}
 	
+	/**
+	 * @return the data associated with a node
+	 */
 	public String getData()
 	{
 		return this.currNode.getData();
 	}
 	
+	/**
+	 * @param year
+	 */
 	public void setYear(String year)
 	{
 		this.currPlanFile.setYear(year);
@@ -220,7 +226,5 @@ public class Client {
 	{
 		this.server = server;
 	}
-	
-	
 
 }
