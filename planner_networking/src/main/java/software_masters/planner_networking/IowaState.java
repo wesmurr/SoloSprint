@@ -5,7 +5,6 @@ import java.rmi.RemoteException;
 /**
  * @author Courtney and Jack
  * @author wesley and lee.
- *
  */
 public class IowaState extends Plan
 {

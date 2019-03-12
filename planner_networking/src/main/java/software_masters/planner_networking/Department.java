@@ -9,7 +9,6 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @author lee.kendall
  * @author wesley murray
- *
  */
 
 public class Department

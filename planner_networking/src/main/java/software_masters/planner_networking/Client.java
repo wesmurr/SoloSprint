@@ -3,8 +3,7 @@ package software_masters.planner_networking;
 import java.rmi.RemoteException;
 
 /**
- * @author lee kendall
- *
+ * @author lee kendall and wesley murray
  */
 
 public class Client

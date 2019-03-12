@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 
 /**
  * @author Courtney and Jack
- *
+ * @author lee and wesley
  */
 
 public class Node implements Serializable

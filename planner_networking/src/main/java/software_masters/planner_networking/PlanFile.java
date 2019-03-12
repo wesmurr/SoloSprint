@@ -6,7 +6,6 @@ import java.rmi.RemoteException;
 /**
  * @author lee.kendall
  * @author wesley murray
- *
  */
 public class PlanFile implements Serializable // extends UnicastRemoteObject
 {

@@ -5,6 +5,11 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.concurrent.ConcurrentHashMap;
 
+/**
+ * @author lee.kendall
+ * @author wesley murray
+ */
+
 public interface Server extends Remote
 {
 
