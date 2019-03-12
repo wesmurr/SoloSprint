@@ -13,9 +13,9 @@ import java.util.ArrayList;
 public abstract class Plan implements Serializable//extends UnicastRemoteObject
 {
 	private static final long serialVersionUID = 1538776243780396317L;
-	public String name;
-	public ArrayList<String> defaultNodes = new ArrayList<String>(); 
-	public Node root;
+	private String name;
+	private ArrayList<String> defaultNodes = new ArrayList<String>(); 
+	private Node root;
 	
 	/**
 	 * @throws RemoteException
