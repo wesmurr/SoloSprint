@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -45,7 +44,7 @@ public class RemoteClientTest {
 		System.out.println("Starting Test");
 		try
 		{
-			String hostName = "10.14.1.80";
+			String hostName = "10.14.1.76";
 			registry = LocateRegistry.getRegistry(hostName,1059);
 			testServer = (Server) registry.lookup("PlannerServer");
 			testClient = new Client(testServer);
@@ -59,10 +58,10 @@ public class RemoteClientTest {
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		registry.unbind("PlannerServer");
-        // Unexport; this will also remove us from the RMI runtime
-        UnicastRemoteObject.unexportObject(testServer, true);
-        System.out.println("closing server");
+//		registry.unbind("PlannerServer");
+//        // Unexport; this will also remove us from the RMI runtime
+//        UnicastRemoteObject.unexportObject(testServer, true);
+//        System.out.println("closing server");
 	}
 	
 

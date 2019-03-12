@@ -10,7 +10,6 @@ import java.rmi.RemoteException;
 
 import org.junit.Test;
 
-import junit.framework.TestCase;
 
 
 /**
@@ -73,10 +72,6 @@ public class VMOSATest
 		missionNode.setData("hello");
 		assertEquals("hello", missionNode.getData());
 		
-		//try to remove a strategy node
-		// only one so is not removed
-		Node rm2 = missionNode.getChildren().get(0).getChildren().get(0);
-	
 	}
 	
 	

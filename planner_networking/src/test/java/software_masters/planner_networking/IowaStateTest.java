@@ -78,8 +78,6 @@ public class IowaStateTest
 		missionNode.setData("hello");
 		assertEquals("hello", missionNode.getData());
 		
-		//try to remove a core value node
-		Node rm2 = missionNode.getChildren().get(0).getChildren().get(0);
 
 	}
 	

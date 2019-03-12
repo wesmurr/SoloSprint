@@ -66,8 +66,6 @@ public class CentreTest
 		goalNode.setData("hello");
 		assertEquals("hello", goalNode.getData());
 	
-		// try to remove a learning objective
-		Node rm2 = goalNode.getChildren().get(0);
 
 		
 	}

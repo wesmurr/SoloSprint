@@ -3,7 +3,6 @@ package software_masters.planner_networking;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.rmi.server.UnicastRemoteObject;
 
 
 /**
