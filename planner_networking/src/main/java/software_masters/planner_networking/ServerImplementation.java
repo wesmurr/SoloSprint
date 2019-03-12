@@ -457,7 +457,7 @@ public class ServerImplementation implements Server {
 		ServerImplementation server;
 		Registry registry;
 		try {
-			registry = LocateRegistry.createRegistry(1059);
+			registry = LocateRegistry.createRegistry(1060);
 			server = ServerImplementation.load();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

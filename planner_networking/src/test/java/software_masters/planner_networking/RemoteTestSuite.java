@@ -5,8 +5,8 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 @RunWith(Suite.class)
-@SuiteClasses({ CentreTest.class, IowaStateTest.class, LocalServerTest.class, NodeTest.class, RemoteClientTest.class,
+@SuiteClasses({ CentreTest.class, IowaStateTest.class, LocalTestSuite.class, NodeTest.class, RemoteClientTest.class,
 		ServerTest.class, VMOSATest.class })
-public class RemoteServerTest {
+public class RemoteTestSuite {
 
 }
