@@ -23,12 +23,12 @@ public class VMOSA extends Plan
 	 */
 	protected void setDefaultStrings()
 	{
-		defaultNodes.add("Vision");
-		defaultNodes.add("Mission");
-		defaultNodes.add("Objective");
-		defaultNodes.add("Strategy");
-		defaultNodes.add("Action Plan");
-		defaultNodes.add("Assessment");
+		this.getList().add("Vision");
+		this.getList().add("Mission");
+		this.getList().add("Objective");
+		this.getList().add("Strategy");
+		this.getList().add("Action Plan");
+		this.getList().add("Assessment");
 	}
 
 	/**
@@ -47,10 +47,10 @@ public class VMOSA extends Plan
 		else
 		{
 
-			for (int i = (defaultNodes.indexOf(parent.getName()))+1; i < defaultNodes.size(); i++)
+			for (int i = (this.getList().indexOf(parent.getName()))+1; i < this.getList().size(); i++)
 			{
 			
-				Node newNode = new Node(parent, defaultNodes.get(i), null, null);
+				Node newNode = new Node(parent, this.getList().get(i), null, null);
 			
 				parent.addChild(newNode);
 				parent = newNode;
@@ -68,7 +68,7 @@ public class VMOSA extends Plan
 	public boolean removeNode(Node nodeRemove) throws IllegalArgumentException
 
 	{
-		if (nodeRemove.getName() == root.getName()
+		if (nodeRemove.getName() == this.getRoot().getName()
 				|| nodeRemove.getParent().getChildren().size()==1 || nodeRemove==null)
 
 		{

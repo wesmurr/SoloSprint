@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
  *
  */
 
-public class Node implements Serializable// extends UnicastRemoteObject
+public class Node implements Serializable
 {
 	private static final long serialVersionUID = 5908372020728915437L;
 	private Node parent;
