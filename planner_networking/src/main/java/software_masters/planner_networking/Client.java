@@ -1,6 +1,9 @@
 package software_masters.planner_networking;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 /**
  * @author lee kendall and wesley murray
@@ -21,6 +24,14 @@ public class Client
 	private Server server;
 
 	/**
+	 * Default constructor.
+	 */
+	public Client()
+	{
+		this.server = null;
+	}
+	
+	/**
 	 * Sets the client's server.
 	 * 
 	 * @param server
@@ -28,6 +39,20 @@ public class Client
 	public Client(Server server)
 	{
 		this.server = server;
+	}
+	
+	
+	/**
+	 * @param ip
+	 * @param port
+	 * @throws RemoteException 
+	 * @throws NotBoundException 
+	 */
+	public void connectToServer(String ip,int port) throws RemoteException, NotBoundException {
+		String hostName = ip;
+		Registry registry = LocateRegistry.getRegistry(hostName, port);
+		Server stub = (Server) registry.lookup("PlannerServer");
+		this.server=stub;
 	}
 
 	/**
