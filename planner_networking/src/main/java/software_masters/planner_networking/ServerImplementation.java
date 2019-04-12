@@ -11,6 +11,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
@@ -447,22 +448,22 @@ public class ServerImplementation implements Server
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#listPlanTemplates()
 	 */
-	public Enumeration<String> listPlanTemplates()
+	public Collection<PlanFile> listPlanTemplates()
 	{
-		return planTemplateMap.keys();
+		return planTemplateMap.values();
 	}
 	
 	/* (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#listPlans(java.lang.String)
 	 */
-	public Enumeration<String> listPlans(String cookie)
+	public Collection<PlanFile> listPlans(String cookie)
 	{
 		cookieChecker(cookie);// checks that cookie is valid
 
 		Account userAccount = this.cookieMap.get(cookie);
 		Department department = userAccount.getDepartment();
 	
-		return department.listPlans();
+		return department.getPlanFileMap().values();
 	}
 
 	/*
