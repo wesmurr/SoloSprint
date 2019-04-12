@@ -87,6 +87,11 @@ public class Department
 		this.planFileMap = planFileMap;
 	}
 
+	public Enumeration<String> listPlans()
+	{
+		return planFileMap.keys();
+	}
+	
 	/*
 	 * (non-Javadoc)
 	 * 
