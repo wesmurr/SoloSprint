@@ -3,6 +3,7 @@ package software_masters.planner_networking;
 import java.io.FileNotFoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.Enumeration;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -149,4 +150,14 @@ public interface Server extends Remote
 	 */
 	void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap) throws RemoteException;
 
+	 /**
+	 * @return enumeration of plan template names
+	 */
+	Enumeration<String> listPlanTemplates();
+	
+	/**
+	 * @param cookie of user
+	 * @return list of plans for department
+	 */
+	Enumeration<String> listPlans(String cookie);
 }

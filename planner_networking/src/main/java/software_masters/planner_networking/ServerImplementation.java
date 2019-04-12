@@ -443,12 +443,28 @@ public class ServerImplementation implements Server
 	{
 		this.planTemplateMap = planTemplateMap;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
+	
+	/* (non-Javadoc)
+	 * @see software_masters.planner_networking.Server#listPlanTemplates()
 	 */
+	public Enumeration<String> listPlanTemplates()
+	{
+		return planTemplateMap.keys();
+	}
+	
+	/* (non-Javadoc)
+	 * @see software_masters.planner_networking.Server#listPlans(java.lang.String)
+	 */
+	public Enumeration<String> listPlans(String cookie)
+	{
+		cookieChecker(cookie);// checks that cookie is valid
+
+		Account userAccount = this.cookieMap.get(cookie);
+		Department department = userAccount.getDepartment();
+	
+		return department.listPlans();
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 

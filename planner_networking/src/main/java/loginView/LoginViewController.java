@@ -4,6 +4,7 @@ package loginView;
 
 import java.rmi.RemoteException;
 
+import application.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
@@ -11,13 +12,10 @@ import software_masters.model.PlannerModel;
 
 public class LoginViewController
 {
-	PlannerModel model;
+	Main application;
 	@FXML TextField usernameField;
 	@FXML TextField passWordField;
-	public LoginViewController(PlannerModel model) 
-	{
-		this.model = model;
-	}
+	
 	
 	@FXML
     void login(ActionEvent event) 
@@ -32,7 +30,6 @@ public class LoginViewController
 			e.printStackTrace();
 		}
     }
+}	
 	
 	
-	
-}
