@@ -1,7 +1,5 @@
 package loginView;
 
-
-
 import java.rmi.RemoteException;
 
 import application.Main;
@@ -21,7 +19,8 @@ public class LoginViewController
     void login(ActionEvent event) 
 	{
 		try {
-			model.login(usernameField.getText(), passWordField.getText());
+			application.getModel().login(usernameField.getText(), passWordField.getText());
+			application.showPlanSelectionView();
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -30,6 +29,11 @@ public class LoginViewController
 			e.printStackTrace();
 		}
     }
+	
+	void setApplication(Main application)
+	{
+		this.application = application;
+	}
 }	
 	
 	
