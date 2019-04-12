@@ -39,7 +39,7 @@ public class PlanSelectionViewController
     
     /**
      * Allows controller to access showPlanEditView, showPlanReadOnlyView,
-     *  and showLoginView methods in the main application
+     *  and the showLoginView methods in the main application
      * @param app main application
      */
     public void setApplication(Main app)
