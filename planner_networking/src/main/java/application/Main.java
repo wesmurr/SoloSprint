@@ -127,4 +127,18 @@ public class Main extends Application {
 		PlanReadOnlyViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 	}
+
+	/**
+	 * @return the model
+	 */
+	public PlannerModel getModel() {
+		return model;
+	}
+
+	/**
+	 * @param model the model to set
+	 */
+	public void setModel(PlannerModel model) {
+		this.model = model;
+	}
 }
