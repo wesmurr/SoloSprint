@@ -4,19 +4,24 @@ import application.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
+import software_masters.model.PlannerModel;
 import software_masters.planner_networking.Node;
 
 public class PlanEditViewController
 {
 	
 	Main application;
+	PlannerModel model;
 	@FXML TreeView<Node> treeView;
 	@FXML TextField nameField;
 	@FXML TextField dataField;
 	
 	
+	Node currNode;
+	
 	public void setApplication(Main application) {
 		this.application = application;
+		model = this.application.getModel();
 	}
 	
 	@FXML
@@ -49,5 +54,8 @@ public class PlanEditViewController
 		
 	}
 	
+	private void setCurrNode() {
+		
+	}
 	
 }
