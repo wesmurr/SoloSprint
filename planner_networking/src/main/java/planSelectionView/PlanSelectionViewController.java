@@ -1,6 +1,8 @@
 package planSelectionView;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -20,7 +22,7 @@ public class PlanSelectionViewController
     private ListView<PlanFile> planTemplateList=genTemplateList();
 
     @FXML
-    private ListView<PlanFile> departmentPlanList=genTemplateList();
+    private ListView<PlanFile> departmentPlanList=genPlansList();
     
     private Main app;
 
@@ -48,8 +50,26 @@ public class PlanSelectionViewController
     	this.app = app;
     }
     
+    /**
+     * This method generates a list view of developer templates
+     * @return
+     */
     public ListView<PlanFile> genTemplateList(){
-    	this.app.getModel().
+    	ObservableList<PlanFile> items=FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
+    	ListView<PlanFile> view=new ListView<PlanFile>();
+    	view.setItems(items);
+    	return view;
+    }
+    
+    /**
+     * This method generates a list view of plans associated with client department
+     * @return
+     */
+    public ListView<PlanFile> genPlansList(){
+    	ObservableList<PlanFile> items=FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
+    	ListView<PlanFile> view=new ListView<PlanFile>();
+    	view.setItems(items);
+    	return view;
     }
     
 
