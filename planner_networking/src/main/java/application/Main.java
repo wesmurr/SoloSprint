@@ -48,7 +48,7 @@ public class Main extends Application {
 		this.primaryStage = primaryStage;
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("serverConnectionView/serverConnectionView.fxml"));
+		loader.setLocation(Main.class.getResource("../serverConnectionView/serverConnectionView.fxml"));
 		mainView = loader.load();
 		
 		ServerConnectionViewController cont = loader.getController();
@@ -60,13 +60,31 @@ public class Main extends Application {
 		
 	}
 	
+
+	/**
+	 * Shows the connect to server window
+	 */
+	public void showConnectToServer()
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource("../serverConnectionView/serverConnectionView.fxml"));
+		
+		try {
+			mainView.setCenter(loader.load());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		ServerConnectionViewController cont = loader.getController();
+		cont.setApplication(this); // Allows controller to access showPlanSelectionView
+	}
+	
 	/**
 	 * Shows the login view window
 	 */
 	public void showLoginView()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("loginView/loginView.fxml"));
+		loader.setLocation(Main.class.getResource("../loginView/loginView.fxml"));
 		
 		try {
 			mainView.setCenter(loader.load());
@@ -75,8 +93,6 @@ public class Main extends Application {
 		}
 		LoginViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
-		
-		
 	}
 	
 	/**Shows the plan selection view
@@ -85,7 +101,7 @@ public class Main extends Application {
 	public void showPlanSelectionView()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("planSelectionView/planSelectionView.fxml"));
+		loader.setLocation(Main.class.getResource("../planSelectionView/planSelectionView.fxml"));
 		
 		try {
 			mainView.setCenter(loader.load());
@@ -102,7 +118,7 @@ public class Main extends Application {
 	public void showPlanEditView()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("planEditView/planEditView.fxml"));
+		loader.setLocation(Main.class.getResource("../planEditView/planEditView.fxml"));
 		
 		try {
 			mainView.setCenter(loader.load());
@@ -119,7 +135,7 @@ public class Main extends Application {
 	public void showPlanReadOnlyView()
 	{
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("planReadOnlyView/planReadOnlyView.fxml"));
+		loader.setLocation(Main.class.getResource("../planReadOnlyView/planReadOnlyView.fxml"));
 		
 		try {
 			mainView.setCenter(loader.load());

@@ -154,11 +154,11 @@ public interface Server extends Remote
 	 /**
 	 * @return collection of plan templates held by the server
 	 */
-	Collection<PlanFile> listPlanTemplates();
+	Collection<PlanFile> listPlanTemplates() throws RemoteException;
 	
 	/**
 	 * @param cookie of user
 	 * @return @return collection of planfiles associated with the client's department
 	 */
-	Collection<PlanFile> listPlans(String cookie);
+	Collection<PlanFile> listPlans(String cookie) throws RemoteException;
 }

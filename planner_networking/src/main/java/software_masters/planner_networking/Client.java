@@ -183,14 +183,14 @@ public class Client
 	/**
 	 * @return collection of planfiles associated with the client's department
 	 */
-	public Collection<PlanFile> listPlans(){
+	public Collection<PlanFile> listPlans() throws RemoteException{
 		return server.listPlans(this.cookie);
 	}
 	
 	/**
 	 * @return collection of plan templates held by the server
 	 */
-	public Collection<PlanFile> listPlanTemplates(){
+	public Collection<PlanFile> listPlanTemplates() throws RemoteException{
 		return server.listPlanTemplates();
 	}
 

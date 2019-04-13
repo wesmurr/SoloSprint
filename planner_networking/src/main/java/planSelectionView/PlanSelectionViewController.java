@@ -1,5 +1,7 @@
 package planSelectionView;
 
+import java.rmi.RemoteException;
+
 import application.Main;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,7 +57,12 @@ public class PlanSelectionViewController
      * @return
      */
     public ListView<PlanFile> genTemplateList(){
-    	ObservableList<PlanFile> items=FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
+    	ObservableList<PlanFile> items=null;
+		try {
+			items = FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
+		} catch (RemoteException e) {
+			this.app.showConnectToServer();
+		}
     	ListView<PlanFile> view=new ListView<PlanFile>();
     	view.setItems(items);
     	return view;
@@ -66,7 +73,12 @@ public class PlanSelectionViewController
      * @return
      */
     public ListView<PlanFile> genPlansList(){
-    	ObservableList<PlanFile> items=FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
+    	ObservableList<PlanFile> items=null;
+		try {
+			items = FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
+		} catch (RemoteException e) {
+			this.app.showConnectToServer();
+		}
     	ListView<PlanFile> view=new ListView<PlanFile>();
     	view.setItems(items);
     	return view;
