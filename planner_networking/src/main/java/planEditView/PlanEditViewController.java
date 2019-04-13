@@ -10,6 +10,7 @@ import javafx.scene.control.TreeView;
 import software_masters.model.PlannerModel;
 import software_masters.planner_networking.Node;
 
+
 public class PlanEditViewController
 {
 	
@@ -24,6 +25,9 @@ public class PlanEditViewController
 	boolean isPushed;
 	
 	
+	/** Let controller to know view 
+	 * @param application
+	 */
 	public void setApplication(Main application) {
 		this.application = application;
 		model = this.application.getModel();
@@ -32,6 +36,9 @@ public class PlanEditViewController
 		isPushed = true;
 	}
 	
+	/**
+	 * Delete the current selected node in the treeview
+	 */
 	@FXML
 	public void deleteSection() {
 		setCurrNode();
@@ -45,6 +52,9 @@ public class PlanEditViewController
 		
 	}
 	
+	/**
+	 * Add a branch at the same level as current selected node to the business plan 
+	 */
 	@FXML
 	public void addSection() {
 		setCurrNode();
@@ -60,6 +70,10 @@ public class PlanEditViewController
 		
 	}
 	
+	
+	/**
+	 *  Log out the current account on the server
+	 */
 	@FXML
 	public void logOut() {
 		//need to ask users if they want to push
@@ -71,6 +85,9 @@ public class PlanEditViewController
 		model.setYear(null);
 	}
 	
+	/**
+	 *	Change the view back to planSelectionView 
+	 */
 	@FXML
 	public void backToPlans() {
 		//need to ask users if they want to push
@@ -81,6 +98,9 @@ public class PlanEditViewController
 		application.showPlanSelectionView();
 	}
 	
+	/**
+	 * Push the current business plan to the server
+	 */
 	@FXML 
 	public void push() {
 		try {
@@ -93,17 +113,20 @@ public class PlanEditViewController
 		}
 	}
 	
+	
+	/**
+	 * Filling the treeview with nodes from business plan 
+	 */
 	private void setTreeView()
 	{
 		treeView.setRoot(convertTree(model.getCurrPlanFile().getPlan().getRoot()));
 	}
 	
-	/**
-	 * Helper method for changing tree*/
-	private void setCurrNode() {
-		currNode = treeView.getSelectionModel().getSelectedItem().getValue();
-	}
 	
+	/**
+	 * @param root build the treeview start from root node of business plan
+	 * @return
+	 */
 	private TreeItem<Node> convertTree(Node root) {
 		TreeItem<Node> newRoot = new TreeItem<Node>(root);
 		for (int i = 0; i < root.getChildren().size(); i++) {
@@ -112,7 +135,19 @@ public class PlanEditViewController
 		return newRoot;
 	}
 	
+	/**
+	 * Helper method for changing tree*/
+	private void setCurrNode() {
+		currNode = treeView.getSelectionModel().getSelectedItem().getValue();
+	}
 	
+	
+	
+	
+	/**
+	 * set the action when the user click another node
+	 * saving the current section is done automatically
+	 */
 	private void setTreeItemAction()
 	{
 		treeView.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)->
@@ -122,6 +157,10 @@ public class PlanEditViewController
 		});
 	}
 	
+	/**
+	 * Change the nameField and dataField to the content stored in current node
+	 * @param item
+	 */
 	private void changeSection(TreeItem<Node> item)
 	{
 		currNode = item.getValue();
@@ -129,6 +168,9 @@ public class PlanEditViewController
 		dataField.setText(currNode.getData());
 	}
 	
+	/**
+	 * save the content edited in nameField and dataField to the node
+	 */
 	private void saveAction()
 	{
 		currNode.setName(nameField.getText());

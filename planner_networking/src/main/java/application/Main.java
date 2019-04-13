@@ -144,6 +144,11 @@ public class Main extends Application {
 		this.model = model;
 	}
 	
+	/**
+	 * This method helps to pop up error message happens when controller is operating the model
+	 * For example, delete a node that is not allowed to be deleted
+	 * @param message error message from wrong operation on the model
+	 */
 	public void sendError(String message) 
 	{
 		Alert alert = new Alert(AlertType.ERROR);
