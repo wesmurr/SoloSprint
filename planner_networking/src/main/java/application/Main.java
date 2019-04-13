@@ -110,10 +110,15 @@ public class Main extends Application {
 		}
 		PlanSelectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanEditView and showPlanReadOnlyView
+		cont.genPlansList();
+		cont.genTemplateList();
 		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
+		cont.update();
+		
+		
 	}
 	
 	/**

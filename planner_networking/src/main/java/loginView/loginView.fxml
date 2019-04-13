@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginView.LoginViewController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="loginView.LoginViewController">
    <center>
       <VBox alignment="CENTER" prefHeight="204.0" prefWidth="451.0" BorderPane.alignment="CENTER">
          <children>
@@ -20,7 +20,7 @@
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="278.0">
                <children>
                   <Label alignment="CENTER" prefHeight="16.0" prefWidth="96.0" text="Password" />
-                  <TextField fx:id="passWordField" alignment="CENTER" prefHeight="26.0" prefWidth="171.0" />
+                  <TextField fx:id="passWordField" prefHeight="26.0" prefWidth="171.0" />
                </children>
             </HBox>
             <Button fx:id="logInButton" mnemonicParsing="false" onAction="#login" prefHeight="18.0" prefWidth="72.0" text="Log in" />

@@ -21,10 +21,10 @@ public class PlanSelectionViewController
 {
 
     @FXML
-    private ListView<PlanFile> planTemplateList=genTemplateList();
+    private ListView<String> planTemplateList;//=genTemplateList();
 
     @FXML
-    private ListView<PlanFile> departmentPlanList=genPlansList();
+    private ListView<String> departmentPlanList;//=genPlansList();
     
     private Main app;
 
@@ -56,32 +56,43 @@ public class PlanSelectionViewController
      * This method generates a list view of developer templates
      * @return
      */
-    public ListView<PlanFile> genTemplateList(){
-    	ObservableList<PlanFile> items=null;
-		try {
-			items = FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
-		} catch (RemoteException e) {
-			this.app.showConnectToServer();
-		}
-    	ListView<PlanFile> view=new ListView<PlanFile>();
+    public void genTemplateList(){
+//    	ObservableList<PlanFile> items=null;
+//		try {
+//			items = FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
+//		} catch (RemoteException e) {
+//			this.app.showConnectToServer();
+//		}
+    	ListView<String> view=new ListView<String>();
+    	ObservableList<String> items=FXCollections.observableArrayList("Temp1","Temp2");
     	view.setItems(items);
-    	return view;
+    	this.planTemplateList=view;
     }
     
     /**
      * This method generates a list view of plans associated with client department
      * @return
      */
-    public ListView<PlanFile> genPlansList(){
-    	ObservableList<PlanFile> items=null;
-		try {
-			items = FXCollections.observableArrayList(this.app.getModel().listPlanTemplates());
-		} catch (RemoteException e) {
-			this.app.showConnectToServer();
-		}
-    	ListView<PlanFile> view=new ListView<PlanFile>();
+    public void genPlansList(){
+//    	ObservableList<PlanFile> items=null;
+//		try {
+//			items = FXCollections.observableArrayList(this.app.getModel().listPlans());
+//		} catch (RemoteException e) {
+//			this.app.showConnectToServer();
+//		}
+    	ListView<String> view=new ListView<String>();
+    	ObservableList<String> items=FXCollections.observableArrayList("Plan1","Plan2");
     	view.setItems(items);
-    	return view;
+    	this.departmentPlanList=view;
+    	
+    }
+    
+    /**
+     * 
+     */
+    public void update() {
+    	this.departmentPlanList.refresh();
+    	this.planTemplateList.refresh();
     }
     
 
