@@ -45,21 +45,11 @@ public class Main extends Application {
 	 * Initializes server connection view
 	 */
 	@Override
-	public void start(Stage primaryStage) throws Exception {
+	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.model=new PlannerModel();
 		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(Main.class.getResource("../serverConnectionView/serverConnectionView.fxml"));
-		mainView = (Parent) loader.load();
-		
-		ServerConnectionViewController cont = loader.getController();
-		cont.setApplication(this);
-		
-		Scene s = new Scene(mainView);
-		primaryStage.setScene(s);
-		primaryStage.show();
-		
+		this.showConnectToServer();
 	}
 	
 
@@ -78,6 +68,10 @@ public class Main extends Application {
 		}
 		ServerConnectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
+		
+		Scene s = new Scene(mainView);
+		primaryStage.setScene(s);
+		primaryStage.show();
 	}
 	
 	/**
@@ -95,6 +89,10 @@ public class Main extends Application {
 		}
 		LoginViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
+		
+		Scene s = new Scene(mainView);
+		primaryStage.setScene(s);
+		primaryStage.show();
 	}
 	
 	/**Shows the plan selection view
@@ -112,6 +110,10 @@ public class Main extends Application {
 		}
 		PlanSelectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanEditView and showPlanReadOnlyView
+		
+		Scene s = new Scene(mainView);
+		primaryStage.setScene(s);
+		primaryStage.show();
 	}
 	
 	/**
@@ -129,6 +131,10 @@ public class Main extends Application {
 		}
 		PlanEditViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
+		
+		Scene s = new Scene(mainView);
+		primaryStage.setScene(s);
+		primaryStage.show();
 	}
 	
 	/**
@@ -146,6 +152,10 @@ public class Main extends Application {
 		}
 		PlanReadOnlyViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
+		
+		Scene s = new Scene(mainView);
+		primaryStage.setScene(s);
+		primaryStage.show();
 	}
 
 	/**

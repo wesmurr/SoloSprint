@@ -539,7 +539,8 @@ public class ServerImplementation implements Server
 	public static void main(String[] args) throws RemoteException
 	{
 		System.out.println("Start Server");
-		ServerImplementation server;
+		ServerImplementation server=new ServerImplementation();
+		server.save();
 		Registry registry;
 		try
 		{
