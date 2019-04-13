@@ -1,5 +1,7 @@
 package planReadOnlyView;
 
-public class PlanReadOnlyViewController
+import planEditView.PlanEditViewController;
+
+public class PlanReadOnlyViewController extends PlanEditViewController
 {
 }
