@@ -33,34 +33,6 @@ public class PlanReadOnlyViewController
 	}
 	
 	@FXML
-	public void deleteSection() {
-		setCurrNode();
-		try {
-			model.getCurrPlanFile().getPlan().removeNode(currNode);
-			setTreeView();
-			isPushed = false;
-		} catch (IllegalArgumentException e) {
-			application.sendError(e.toString());
-		}
-		
-	}
-	
-	@FXML
-	public void addSection() {
-		setCurrNode();
-		try {
-			model.getCurrPlanFile().getPlan().addNode(currNode.getParent());
-			setTreeView();
-			isPushed = false;
-		} catch (RemoteException e) {
-			application.sendError(e.toString());
-		} catch (IllegalArgumentException e) {
-			application.sendError(e.toString());
-		}
-		
-	}
-	
-	@FXML
 	public void logOut() {
 		//need to ask users if they want to push
 		
@@ -81,18 +53,6 @@ public class PlanReadOnlyViewController
 		application.showPlanSelectionView();
 	}
 	
-	@FXML 
-	public void push() {
-		try {
-			model.pushPlan(model.getCurrPlanFile());
-			isPushed = true;
-		} catch (IllegalArgumentException e) {
-			application.sendError(e.toString());
-		} catch (RemoteException e) {
-			application.sendError(e.toString());
-		}
-	}
-	
 	private void setTreeView()
 	{
 		treeView.setRoot(convertTree(model.getCurrPlanFile().getPlan().getRoot()));
@@ -111,7 +71,6 @@ public class PlanReadOnlyViewController
 		}
 		return newRoot;
 	}
-	
 	
 	private void setTreeItemAction()
 	{
