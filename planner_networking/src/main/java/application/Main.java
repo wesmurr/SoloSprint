@@ -47,6 +47,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		this.primaryStage = primaryStage;
+		this.model=new PlannerModel();
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("../serverConnectionView/serverConnectionView.fxml"));
