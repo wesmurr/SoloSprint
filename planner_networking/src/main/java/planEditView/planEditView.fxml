@@ -48,7 +48,7 @@
                      <children>
                         <Button mnemonicParsing="false" onAction="#push" prefHeight="26.0" prefWidth="65.0" text="Save" />
                         <Label prefHeight="26.0" prefWidth="36.0" text="Year" />
-                        <TextField prefHeight="26.0" prefWidth="126.0">
+                        <TextField fx:id="yearField" prefHeight="26.0" prefWidth="126.0">
                            <HBox.margin>
                               <Insets right="20.0" />
                            </HBox.margin>

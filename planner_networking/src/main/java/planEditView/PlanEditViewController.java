@@ -19,7 +19,7 @@ public class PlanEditViewController
 	@FXML TreeView<Node> treeView;
 	@FXML TextField nameField;
 	@FXML TextField dataField;
-	
+	@FXML TextField yearField;
 	
 	Node currNode;
 	boolean isPushed;
@@ -104,6 +104,11 @@ public class PlanEditViewController
 	@FXML 
 	public void push() {
 		try {
+			//set the year to which the user want 
+			//This allow the user to decide which year they want to edit
+			// at editing time
+			model.getCurrPlanFile().setYear(yearField.getText());
+			
 			model.pushPlan(model.getCurrPlanFile());
 			isPushed = true;
 		} catch (IllegalArgumentException e) {
