@@ -22,15 +22,13 @@ public class LoginViewController
 			application.getModel().login(usernameField.getText(), passWordField.getText());
 			application.showPlanSelectionView();
 		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
 	
-	void setApplication(Main application)
+	public void setApplication(Main application)
 	{
 		this.application = application;
 	}
