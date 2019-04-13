@@ -152,13 +152,13 @@ public interface Server extends Remote
 	void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap) throws RemoteException;
 
 	 /**
-	 * @return enumeration of plan template names
+	 * @return collection of plan templates held by the server
 	 */
 	Collection<PlanFile> listPlanTemplates();
 	
 	/**
 	 * @param cookie of user
-	 * @return list of plans for department
+	 * @return @return collection of planfiles associated with the client's department
 	 */
 	Collection<PlanFile> listPlans(String cookie);
 }

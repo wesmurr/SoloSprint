@@ -4,6 +4,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.Collection;
 
 /**
  * @author lee kendall and wesley murray
@@ -177,6 +178,20 @@ public class Client
 		Node temp = this.currNode.getParent();
 		this.currPlanFile.getPlan().removeNode(this.currNode);
 		this.currNode = temp.getChildren().get(0);
+	}
+	
+	/**
+	 * @return collection of planfiles associated with the client's department
+	 */
+	public Collection<PlanFile> listPlans(){
+		return server.listPlans(this.cookie);
+	}
+	
+	/**
+	 * @return collection of plan templates held by the server
+	 */
+	public Collection<PlanFile> listPlanTemplates(){
+		return server.listPlanTemplates();
 	}
 
 	/**

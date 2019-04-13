@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import software_masters.model.PlannerModel;
+import software_masters.planner_networking.PlanFile;
 
 /**
  * @author lee.kendall
@@ -16,10 +17,10 @@ public class PlanSelectionViewController
 {
 
     @FXML
-    private ListView<?> planTemplateList;
+    private ListView<PlanFile> planTemplateList=genTemplateList();
 
     @FXML
-    private ListView<?> departmentPlanList;
+    private ListView<PlanFile> departmentPlanList=genTemplateList();
     
     private Main app;
 
@@ -45,6 +46,10 @@ public class PlanSelectionViewController
     public void setApplication(Main app)
     {
     	this.app = app;
+    }
+    
+    public ListView<PlanFile> genTemplateList(){
+    	this.app.getModel().
     }
     
 
