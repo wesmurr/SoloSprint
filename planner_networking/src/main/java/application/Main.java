@@ -1,6 +1,3 @@
-/**
- * 
- */
 package application;
 
 import serverConnectionView.*;
@@ -115,9 +112,7 @@ public class Main extends Application {
 		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
-		primaryStage.show();
-		cont.update();
-		
+		primaryStage.show();		
 		
 	}
 	
