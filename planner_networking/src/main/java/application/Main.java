@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -33,7 +34,7 @@ public class Main extends Application {
 	
 	PlannerModel model;
 	Stage primaryStage;
-	BorderPane mainView;
+	Parent mainView;
 	public static void main(String[] args) 
 	{
 		launch(args);
@@ -49,7 +50,7 @@ public class Main extends Application {
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("../serverConnectionView/serverConnectionView.fxml"));
-		mainView = loader.load();
+		mainView = (Parent) loader.load();
 		
 		ServerConnectionViewController cont = loader.getController();
 		cont.setApplication(this);
@@ -70,7 +71,7 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("../serverConnectionView/serverConnectionView.fxml"));
 		
 		try {
-			mainView.setCenter(loader.load());
+			mainView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,7 +88,7 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("../loginView/loginView.fxml"));
 		
 		try {
-			mainView.setCenter(loader.load());
+			mainView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -104,7 +105,7 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("../planSelectionView/planSelectionView.fxml"));
 		
 		try {
-			mainView.setCenter(loader.load());
+			mainView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -121,7 +122,7 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("../planEditView/planEditView.fxml"));
 		
 		try {
-			mainView.setCenter(loader.load());
+			mainView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -138,7 +139,7 @@ public class Main extends Application {
 		loader.setLocation(Main.class.getResource("../planReadOnlyView/planReadOnlyView.fxml"));
 		
 		try {
-			mainView.setCenter(loader.load());
+			mainView = loader.load();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
