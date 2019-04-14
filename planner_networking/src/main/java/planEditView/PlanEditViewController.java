@@ -45,6 +45,7 @@ public class PlanEditViewController
 	@FXML
 	public void deleteSection() {
 		try {
+			this.changeSection();
 			model.removeBranch();
 			setTreeView();
 			isPushed = false;
@@ -80,11 +81,11 @@ public class PlanEditViewController
 	public void logOut() {
 		//need to ask users if they want to push
 		
-		currNode = null;
 		model.setCookie(null);
 		model.setCurrNode(null);
 		model.setCurrPlanFile(null);
-		model.setYear(null);
+		
+		application.showLoginView();
 	}
 	
 	/**
@@ -96,7 +97,6 @@ public class PlanEditViewController
 		
 		model.setCurrNode(null);
 		model.setCurrPlanFile(null);
-		model.setYear(null);
 		application.showPlanSelectionView();
 	}
 	
@@ -110,7 +110,7 @@ public class PlanEditViewController
 			//This allow the user to decide which year they want to edit
 			// at editing time
 			model.getCurrPlanFile().setYear(yearField.getText());
-			
+			changeSection();
 			model.pushPlan(model.getCurrPlanFile());
 			isPushed = true;
 		} catch (IllegalArgumentException e) {
@@ -126,8 +126,7 @@ public class PlanEditViewController
 	 */
 	private void setTreeView()
 	{
-		treeView.setRoot(convertTree(model.getCurrPlanFile().getPlan().getRoot()));
-		System.out.println(treeView.getRoot().toString());
+		treeView.rootProperty().setValue(convertTree(model.getCurrPlanFile().getPlan().getRoot()));
 		treeView.getSelectionModel().select(treeView.getRoot());
 		model.setCurrNode(model.getCurrPlanFile().getPlan().getRoot());
 	}

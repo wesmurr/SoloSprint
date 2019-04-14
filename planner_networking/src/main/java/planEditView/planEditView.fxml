@@ -20,7 +20,7 @@
                   <TextField fx:id="nameField" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <TextField fx:id="dataField" prefHeight="372.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="dataField" alignment="TOP_LEFT" prefHeight="372.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </center>

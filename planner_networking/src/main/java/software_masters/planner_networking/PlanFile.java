@@ -86,7 +86,18 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	}
 
 	@Override
-	public String toString() { return year; }
+	public String toString() 
+	{
+		if (isCanEdit())
+		{	
+			return year;
+		}
+		else
+		{
+			return year + " Read Only";
+		}
+		
+	}
 
 	/*
 	 * (non-Javadoc)

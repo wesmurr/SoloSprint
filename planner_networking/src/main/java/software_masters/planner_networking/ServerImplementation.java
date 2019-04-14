@@ -59,6 +59,11 @@ public class ServerImplementation implements Server
 		plan.setName("Centre_Plan_1");
 		PlanFile planfile = new PlanFile("2019", true, plan);
 		dpt.addPlan("2019", planfile);
+		
+		Plan plan2 = new VMOSA();
+		plan.setName("VMOSA_Plan_1");
+		PlanFile planfile2 = new PlanFile("2020", false, plan2);
+		dpt.addPlan("2020", planfile2);
 
 		Plan defaultCentre = new Centre();
 		Plan defaultVMOSA = new VMOSA();
