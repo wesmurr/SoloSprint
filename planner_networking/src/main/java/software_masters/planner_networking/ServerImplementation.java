@@ -73,7 +73,6 @@ public class ServerImplementation implements Server
 	 * @see software_masters.planner_networking.Server#logIn(java.lang.String,
 	 * java.lang.String)
 	 */
-
 	public String logIn(String username, String password)
 	{
 		if (!this.loginMap.containsKey(username))// checks username is valid
@@ -93,7 +92,6 @@ public class ServerImplementation implements Server
 	 * @see software_masters.planner_networking.Server#getPlan(java.lang.String,
 	 * java.lang.String)
 	 */
-
 	public PlanFile getPlan(String year, String cookie)
 	{
 		cookieChecker(cookie);// checks that cookie is valid
@@ -115,7 +113,6 @@ public class ServerImplementation implements Server
 	 * software_masters.planner_networking.Server#getPlanOutline(java.lang.String,
 	 * java.lang.String)
 	 */
-
 	public PlanFile getPlanOutline(String name, String cookie)
 	{
 		cookieChecker(cookie);// checks that cookie is valid
@@ -135,7 +132,6 @@ public class ServerImplementation implements Server
 	 * @see software_masters.planner_networking.Server#savePlan(software_masters.
 	 * planner_networking.PlanFile, java.lang.String)
 	 */
-
 	public void savePlan(PlanFile plan, String cookie)
 	{
 		cookieChecker(cookie);// checks that cookie is valid
@@ -167,7 +163,6 @@ public class ServerImplementation implements Server
 	 * @see software_masters.planner_networking.Server#addUser(java.lang.String,
 	 * java.lang.String, java.lang.String, boolean, java.lang.String)
 	 */
-
 	public void addUser(String username, String password, String departmentName, boolean isAdmin, String cookie)
 	{
 		cookieChecker(cookie);// checks that cookie is valid and that user is admin
@@ -223,7 +218,6 @@ public class ServerImplementation implements Server
 	 * @see software_masters.planner_networking.Server#flagPlan(java.lang.String,
 	 * java.lang.String, boolean, java.lang.String)
 	 */
-
 	public void flagPlan(String departmentName, String year, boolean canEdit, String cookie)
 	{
 		cookieChecker(cookie);// checks that cookie is valid and that user is admin
@@ -247,7 +241,6 @@ public class ServerImplementation implements Server
 	 * software_masters.planner_networking.Server#addDepartment(java.lang.String,
 	 * java.lang.String)
 	 */
-
 	public void addDepartment(String departmentName, String cookie)
 	{
 		cookieChecker(cookie);// checks that cookie is valid and that user is admin
@@ -264,7 +257,6 @@ public class ServerImplementation implements Server
 	 * software_masters.planner_networking.Server#addPlanTemplate(java.lang.String,
 	 * software_masters.planner_networking.PlanFile)
 	 */
-
 	public void addPlanTemplate(String name, PlanFile plan)
 	{
 		this.planTemplateMap.put(name, plan);
@@ -291,7 +283,6 @@ public class ServerImplementation implements Server
 	 * 
 	 * @see software_masters.planner_networking.Server#save()
 	 */
-
 	public void save()
 	{
 		String filename = "PlannerServer.serv";

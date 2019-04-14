@@ -17,7 +17,6 @@ public class Node implements Serializable
 	private String data;
 	private ArrayList<Node> children = new ArrayList<Node>();
 
-	// constructor is data is not known
 	/**
 	 * Takes a Node parent, String name, String data, and list of children Sets
 	 * values in node
@@ -41,7 +40,6 @@ public class Node implements Serializable
 		this(null, "blank", "empty", null);
 	}
 
-	// Getter and setters
 	/**
 	 * returns a String name of node
 	 * 
