@@ -20,7 +20,7 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	 * @param canEdit
 	 * @param plan
 	 */
-	public PlanFile(String year, boolean canEdit, Plan plan) throws RemoteException
+	public PlanFile(String year, boolean canEdit, Plan plan) //throws RemoteException
 	{
 		this.year = year;
 		this.canEdit = canEdit;
@@ -30,7 +30,7 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	/**
 	 * Default constructor for serialization
 	 */
-	public PlanFile() throws RemoteException
+	public PlanFile() // throws RemoteException
 	{
 		this.year = null;
 		this.canEdit = false;
@@ -84,6 +84,9 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	{
 		this.plan = plan;
 	}
+
+	@Override
+	public String toString() { return year; }
 
 	/*
 	 * (non-Javadoc)

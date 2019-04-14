@@ -13,6 +13,8 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -40,7 +42,6 @@ public class ServerImplementation implements Server
 
 	/**
 	 * Initializes server with default objects listed above for testing
-	 * 
 	 */
 	public ServerImplementation() throws RemoteException
 	{
@@ -356,7 +357,6 @@ public class ServerImplementation implements Server
 	 * 
 	 * @see software_masters.planner_networking.Server#getLoginMap()
 	 */
-
 	public ConcurrentHashMap<String, Account> getLoginMap()
 	{
 		return loginMap;
@@ -369,7 +369,6 @@ public class ServerImplementation implements Server
 	 * software_masters.planner_networking.Server#setLoginMap(java.util.concurrent.
 	 * ConcurrentHashMap)
 	 */
-
 	public void setLoginMap(ConcurrentHashMap<String, Account> loginMap)
 	{
 		this.loginMap = loginMap;
@@ -380,7 +379,6 @@ public class ServerImplementation implements Server
 	 * 
 	 * @see software_masters.planner_networking.Server#getCookieMap()
 	 */
-
 	public ConcurrentHashMap<String, Account> getCookieMap()
 	{
 		return cookieMap;
@@ -393,7 +391,6 @@ public class ServerImplementation implements Server
 	 * software_masters.planner_networking.Server#setCookieMap(java.util.concurrent.
 	 * ConcurrentHashMap)
 	 */
-
 	public void setCookieMap(ConcurrentHashMap<String, Account> cookieMap)
 	{
 		this.cookieMap = cookieMap;
@@ -404,7 +401,6 @@ public class ServerImplementation implements Server
 	 * 
 	 * @see software_masters.planner_networking.Server#getDepartmentMap()
 	 */
-
 	public ConcurrentHashMap<String, Department> getDepartmentMap()
 	{
 		return departmentMap;
@@ -416,7 +412,6 @@ public class ServerImplementation implements Server
 	 * @see software_masters.planner_networking.Server#setDepartmentMap(java.util.
 	 * concurrent.ConcurrentHashMap)
 	 */
-
 	public void setDepartmentMap(ConcurrentHashMap<String, Department> departmentMap)
 	{
 		this.departmentMap = departmentMap;
@@ -427,7 +422,6 @@ public class ServerImplementation implements Server
 	 * 
 	 * @see software_masters.planner_networking.Server#getPlanTemplateMap()
 	 */
-
 	public ConcurrentHashMap<String, PlanFile> getPlanTemplateMap()
 	{
 		return planTemplateMap;
@@ -439,7 +433,6 @@ public class ServerImplementation implements Server
 	 * @see software_masters.planner_networking.Server#setPlanTemplateMap(java.util.
 	 * concurrent.ConcurrentHashMap)
 	 */
-
 	public void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap)
 	{
 		this.planTemplateMap = planTemplateMap;
@@ -450,7 +443,18 @@ public class ServerImplementation implements Server
 	 */
 	public Collection<PlanFile> listPlanTemplates()
 	{
-		return planTemplateMap.values();
+		Collection<PlanFile> collections=planTemplateMap.values();
+		LinkedList<PlanFile> list=new LinkedList<PlanFile>();
+		Iterator<PlanFile> iter=collections.iterator();
+		PlanFile temp;
+		String name;
+		for (Enumeration<String> e = planTemplateMap.keys(); e.hasMoreElements();) {
+		       name=e.nextElement();
+		       temp=iter.next();
+		       list.add(new PlanFile(name,temp.isCanEdit(),null));
+		}
+		collections=(Collection<PlanFile>) list;
+		return collections;
 	}
 	
 	/* (non-Javadoc)
@@ -463,7 +467,15 @@ public class ServerImplementation implements Server
 		Account userAccount = this.cookieMap.get(cookie);
 		Department department = userAccount.getDepartment();
 	
-		return department.getPlanFileMap().values();
+		Collection<PlanFile> collections=department.getPlanFileMap().values();
+		LinkedList<PlanFile> list=new LinkedList<PlanFile>();
+		PlanFile temp;
+		for (Iterator<PlanFile> iter=collections.iterator(); iter.hasNext();) {
+		       temp=iter.next();
+		       list.add(new PlanFile(temp.getYear(),temp.isCanEdit(),null));
+		}
+		collections=(Collection<PlanFile>) list;
+		return collections;
 	}
 
 	/*
@@ -471,7 +483,6 @@ public class ServerImplementation implements Server
 	 * 
 	 * @see software_masters.planner_networking.Server#equals(java.lang.Object)
 	 */
-
 	public boolean equals(Object obj)
 	{
 		if (this == obj)
@@ -558,7 +569,6 @@ public class ServerImplementation implements Server
 			registry.bind("PlannerServer", stub);
 		} catch (java.rmi.AlreadyBoundException e)
 		{
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

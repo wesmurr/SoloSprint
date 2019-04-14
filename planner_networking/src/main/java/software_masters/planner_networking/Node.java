@@ -111,10 +111,7 @@ public class Node implements Serializable
 	{
 		return children;
 	}
-
-	//
-
-	// add a Node child to another node
+	
 	/**
 	 * Takes a node child and adds child to child list
 	 * 
@@ -125,7 +122,6 @@ public class Node implements Serializable
 		this.children.add(child);
 	}
 
-	// remove child node from a node's children list
 	/**
 	 * @param child child to be removed from this node
 	 */
@@ -133,6 +129,9 @@ public class Node implements Serializable
 	{
 		this.children.remove(child);
 	}
+
+	@Override
+	public String toString() { return name; }
 
 //	/*
 //	 * (non-Javadoc)

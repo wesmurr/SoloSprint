@@ -126,6 +126,13 @@ public class Department
 		return true;
 	}
 
+	/**
+	 * @param <K>
+	 * @param <V>
+	 * @param map1
+	 * @param map2
+	 * @return
+	 */
 	private static <K, V> boolean hashesEqual(ConcurrentHashMap<K, V> map1, ConcurrentHashMap<K, V> map2)
 	{
 		for (Enumeration<K> keyList = map1.keys(); keyList.hasMoreElements();)

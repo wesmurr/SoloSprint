@@ -81,23 +81,49 @@ public class PlanSelectionViewController
     	
     }
     
+    /**
+     * This method lists all the plan templates.
+     */
     @FXML
     public void openPlanTemplate() {
     	PlanFile selected=this.planTemplateList.getSelectionModel().getSelectedItem();
-    	this.app.getModel().setCurrPlanFile(selected);
-    	this.app.getModel().setCurrNode(selected.getPlan().getRoot());
+    	try {
+			this.app.getModel().getPlanOutline(selected.getYear());
+		} catch (IllegalArgumentException e) {
+			System.out.println("Invalid plan template");
+			this.app.showPlanSelectionView();
+			return;
+		} catch (RemoteException e) {
+			this.app.showConnectToServer();
+			return;
+		}
     	this.app.showPlanEditView();
+    	return;
     }
     
+    /**
+     * This method lists all the plans associated with the user's department
+     */
     @FXML
     public void openPlan() {
     	PlanFile selected=this.departmentPlanList.getSelectionModel().getSelectedItem();
-    	this.app.getModel().setCurrPlanFile(selected);
-    	this.app.getModel().setCurrNode(selected.getPlan().getRoot());
+    	try {
+			this.app.getModel().getPlan(selected.getYear());
+		} catch (IllegalArgumentException e) {
+			System.out.println("Invalid plan template");
+			this.app.showPlanSelectionView();
+			return;
+		} catch (RemoteException e) {
+			this.app.showConnectToServer();
+			return;
+		}
+
     	if (selected.isCanEdit()) {
     		this.app.showPlanEditView();
+    		return;
     	}else {
     		this.app.showPlanReadOnlyView();
+    		return;
     	}
     }
 
