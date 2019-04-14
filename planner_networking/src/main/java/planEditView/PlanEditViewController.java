@@ -21,7 +21,6 @@ public class PlanEditViewController
 	@FXML TextField dataField;
 	@FXML TextField yearField;
 	
-	Node currNode;
 	boolean isPushed;
 	
 	
@@ -32,8 +31,12 @@ public class PlanEditViewController
 		this.application = application;
 		model = this.application.getModel();
 		setTreeView();
-		setTreeItemAction();
+		treeView.getSelectionModel().selectedItemProperty().addListener((v) ->
+		{
+			changeSection();
+		});
 		isPushed = true;
+		populateFields();
 	}
 	
 	/**
@@ -41,9 +44,8 @@ public class PlanEditViewController
 	 */
 	@FXML
 	public void deleteSection() {
-		setCurrNode();
 		try {
-			model.getCurrPlanFile().getPlan().removeNode(currNode);
+			model.removeBranch();
 			setTreeView();
 			isPushed = false;
 		} catch (IllegalArgumentException e) {
@@ -57,9 +59,9 @@ public class PlanEditViewController
 	 */
 	@FXML
 	public void addSection() {
-		setCurrNode();
 		try {
-			model.getCurrPlanFile().getPlan().addNode(currNode.getParent());
+			this.changeSection();
+			model.addBranch();
 			setTreeView();
 			isPushed = false;
 		} catch (RemoteException e) {
@@ -125,6 +127,9 @@ public class PlanEditViewController
 	private void setTreeView()
 	{
 		treeView.setRoot(convertTree(model.getCurrPlanFile().getPlan().getRoot()));
+		System.out.println(treeView.getRoot().toString());
+		treeView.getSelectionModel().select(treeView.getRoot());
+		model.setCurrNode(model.getCurrPlanFile().getPlan().getRoot());
 	}
 	
 	
@@ -140,46 +145,32 @@ public class PlanEditViewController
 		return newRoot;
 	}
 	
-	/**
-	 * Helper method for changing tree*/
-	private void setCurrNode() {
-		currNode = treeView.getSelectionModel().getSelectedItem().getValue();
-	}
-	
-	
-	
-	
-	/**
-	 * set the action when the user click another node
-	 * saving the current section is done automatically
-	 */
-	private void setTreeItemAction()
-	{
-		treeView.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)->
-		{
-			saveAction();
-			changeSection(newValue);
-		});
-	}
+
 	
 	/**
 	 * Change the nameField and dataField to the content stored in current node
 	 * @param item
 	 */
-	private void changeSection(TreeItem<Node> item)
+	private void changeSection()
 	{
-		currNode = item.getValue();
-		nameField.setText(currNode.getName());
-		dataField.setText(currNode.getData());
+		TreeItem<Node> item = treeView.getSelectionModel().getSelectedItem();
+		model.editName(nameField.getText());
+		model.editData(dataField.getText());
+		model.setCurrNode(item.getValue());
+		nameField.setText(model.getCurrNode().getName());
+		dataField.setText(model.getCurrNode().getData());
+		treeView.refresh();
+		isPushed = false;
 	}
 	
-	/**
-	 * save the content edited in nameField and dataField to the node
+
+	/**Initializes the year, name, and data text fields.
+	 * 
 	 */
-	private void saveAction()
+	private void populateFields()
 	{
-		currNode.setName(nameField.getText());
-		currNode.setData(dataField.getText());
-		isPushed = false;
+		yearField.setText(model.getCurrPlanFile().getYear());
+		nameField.setText(model.getCurrNode().getName());
+		dataField.setText(model.getCurrNode().getData());
 	}
 }

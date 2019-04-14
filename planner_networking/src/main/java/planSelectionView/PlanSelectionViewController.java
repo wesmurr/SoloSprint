@@ -44,12 +44,15 @@ public class PlanSelectionViewController
     
     /**
      * Allows controller to access showPlanEditView, showPlanReadOnlyView,
-     *  and the showLoginView methods in the main application
+     *  and the showLoginView methods in the main application. Also populates the listviews with genTemplateList
+     *  and genPlansList
      * @param app main application
      */
     public void setApplication(Main app)
     {
     	this.app = app;
+    	genPlansList();
+    	genTemplateList();
     }
     
     /**

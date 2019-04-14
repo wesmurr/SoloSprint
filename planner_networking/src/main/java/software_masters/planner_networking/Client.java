@@ -203,6 +203,14 @@ public class Client
 	{
 		this.currNode.setData(data);
 	}
+	
+	/**
+	 * @param name to set node title to
+	 */
+	public void editName(String name)
+	{
+		this.currNode.setName(name);
+	}
 
 	/**
 	 * @return the data associated with a node
