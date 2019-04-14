@@ -84,12 +84,16 @@ public class PlanSelectionViewController
     @FXML
     public void openPlanTemplate() {
     	PlanFile selected=this.planTemplateList.getSelectionModel().getSelectedItem();
+    	this.app.getModel().setCurrPlanFile(selected);
+    	this.app.getModel().setCurrNode(selected.getPlan().getRoot());
     	this.app.showPlanEditView();
     }
     
     @FXML
     public void openPlan() {
     	PlanFile selected=this.departmentPlanList.getSelectionModel().getSelectedItem();
+    	this.app.getModel().setCurrPlanFile(selected);
+    	this.app.getModel().setCurrNode(selected.getPlan().getRoot());
     	if (selected.isCanEdit()) {
     		this.app.showPlanEditView();
     	}else {

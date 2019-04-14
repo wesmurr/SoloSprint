@@ -20,7 +20,7 @@
                <center>
                   <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <content>
-                        <ListView fx:id="planTemplateList" maxWidth="1.7976931348623157E308" prefHeight="200.0" />
+                        <ListView fx:id="planTemplateList" maxWidth="1.7976931348623157E308" onMouseClicked="#openPlanTemplate" prefHeight="200.0" />
                      </content>
                   </ScrollPane>
                </center>
@@ -32,7 +32,7 @@
                <center>
                   <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <content>
-                        <ListView fx:id="departmentPlanList" maxWidth="1.7976931348623157E308" prefHeight="200.0" />
+                        <ListView fx:id="departmentPlanList" maxWidth="1.7976931348623157E308" onMouseClicked="#openPlan" prefHeight="200.0" />
                      </content>
                   </ScrollPane>
                </center>
