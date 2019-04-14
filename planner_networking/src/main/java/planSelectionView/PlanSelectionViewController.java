@@ -80,5 +80,21 @@ public class PlanSelectionViewController
     	departmentPlanList.setItems(items);
     	
     }
+    
+    @FXML
+    public void openPlanTemplate() {
+    	PlanFile selected=this.planTemplateList.getSelectionModel().getSelectedItem();
+    	this.app.showPlanEditView();
+    }
+    
+    @FXML
+    public void openPlan() {
+    	PlanFile selected=this.departmentPlanList.getSelectionModel().getSelectedItem();
+    	if (selected.isCanEdit()) {
+    		this.app.showPlanEditView();
+    	}else {
+    		this.app.showPlanReadOnlyView();
+    	}
+    }
 
 }
