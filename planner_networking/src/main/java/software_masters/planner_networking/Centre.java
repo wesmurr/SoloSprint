@@ -64,23 +64,28 @@ public class Centre extends Plan
 	// cannot be removed if it is the only child of its parent
 	// or if it is the root node
 	/**
-	 * Takes a Node nodeRemove and returns a boolean true is removed
+	 * Takes a Node nodeRemove and returns a boolean true if added
 	 * 
 	 * @param nodeRemove node to be removed
-	 * @return boolean true if removed
+	 * @return boolean true is removed
 	 */
 	public boolean removeNode(Node nodeRemove) throws IllegalArgumentException
+
 	{
-		if ((nodeRemove.getName() == this.getRoot().getName()) || nodeRemove.getParent().getChildren().size() == 1
-				|| nodeRemove == null)
-		{
-
+		if (nodeRemove == null) {
 			throw new IllegalArgumentException("Cannot remove this node");
-
-		} else
-		{
+			
+		} else if (nodeRemove.getParent() == null) {
+			throw new IllegalArgumentException("Cannot remove this node");
+			
+		} else if (nodeRemove.getName().equals(this.getRoot().getName()) || nodeRemove.getParent().getChildren().size() == 1) {
+					throw new IllegalArgumentException("Cannot remove this node");
+					
+					} 
+			else {
 			nodeRemove.getParent().removeChild(nodeRemove);
 			nodeRemove.setParent(null);
+
 			return true;
 
 		}

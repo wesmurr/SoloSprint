@@ -139,6 +139,7 @@ public class ServerImplementation implements Server
 	 */
 	public void savePlan(PlanFile plan, String cookie)
 	{
+		Integer.parseInt(plan.getYear());
 		cookieChecker(cookie);// checks that cookie is valid
 
 		if (plan.getYear() == null)// checks planFile is given a year

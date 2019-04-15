@@ -49,7 +49,7 @@ public class PlanEditViewController
 			setTreeView();
 			isPushed = false;
 		} catch (IllegalArgumentException e) {
-			application.sendError(e.toString());
+			application.sendError("Cannot delete this section");
 		}
 		
 	}
@@ -65,9 +65,9 @@ public class PlanEditViewController
 			setTreeView();
 			isPushed = false;
 		} catch (RemoteException e) {
-			application.sendError(e.toString());
+			application.sendError("Cannot connect to server");
 		} catch (IllegalArgumentException e) {
-			application.sendError(e.toString());
+			application.sendError("Cannot add a section of this type");
 		}
 		
 	}
@@ -79,7 +79,7 @@ public class PlanEditViewController
 	@FXML
 	public void logOut() {
 		//need to ask users if they want to push
-		
+		this.changeSection();
 		if (this.isPushed)
 		{
 			model.setCookie(null);
@@ -89,7 +89,7 @@ public class PlanEditViewController
 		}
 		else
 		{
-			this.warningToSave();
+			this.warningToSaveLogout();
 		}
 	}
 	
@@ -100,29 +100,46 @@ public class PlanEditViewController
 	public void backToPlans() {
 		//need to ask users if they want to push
 		
-		model.setCurrNode(null);
-		model.setCurrPlanFile(null);
-		application.showPlanSelectionView();
+		this.changeSection();
+		if (this.isPushed)
+		{
+			model.setCurrNode(null);
+			model.setCurrPlanFile(null);
+			application.showPlanSelectionView();
+		}
+		else
+		{
+			this.warningToSaveBackToPlans();
+		}
 	}
 	
 	/**
 	 * Push the current business plan to the server
 	 */
 	@FXML 
-	public void push() {
+	public boolean push() {
 		try {
 			//set the year to which the user want 
 			//This allow the user to decide which year they want to edit
 			// at editing time
-			model.getCurrPlanFile().setYear(yearField.getText());
 			changeSection();
+			model.getCurrPlanFile().setYear(yearField.getText());
 			model.pushPlan(model.getCurrPlanFile());
 			isPushed = true;
-		} catch (IllegalArgumentException e) {
-			application.sendError(e.toString());
-		} catch (RemoteException e) {
-			application.sendError(e.toString());
+		} 
+			catch (NumberFormatException e)
+		{
+				application.sendError("Invalid Year");
+				return false;
 		}
+			catch (IllegalArgumentException e) {
+			application.sendError("Cannot save changes to this plan");
+			return false;
+		} catch (RemoteException e) {
+			application.sendError("Cannot connect to server");
+			return false;
+		}
+		return true;
 	}
 	
 	
@@ -158,8 +175,12 @@ public class PlanEditViewController
 	 * @param item
 	 */
 	@FXML
-	private void changeSection()
+	public void changeSection()
 	{
+		 boolean isChanged =  !(nameField.getText().equals(model.getCurrNode().getName()) && 
+				dataField.getText().equals(model.getCurrNode().getData()) && 
+				yearField.getText().equals(model.getCurrPlanFile().getYear()));
+		System.out.println(isChanged);
 		TreeItem<Node> item = treeView.getSelectionModel().getSelectedItem();
 		model.editName(nameField.getText());
 		model.editData(dataField.getText());
@@ -167,7 +188,12 @@ public class PlanEditViewController
 		nameField.setText(model.getCurrNode().getName());
 		dataField.setText(model.getCurrNode().getData());
 		treeView.refresh();
-		isPushed = false;
+		
+		if(isChanged)
+		{
+			isPushed = false;
+		}
+		
 	}
 	
 
@@ -183,9 +209,10 @@ public class PlanEditViewController
 	
 	/**
 	 * Asks user if they want to save unsaved changes before leaving the plan edit view window
+	 * for the logout button
 	 * @return result of button press
 	 */
-	public void warningToSave()
+	public void warningToSaveLogout()
 	{
 	Alert alert = new Alert(AlertType.CONFIRMATION);
 	String message = "You have unsaved changes. Do you wish to save before exiting?";
@@ -197,12 +224,13 @@ public class PlanEditViewController
 	Optional<ButtonType> result = alert.showAndWait();
 	if (result.get() == okButton)
 	{
-			this.push();
-			model.setCookie(null);
-			model.setCurrNode(null);
-			model.setCurrPlanFile(null);
-			application.showLoginView();
-		
+			if(this.push())
+			{	
+				model.setCookie(null);
+				model.setCurrNode(null);
+				model.setCurrPlanFile(null);
+				//application.showLoginView();
+			}
 	}
 	else if (result.get() == noButton) {
 		model.setCookie(null);
@@ -213,5 +241,47 @@ public class PlanEditViewController
 	}
 	else if (result.get() == cancelButton) {
 	}
+	}
+	
+	/**
+	 * Asks user if they want to save unsaved changes before leaving the plan edit view window
+	 * for the back to plans button
+	 * @return result of button press
+	 */
+	public void warningToSaveBackToPlans()
+	{
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	String message = "You have unsaved changes. Do you wish to save before exiting?";
+	alert.setContentText(message);
+	ButtonType okButton = new ButtonType("Yes");
+	ButtonType noButton = new ButtonType("No");
+	ButtonType cancelButton = new ButtonType("Cancel");
+	alert.getButtonTypes().setAll(okButton,noButton,cancelButton);
+	Optional<ButtonType> result = alert.showAndWait();
+	if (result.get() == okButton)
+	{
+			if(this.push())
+			{	
+				model.setCurrNode(null);
+				model.setCurrPlanFile(null);
+				application.showPlanSelectionView();
+			}
+	}
+	else if (result.get() == noButton) {
+		model.setCurrNode(null);
+		model.setCurrPlanFile(null);
+		application.showPlanSelectionView();
+
+
+	}
+	else if (result.get() == cancelButton) {
+	}
+	}
+
+	/**
+	 * @return the isPushed
+	 */
+	public boolean isPushed() {
+		return isPushed;
 	}
 }

@@ -14,6 +14,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import loginView.LoginViewController;
 import planEditView.PlanEditViewController;
 import planReadOnlyView.PlanReadOnlyViewController;
@@ -68,6 +69,11 @@ public class Main extends Application {
 		ServerConnectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
 		
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			primaryStage.close();
+			
+		});
+		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
@@ -89,6 +95,11 @@ public class Main extends Application {
 		LoginViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
 		
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			primaryStage.close();
+			
+		});
+		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
@@ -109,6 +120,11 @@ public class Main extends Application {
 		}
 		PlanSelectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanEditView and showPlanReadOnlyView
+		
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			primaryStage.close();
+			
+		});
 		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
@@ -132,6 +148,19 @@ public class Main extends Application {
 		PlanEditViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 		
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			e.consume();
+			cont.changeSection();
+			if(!cont.isPushed())
+			{
+				closeWindow(cont);
+			}
+			else {
+				primaryStage.close();
+			}
+		});
+		
+		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
@@ -152,6 +181,11 @@ public class Main extends Application {
 		}
 		PlanReadOnlyViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
+		
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			primaryStage.close();
+			
+		});
 		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
@@ -186,5 +220,33 @@ public class Main extends Application {
 		alert.showAndWait();
 	}
 	
+	/**
+	 * Handles the exit without saving popup
+	 * @param cont plan edit view controller
+	 */
+	private void closeWindow(PlanEditViewController cont)
+	{
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		String message = "You have unsaved changes. Do you wish to save before exiting?";
+		alert.setContentText(message);
+		ButtonType okButton = new ButtonType("Yes");
+		ButtonType noButton = new ButtonType("No");
+		ButtonType cancelButton = new ButtonType("Cancel");
+		alert.getButtonTypes().setAll(okButton,noButton,cancelButton);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == okButton)
+		{
+				if(cont.push())
+				{	
+					primaryStage.close();
+				}
+		}
+		else if (result.get() == noButton) {
+			primaryStage.close();
+
+		}
+
+	}
+
 
 }
