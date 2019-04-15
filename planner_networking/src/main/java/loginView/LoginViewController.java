@@ -22,9 +22,9 @@ public class LoginViewController
 			application.getModel().login(usernameField.getText(), passWordField.getText());
 			application.showPlanSelectionView();
 		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
+			application.sendError(e.toString());
 		} catch (RemoteException e) {
-			e.printStackTrace();
+			application.sendError(e.toString());
 		}
     }
 	

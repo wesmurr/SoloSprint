@@ -12,7 +12,7 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <TreeView fx:id="treeView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <TreeView fx:id="treeView" onMouseClicked="#changeSection" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </left>
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">

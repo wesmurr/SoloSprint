@@ -1,12 +1,16 @@
 package planEditView;
 
 import java.rmi.RemoteException;
+import java.util.Optional;
 
 import application.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.control.Alert.AlertType;
 import software_masters.model.PlannerModel;
 import software_masters.planner_networking.Node;
 
@@ -31,12 +35,7 @@ public class PlanEditViewController
 		this.application = application;
 		model = this.application.getModel();
 		setTreeView();
-		treeView.getSelectionModel().selectedItemProperty().addListener((v) ->
-		{
-			changeSection();
-		});
 		isPushed = true;
-		populateFields();
 	}
 	
 	/**
@@ -81,11 +80,17 @@ public class PlanEditViewController
 	public void logOut() {
 		//need to ask users if they want to push
 		
-		model.setCookie(null);
-		model.setCurrNode(null);
-		model.setCurrPlanFile(null);
-		
-		application.showLoginView();
+		if (this.isPushed)
+		{
+			model.setCookie(null);
+			model.setCurrNode(null);
+			model.setCurrPlanFile(null);
+			application.showLoginView();
+		}
+		else
+		{
+			this.warningToSave();
+		}
 	}
 	
 	/**
@@ -126,9 +131,11 @@ public class PlanEditViewController
 	 */
 	private void setTreeView()
 	{
-		treeView.rootProperty().setValue(convertTree(model.getCurrPlanFile().getPlan().getRoot()));
+		treeView.setRoot(convertTree(model.getCurrPlanFile().getPlan().getRoot()));
 		treeView.getSelectionModel().select(treeView.getRoot());
 		model.setCurrNode(model.getCurrPlanFile().getPlan().getRoot());
+		treeView.refresh();
+		populateFields();
 	}
 	
 	
@@ -150,6 +157,7 @@ public class PlanEditViewController
 	 * Change the nameField and dataField to the content stored in current node
 	 * @param item
 	 */
+	@FXML
 	private void changeSection()
 	{
 		TreeItem<Node> item = treeView.getSelectionModel().getSelectedItem();
@@ -171,5 +179,39 @@ public class PlanEditViewController
 		yearField.setText(model.getCurrPlanFile().getYear());
 		nameField.setText(model.getCurrNode().getName());
 		dataField.setText(model.getCurrNode().getData());
+	}
+	
+	/**
+	 * Asks user if they want to save unsaved changes before leaving the plan edit view window
+	 * @return result of button press
+	 */
+	public void warningToSave()
+	{
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	String message = "You have unsaved changes. Do you wish to save before exiting?";
+	alert.setContentText(message);
+	ButtonType okButton = new ButtonType("Yes");
+	ButtonType noButton = new ButtonType("No");
+	ButtonType cancelButton = new ButtonType("Cancel");
+	alert.getButtonTypes().setAll(okButton,noButton,cancelButton);
+	Optional<ButtonType> result = alert.showAndWait();
+	if (result.get() == okButton)
+	{
+			this.push();
+			model.setCookie(null);
+			model.setCurrNode(null);
+			model.setCurrPlanFile(null);
+			application.showLoginView();
+		
+	}
+	else if (result.get() == noButton) {
+		model.setCookie(null);
+		model.setCurrNode(null);
+		model.setCurrPlanFile(null);
+		application.showLoginView();
+
+	}
+	else if (result.get() == cancelButton) {
+	}
 	}
 }

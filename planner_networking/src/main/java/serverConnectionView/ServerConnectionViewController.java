@@ -20,7 +20,12 @@ public class ServerConnectionViewController
 		{
 			application.getModel().connectToServer(ipAddress.getText(), Integer.parseInt(port.getText()));
 			application.showLoginView();
-		} catch (RemoteException e) {
+		}
+			catch (NumberFormatException e)
+		{
+				application.sendError(e.toString());
+		}
+			catch (RemoteException e) {
 			application.sendError(e.toString());
 		} catch (NotBoundException e) {
 			application.sendError(e.toString());
@@ -31,4 +36,6 @@ public class ServerConnectionViewController
 	{
 		this.application = application;
 	}
+	
+	
 }
