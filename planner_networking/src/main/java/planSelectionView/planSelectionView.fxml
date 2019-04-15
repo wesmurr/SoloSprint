@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane prefHeight="324.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="planSelectionView.PlanSelectionViewController">
+<BorderPane prefHeight="324.0" prefWidth="579.0" xmlns="http://javafx.com/javafx/8.0.181" xmlns:fx="http://javafx.com/fxml/1" fx:controller="planSelectionView.PlanSelectionViewController">
    <center>
       <VBox prefHeight="249.0" prefWidth="268.0" BorderPane.alignment="CENTER">
          <children>
@@ -43,9 +43,9 @@
    <top>
       <HBox prefHeight="38.0" prefWidth="524.0" BorderPane.alignment="CENTER">
          <children>
-            <Separator prefWidth="200.0" />
+            <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Label prefHeight="25.0" prefWidth="100.0" text="Select Plan" />
-            <Separator prefWidth="200.0" />
+            <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#Logout" prefWidth="68.0" text="Logout" />
          </children>
       </HBox>

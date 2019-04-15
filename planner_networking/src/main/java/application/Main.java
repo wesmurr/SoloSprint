@@ -77,6 +77,7 @@ public class Main extends Application {
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
+		primaryStage.sizeToScene();
 	}
 	
 	/**
@@ -103,6 +104,7 @@ public class Main extends Application {
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
+		primaryStage.sizeToScene();
 	}
 	
 	/**Shows the plan selection view
@@ -128,7 +130,8 @@ public class Main extends Application {
 		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
-		primaryStage.show();		
+		primaryStage.show();
+		primaryStage.sizeToScene();
 		
 	}
 	
@@ -164,6 +167,7 @@ public class Main extends Application {
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
+		primaryStage.sizeToScene();
 	}
 	
 	/**
@@ -190,6 +194,7 @@ public class Main extends Application {
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
+		primaryStage.sizeToScene();
 	}
 
 	/**
