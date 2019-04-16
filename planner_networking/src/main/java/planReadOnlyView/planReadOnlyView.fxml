@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,10 +18,10 @@
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <top>
-                  <TextField fx:id="nameField" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="nameField" editable="false" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
                </top>
                <center>
-                  <TextField fx:id="dataField" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="372.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
+                  <TextField fx:id="dataField" alignment="TOP_LEFT" editable="false" maxHeight="1.7976931348623157E308" prefHeight="372.0" prefWidth="400.0" BorderPane.alignment="CENTER" />
                </center>
             </BorderPane>
          </center>
@@ -29,13 +30,19 @@
    <top>
       <HBox prefHeight="38.0" prefWidth="801.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#backToPlans" prefHeight="26.0" prefWidth="133.0" text="Back to plans" />
+            <Button mnemonicParsing="false" onAction="#backToPlans" prefHeight="26.0" prefWidth="133.0" text="Back to plans">
+               <tooltip>
+                  <Tooltip text="Return to plan selection page" />
+               </tooltip></Button>
             <Separator prefHeight="0.0" prefWidth="141.0" HBox.hgrow="ALWAYS" />
             <Label prefHeight="16.0" prefWidth="368.0" text="Local View Only - Cannot Save Changes" textFill="RED" />
             <Separator prefHeight="0.0" prefWidth="5.0" HBox.hgrow="ALWAYS" />
             <Label prefHeight="26.0" prefWidth="59.0" text="Year" />
-            <TextField fx:id="yearField" prefHeight="26.0" prefWidth="126.0" />
-            <Button mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="102.0" text="Log Out" />
+            <TextField fx:id="yearField" editable="false" prefHeight="26.0" prefWidth="126.0" />
+            <Button mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="102.0" text="Log Out">
+               <tooltip>
+                  <Tooltip text="Click to log out" />
+               </tooltip></Button>
          </children>
       </HBox>
    </top>

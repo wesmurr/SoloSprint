@@ -67,8 +67,8 @@ public class ServerImplementation implements Server
 
 		Plan defaultCentre = new Centre();
 		Plan defaultVMOSA = new VMOSA();
-		this.planTemplateMap.put("Centre", new PlanFile(null, true, defaultCentre));
-		this.planTemplateMap.put("VMOSA", new PlanFile(null, true, defaultVMOSA));
+		this.planTemplateMap.put("Centre", new PlanFile("", true, defaultCentre));
+		this.planTemplateMap.put("VMOSA", new PlanFile("", true, defaultVMOSA));
 
 	}
 

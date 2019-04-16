@@ -39,18 +39,32 @@ public class PlanEditViewController
 	}
 	
 	/**
-	 * Delete the current selected node in the treeview
+	 * Delete the current selected node in the treeview. Shows popup asking user if they actually wish to
+	 * delete.
 	 */
 	@FXML
 	public void deleteSection() {
-		try {
-			this.changeSection();
-			model.removeBranch();
-			setTreeView();
-			isPushed = false;
-		} catch (IllegalArgumentException e) {
-			application.sendError("Cannot delete this section");
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		String message = "Are you sure you want to delete this section and all dependencies?"
+				+ "They cannot be recovered.";
+		alert.setContentText(message);
+		ButtonType okButton = new ButtonType("Delete");
+		ButtonType noButton = new ButtonType("Don't Delete");
+		alert.getButtonTypes().setAll(okButton,noButton);
+		Optional<ButtonType> result = alert.showAndWait();
+		if (result.get() == okButton)
+		{
+			try {
+				this.changeSection();
+				model.removeBranch();
+				setTreeView();
+				isPushed = false;
+			} catch (IllegalArgumentException e) {
+				application.sendError("Cannot delete this section");
+			}
 		}
+		else if (result.get() == noButton) {
+			}
 		
 	}
 	
@@ -180,7 +194,6 @@ public class PlanEditViewController
 		 boolean isChanged =  !(nameField.getText().equals(model.getCurrNode().getName()) && 
 				dataField.getText().equals(model.getCurrNode().getData()) && 
 				yearField.getText().equals(model.getCurrPlanFile().getYear()));
-		System.out.println(isChanged);
 		TreeItem<Node> item = treeView.getSelectionModel().getSelectedItem();
 		model.editName(nameField.getText());
 		model.editData(dataField.getText());
@@ -277,6 +290,8 @@ public class PlanEditViewController
 	else if (result.get() == cancelButton) {
 	}
 	}
+	
+
 
 	/**
 	 * @return the isPushed
