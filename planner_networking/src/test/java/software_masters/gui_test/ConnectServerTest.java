@@ -15,15 +15,16 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import static org.testfx.api.FxAssert.verifyThat;
+import javafx.scene.control.Label;
 
 class ConnectServerTest extends ApplicationTest {
 
-	@Before
-	public void setUpClass() throws Exception {
-		
-		System.out.println("Got here!");
-		ApplicationTest.launch(Main.class);
-	}
+//	@Before
+//	public void setUpClass() throws Exception {
+//		
+//		System.out.println("Got here!");
+//		
+//	}
 	
 	
 	@Override
@@ -32,7 +33,6 @@ class ConnectServerTest extends ApplicationTest {
 		stage.show();
 	}
 	
-	@After
 	public void afterEachTest() throws TimeoutException {
 		FxToolkit.hideStage();
 		release(new KeyCode[] {});
@@ -46,10 +46,34 @@ class ConnectServerTest extends ApplicationTest {
 	String CONNECTBUTTON_ID = "#connectButton";
 	
 	@Test
-	public void defaultValueTest()
+	public void defaultValueTest() throws Exception
 	{	
+		setUp();
 		System.out.println("Test, here!");
-		verifyThat(IPFIELD_ID, (TextField field) -> {return field.getText().contains("IP Address:");});
+		verifyThat(IPFIELD_ID, (TextField field) -> {return field.getText().equals("127.0.0.1");});
+		verifyThat(PORTFIELD_ID, (TextField field) -> {return field.getText().equals("1060");});
+		verifyThat(IPLABEL_ID, (Label label)-> {return label.getText().equals("IP Address:");});
+		verifyThat(PORTLABEL_ID, (Label label)-> {return label.getText().equals("Port:");});
+		afterEachTest();
+		
 	}
+	
+	String userNameLabel = "#usernameLabel";
+	@Test
+	public void connectTest() throws Exception {
+		setUp();
+		clickOn(CONNECTBUTTON_ID);
+		verifyThat(userNameLabel, (Label label)-> {return label.getText().equals("IP Address:");});
+		
+		
+		
+	}
+	
+	private void setUp() throws Exception {
+		
+		ApplicationTest.launch(Main.class);
+	}
+	
+
 
 }
