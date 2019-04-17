@@ -76,6 +76,7 @@ public class Main extends Application {
 		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
+		
 		primaryStage.show();
 		primaryStage.sizeToScene();
 	}
@@ -130,8 +131,9 @@ public class Main extends Application {
 		
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
-		primaryStage.show();
 		primaryStage.sizeToScene();
+		primaryStage.show();
+		
 		
 	}
 	
