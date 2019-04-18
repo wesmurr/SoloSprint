@@ -71,6 +71,11 @@ class ConnectServerTest extends ApplicationTest {
 		
 	}
 	
+	/**
+	 * Helper method for grabbing nodes
+	 * @param query
+	 * @return
+	 */
 	public <T extends Node> T find(final String query) {
 		
 		return (T) lookup(query).queryAll().iterator().next();

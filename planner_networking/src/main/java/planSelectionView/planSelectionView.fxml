@@ -44,7 +44,7 @@
       <HBox prefHeight="38.0" prefWidth="524.0" BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Label prefHeight="25.0" prefWidth="100.0" text="Select Plan" />
+            <Label id="selectPlanLabel" prefHeight="25.0" prefWidth="100.0" text="Select Plan" />
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Button mnemonicParsing="false" onAction="#Logout" prefWidth="68.0" text="Logout" />
          </children>
