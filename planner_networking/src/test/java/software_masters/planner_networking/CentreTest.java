@@ -11,7 +11,6 @@ import org.junit.Test;
 
 /**
  * @author Courtney and Jack
- *
  */
 public class CentreTest
 {
@@ -78,7 +77,8 @@ public class CentreTest
 		try
 		{
 			CentrePlan2.removeNode(r);
-		} catch (IllegalArgumentException e)
+		}
+		catch (IllegalArgumentException e)
 		{
 			e.getMessage();
 		}
@@ -86,7 +86,8 @@ public class CentreTest
 		try
 		{
 			CentrePlan2.addNode(r);
-		} catch (IllegalArgumentException e)
+		}
+		catch (IllegalArgumentException e)
 		{
 			e.getMessage();
 		}

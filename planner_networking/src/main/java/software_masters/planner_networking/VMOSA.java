@@ -20,7 +20,6 @@ public class VMOSA extends Plan
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Plan#setDefaultStrings()
 	 */
 	protected void setDefaultStrings()
@@ -36,58 +35,75 @@ public class VMOSA extends Plan
 	/**
 	 * Takes a Node parent and returns a boolean True if added
 	 * 
-	 * @param parent parent node of node that needs to be added
+	 * @param parent
+	 *                   parent node of node that needs to be added
 	 * @return boolean true if added
 	 * @throws RemoteException
 	 */
 	public boolean addNode(Node parent) throws RemoteException, IllegalArgumentException
 	{
-		if (parent == null) {
+		if (parent == null)
+		{
 			throw new IllegalArgumentException("Cannot add to this parent");
-			
-		} else if (parent.getName().equals("Vision")) {
-			throw new IllegalArgumentException("Cannot add to this parent");
-			
-		} else {
 
-			for (int i = (this.getList().indexOf(parent.getName())) + 1; i < this.getList().size(); i++)
+		}
+		else
+			if (parent.getName().equals("Vision"))
 			{
-
-				Node newNode = new Node(parent, this.getList().get(i), null, null);
-
-				parent.addChild(newNode);
-				parent = newNode;
+				throw new IllegalArgumentException("Cannot add to this parent");
 
 			}
-			return true;
-		}
+			else
+			{
+
+				for (int i = (this.getList().indexOf(parent.getName())) + 1; i < this.getList().size(); i++)
+				{
+
+					Node newNode = new Node(parent, this.getList().get(i), null, null);
+
+					parent.addChild(newNode);
+					parent = newNode;
+
+				}
+				return true;
+			}
 	}
 
 	/**
 	 * Takes a Node nodeRemove and returns a boolean true if added
 	 * 
-	 * @param nodeRemove node to be removed
+	 * @param nodeRemove
+	 *                       node to be removed
 	 * @return boolean true is removed
 	 */
 	public boolean removeNode(Node nodeRemove) throws IllegalArgumentException
 
 	{
-		if (nodeRemove == null) {
+		if (nodeRemove == null)
+		{
 			throw new IllegalArgumentException("Cannot remove this node");
-			
-		} else if (nodeRemove.getParent() == null) {
-			throw new IllegalArgumentException("Cannot remove this node");
-			
-		} else if (nodeRemove.getName().equals(this.getRoot().getName()) || nodeRemove.getParent().getChildren().size() == 1) {
-					throw new IllegalArgumentException("Cannot remove this node");
-					
-					} 
-			else {
-			nodeRemove.getParent().removeChild(nodeRemove);
-			nodeRemove.setParent(null);
-
-			return true;
 
 		}
+		else
+			if (nodeRemove.getParent() == null)
+			{
+				throw new IllegalArgumentException("Cannot remove this node");
+
+			}
+			else
+				if (nodeRemove.getName().equals(this.getRoot().getName())
+						|| nodeRemove.getParent().getChildren().size() == 1)
+				{
+					throw new IllegalArgumentException("Cannot remove this node");
+
+				}
+				else
+				{
+					nodeRemove.getParent().removeChild(nodeRemove);
+					nodeRemove.setParent(null);
+
+					return true;
+
+				}
 	}
 }

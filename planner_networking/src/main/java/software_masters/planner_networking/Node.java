@@ -21,10 +21,14 @@ public class Node implements Serializable
 	 * Takes a Node parent, String name, String data, and list of children Sets
 	 * values in node
 	 * 
-	 * @param parent parent of node
-	 * @param name   name of node
-	 * @param data   data for node
-	 * @param child  list of children
+	 * @param parent
+	 *                   parent of node
+	 * @param name
+	 *                   name of node
+	 * @param data
+	 *                   data for node
+	 * @param child
+	 *                   list of children
 	 */
 	public Node(Node parent, String name, String data, ArrayList<Node> child) throws RemoteException
 	{
@@ -32,12 +36,12 @@ public class Node implements Serializable
 		{
 			name = "";
 		}
-		
+
 		if (data == null)
 		{
 			data = "";
 		}
-		
+
 		this.name = name;
 		this.parent = parent;
 		this.data = data;
@@ -63,7 +67,8 @@ public class Node implements Serializable
 	/**
 	 * Sets name of node
 	 * 
-	 * @param name name to set as name of node
+	 * @param name
+	 *                 name to set as name of node
 	 */
 	public void setName(String name)
 	{
@@ -83,7 +88,8 @@ public class Node implements Serializable
 	/**
 	 * Takes a String data and sets node's data
 	 * 
-	 * @param data data to set as data of node
+	 * @param data
+	 *                 data to set as data of node
 	 */
 	public void setData(String data)
 	{
@@ -103,7 +109,8 @@ public class Node implements Serializable
 	/**
 	 * Takes a Node parent and sets the nodes parent
 	 * 
-	 * @param parent parent to set as parent of node
+	 * @param parent
+	 *                   parent to set as parent of node
 	 */
 	public void setParent(Node parent)
 	{
@@ -119,11 +126,12 @@ public class Node implements Serializable
 	{
 		return children;
 	}
-	
+
 	/**
 	 * Takes a node child and adds child to child list
 	 * 
-	 * @param child child to be added to this node
+	 * @param child
+	 *                  child to be added to this node
 	 */
 	public void addChild(Node child)
 	{
@@ -131,7 +139,8 @@ public class Node implements Serializable
 	}
 
 	/**
-	 * @param child child to be removed from this node
+	 * @param child
+	 *                  child to be removed from this node
 	 */
 	public void removeChild(Node child)
 	{
@@ -139,7 +148,10 @@ public class Node implements Serializable
 	}
 
 	@Override
-	public String toString() { return name; }
+	public String toString()
+	{
+		return name;
+	}
 
 //	/*
 //	 * (non-Javadoc)

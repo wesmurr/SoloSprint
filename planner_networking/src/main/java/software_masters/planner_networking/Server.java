@@ -16,7 +16,6 @@ public interface Server extends Remote
 {
 
 	/**
-	 * 
 	 * Returns cookie associated with a particular account when the client logs in.
 	 * Throws exception if the username is invalid.
 	 * 
@@ -69,7 +68,8 @@ public interface Server extends Remote
 	 * @param password
 	 * @param departmentName
 	 * @param isAdmin
-	 * @param cookie         of the admin
+	 * @param cookie
+	 *                           of the admin
 	 * @throws IllegalArgumentException
 	 */
 	void addUser(String username, String password, String departmentName, boolean isAdmin, String cookie)
@@ -117,7 +117,8 @@ public interface Server extends Remote
 	ConcurrentHashMap<String, Account> getLoginMap() throws RemoteException;
 
 	/**
-	 * @param loginMap the loginMap to set
+	 * @param loginMap
+	 *                     the loginMap to set
 	 */
 	void setLoginMap(ConcurrentHashMap<String, Account> loginMap) throws RemoteException;
 
@@ -127,7 +128,8 @@ public interface Server extends Remote
 	ConcurrentHashMap<String, Account> getCookieMap() throws RemoteException;
 
 	/**
-	 * @param cookieMap the cookieMap to set
+	 * @param cookieMap
+	 *                      the cookieMap to set
 	 */
 	void setCookieMap(ConcurrentHashMap<String, Account> cookieMap) throws RemoteException;
 
@@ -137,7 +139,8 @@ public interface Server extends Remote
 	ConcurrentHashMap<String, Department> getDepartmentMap() throws RemoteException;
 
 	/**
-	 * @param departmentMap the departmentMap to set
+	 * @param departmentMap
+	 *                          the departmentMap to set
 	 */
 	void setDepartmentMap(ConcurrentHashMap<String, Department> departmentMap) throws RemoteException;
 
@@ -147,18 +150,21 @@ public interface Server extends Remote
 	ConcurrentHashMap<String, PlanFile> getPlanTemplateMap() throws RemoteException;
 
 	/**
-	 * @param planTemplateMap the planTemplateMap to set
+	 * @param planTemplateMap
+	 *                            the planTemplateMap to set
 	 */
 	void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap) throws RemoteException;
 
-	 /**
+	/**
 	 * @return collection of plan templates held by the server
 	 */
 	Collection<PlanFile> listPlanTemplates() throws RemoteException;
-	
+
 	/**
-	 * @param cookie of user
-	 * @return @return collection of planfiles associated with the client's department
+	 * @param cookie
+	 *                   of user
+	 * @return @return collection of planfiles associated with the client's
+	 *             department
 	 */
 	Collection<PlanFile> listPlans(String cookie) throws RemoteException;
 }

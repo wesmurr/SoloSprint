@@ -14,17 +14,22 @@ public class PlanReadOnlyViewController
 {
 	Main application;
 	PlannerModel model;
-	@FXML TreeView<Node> treeView;
-	@FXML TextField nameField;
-	@FXML TextField dataField;
-	@FXML TextField yearField;
-	
-	
-	
-	/** Let controller to know view 
+	@FXML
+	TreeView<Node> treeView;
+	@FXML
+	TextField nameField;
+	@FXML
+	TextField dataField;
+	@FXML
+	TextField yearField;
+
+	/**
+	 * Let controller to know view
+	 * 
 	 * @param application
 	 */
-	public void setApplication(Main application) {
+	public void setApplication(Main application)
+	{
 		this.application = application;
 		model = this.application.getModel();
 		setTreeView();
@@ -34,41 +39,37 @@ public class PlanReadOnlyViewController
 		});
 		populateFields();
 	}
-	
 
-	
-
-	
 	/**
-	 *  Log out the current account on the server
+	 * Log out the current account on the server
 	 */
 	@FXML
-	public void logOut() {
-		//need to ask users if they want to push
-		
+	public void logOut()
+	{
+		// need to ask users if they want to push
+
 		model.setCookie(null);
 		model.setCurrNode(null);
 		model.setCurrPlanFile(null);
-		
+
 		application.showLoginView();
 	}
-	
+
 	/**
-	 *	Change the view back to planSelectionView 
+	 * Change the view back to planSelectionView
 	 */
 	@FXML
-	public void backToPlans() {
-		//need to ask users if they want to push
-		
+	public void backToPlans()
+	{
+		// need to ask users if they want to push
+
 		model.setCurrNode(null);
 		model.setCurrPlanFile(null);
 		application.showPlanSelectionView();
 	}
-	
 
-	
 	/**
-	 * Filling the treeview with nodes from business plan 
+	 * Filling the treeview with nodes from business plan
 	 */
 	private void setTreeView()
 	{
@@ -76,24 +77,25 @@ public class PlanReadOnlyViewController
 		treeView.getSelectionModel().select(treeView.getRoot());
 		model.setCurrNode(model.getCurrPlanFile().getPlan().getRoot());
 	}
-	
-	
+
 	/**
-	 * @param root build the treeview start from root node of business plan
+	 * @param root
+	 *                 build the treeview start from root node of business plan
 	 * @return
 	 */
-	private TreeItem<Node> convertTree(Node root) {
+	private TreeItem<Node> convertTree(Node root)
+	{
 		TreeItem<Node> newRoot = new TreeItem<Node>(root);
-		for (int i = 0; i < root.getChildren().size(); i++) {
+		for (int i = 0; i < root.getChildren().size(); i++)
+		{
 			newRoot.getChildren().add(convertTree(root.getChildren().get(i)));
 		}
 		return newRoot;
 	}
-	
 
-	
 	/**
 	 * Change the nameField and dataField to the content stored in current node
+	 * 
 	 * @param item
 	 */
 	private void changeSection()
@@ -106,10 +108,9 @@ public class PlanReadOnlyViewController
 		dataField.setText(model.getCurrNode().getData());
 		treeView.refresh();
 	}
-	
 
-	/**Initializes the year, name, and data text fields.
-	 * 
+	/**
+	 * Initializes the year, name, and data text fields.
 	 */
 	private void populateFields()
 	{

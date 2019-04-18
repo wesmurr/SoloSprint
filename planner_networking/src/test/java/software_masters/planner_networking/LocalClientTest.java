@@ -14,9 +14,7 @@ import org.junit.Test;
 
 /**
  * @author lee Kendall
- * @author Wes Murray
- *
- *         Verifies that client methods work correctly.
+ * @author Wes Murray Verifies that client methods work correctly.
  */
 public class LocalClientTest
 {
@@ -35,9 +33,10 @@ public class LocalClientTest
 	static Registry registry;
 
 	/**
-	 * @throws Exception Sets up RMI registry, ensures that a server is pulled from
-	 *                   the registry, and sets up a client. The server and client
-	 *                   are used for subsequent tests.
+	 * @throws Exception
+	 *                       Sets up RMI registry, ensures that a server is pulled
+	 *                       from the registry, and sets up a client. The server and
+	 *                       client are used for subsequent tests.
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
@@ -52,7 +51,8 @@ public class LocalClientTest
 			registry.rebind("PlannerServer", stub);
 			testServer = (Server) registry.lookup("PlannerServer");
 			testClient = new Client(testServer);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -97,7 +97,6 @@ public class LocalClientTest
 	 * 
 	 * @throws RemoteException
 	 * @throws IllegalArgumentException
-	 * 
 	 */
 	@Test
 	public void testAddUser() throws IllegalArgumentException, RemoteException
@@ -259,7 +258,6 @@ public class LocalClientTest
 	 * 
 	 * @throws RemoteException
 	 * @throws IllegalArgumentException
-	 * 
 	 */
 	@Test
 	public void testAddBranch() throws IllegalArgumentException, RemoteException

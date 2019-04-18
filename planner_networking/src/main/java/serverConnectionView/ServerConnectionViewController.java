@@ -10,9 +10,11 @@ import javafx.scene.control.TextField;
 public class ServerConnectionViewController
 {
 	Main application;
-	@FXML TextField ipAddress;
-	@FXML TextField port;
-	
+	@FXML
+	TextField ipAddress;
+	@FXML
+	TextField port;
+
 	@FXML
 	public void connect()
 	{
@@ -21,21 +23,23 @@ public class ServerConnectionViewController
 			application.getModel().connectToServer(ipAddress.getText(), Integer.parseInt(port.getText()));
 			application.showLoginView();
 		}
-			catch (NumberFormatException e)
+		catch (NumberFormatException e)
 		{
-				application.sendError(e.toString());
-		}
-			catch (RemoteException e) {
 			application.sendError(e.toString());
-		} catch (NotBoundException e) {
+		}
+		catch (RemoteException e)
+		{
+			application.sendError(e.toString());
+		}
+		catch (NotBoundException e)
+		{
 			application.sendError(e.toString());
 		}
 	}
-	
+
 	public void setApplication(Main application)
 	{
 		this.application = application;
 	}
-	
-	
+
 }

@@ -6,7 +6,6 @@ package software_masters.planner_networking;
 /**
  * @author lee kendall
  * @author wesley murray
- *
  */
 public class Account
 {
@@ -72,7 +71,8 @@ public class Account
 	}
 
 	/**
-	 * @param password the password to set
+	 * @param password
+	 *                     the password to set
 	 */
 	public void setPassword(String password)
 	{
@@ -88,7 +88,8 @@ public class Account
 	}
 
 	/**
-	 * @param cookie the cookie to set
+	 * @param cookie
+	 *                   the cookie to set
 	 */
 	public void setCookie(String cookie)
 	{
@@ -104,7 +105,8 @@ public class Account
 	}
 
 	/**
-	 * @param department the department to set
+	 * @param department
+	 *                       the department to set
 	 */
 	public void setDepartment(Department department)
 	{
@@ -120,7 +122,8 @@ public class Account
 	}
 
 	/**
-	 * @param isAdmin the isAdmin to set
+	 * @param isAdmin
+	 *                    the isAdmin to set
 	 */
 	public void setAdmin(boolean isAdmin)
 	{
@@ -129,7 +132,6 @@ public class Account
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -146,22 +148,28 @@ public class Account
 		{
 			if (other.cookie != null)
 				return false;
-		} else if (!cookie.equals(other.cookie))
-			return false;
+		}
+		else
+			if (!cookie.equals(other.cookie))
+				return false;
 		if (department == null)
 		{
 			if (other.department != null)
 				return false;
-		} else if (!department.equals(other.department))
-			return false;
+		}
+		else
+			if (!department.equals(other.department))
+				return false;
 		if (isAdmin != other.isAdmin)
 			return false;
 		if (password == null)
 		{
 			if (other.password != null)
 				return false;
-		} else if (!password.equals(other.password))
-			return false;
+		}
+		else
+			if (!password.equals(other.password))
+				return false;
 		return true;
 	}
 

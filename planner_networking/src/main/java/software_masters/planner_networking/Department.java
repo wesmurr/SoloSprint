@@ -44,7 +44,8 @@ public class Department
 	 * Adds new planFile to department hash with a corresponding year. Overwrites
 	 * old planFile if a planFile with the passed year already exists.
 	 * 
-	 * @param year of planFile to be added
+	 * @param year
+	 *                 of planFile to be added
 	 * @param plan
 	 */
 	public void addPlan(String year, PlanFile plan)
@@ -54,7 +55,9 @@ public class Department
 
 	/**
 	 * Removes planFile from department hash given a year
-	 * @param year of planFile to be removed
+	 * 
+	 * @param year
+	 *                 of planFile to be removed
 	 */
 	public void removePlan(String year)
 	{
@@ -63,6 +66,7 @@ public class Department
 
 	/**
 	 * Checks if the plan exists within this department
+	 * 
 	 * @param year
 	 * @return
 	 */
@@ -80,17 +84,16 @@ public class Department
 	}
 
 	/**
-	 * @param planFileMap the planFileMap to set
+	 * @param planFileMap
+	 *                        the planFileMap to set
 	 */
 	public void setPlanFileMap(ConcurrentHashMap<String, PlanFile> planFileMap)
 	{
 		this.planFileMap = planFileMap;
 	}
 
-	
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#hashCode()
 	 */
 	@Override
@@ -104,7 +107,6 @@ public class Department
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -121,8 +123,10 @@ public class Department
 		{
 			if (other.planFileMap != null)
 				return false;
-		} else if (!Department.<String, PlanFile>hashesEqual(planFileMap, other.planFileMap))
-			return false;
+		}
+		else
+			if (!Department.<String, PlanFile>hashesEqual(planFileMap, other.planFileMap))
+				return false;
 		return true;
 	}
 

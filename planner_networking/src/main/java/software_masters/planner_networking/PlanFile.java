@@ -20,7 +20,7 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	 * @param canEdit
 	 * @param plan
 	 */
-	public PlanFile(String year, boolean canEdit, Plan plan) //throws RemoteException
+	public PlanFile(String year, boolean canEdit, Plan plan) // throws RemoteException
 	{
 		this.year = year;
 		this.canEdit = canEdit;
@@ -46,7 +46,8 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	}
 
 	/**
-	 * @param year the year to set
+	 * @param year
+	 *                 the year to set
 	 */
 	public void setYear(String year)
 	{
@@ -62,7 +63,8 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	}
 
 	/**
-	 * @param canEdit the canEdit to set
+	 * @param canEdit
+	 *                    the canEdit to set
 	 */
 	public void setCanEdit(boolean canEdit)
 	{
@@ -78,7 +80,8 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	}
 
 	/**
-	 * @param plan the plan to set
+	 * @param plan
+	 *                 the plan to set
 	 */
 	public void setPlan(Plan plan)
 	{
@@ -86,22 +89,21 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 	}
 
 	@Override
-	public String toString() 
+	public String toString()
 	{
 		if (isCanEdit())
-		{	
+		{
 			return year;
 		}
 		else
 		{
 			return year + " Read Only";
 		}
-		
+
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -120,14 +122,18 @@ public class PlanFile implements Serializable // extends UnicastRemoteObject
 		{
 			if (other.plan != null)
 				return false;
-		} else if (!plan.equals(other.plan))
-			return false;
+		}
+		else
+			if (!plan.equals(other.plan))
+				return false;
 		if (year == null)
 		{
 			if (other.year != null)
 				return false;
-		} else if (!year.equals(other.year))
-			return false;
+		}
+		else
+			if (!year.equals(other.year))
+				return false;
 		return true;
 	}
 

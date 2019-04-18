@@ -12,7 +12,6 @@ import org.junit.Test;
 
 /**
  * @author Courtney and Jack
- *
  */
 public class VMOSATest
 {
@@ -83,7 +82,8 @@ public class VMOSATest
 		{
 			VMOSAPlan2.removeNode(r);
 			fail("My method didn't throw when I expected it to");
-		} catch (IllegalArgumentException e)
+		}
+		catch (IllegalArgumentException e)
 		{
 			e.getMessage();
 		}
@@ -93,7 +93,8 @@ public class VMOSATest
 
 			VMOSAPlan2.addNode(r);
 			fail("My method didn't throw when I expected it to");
-		} catch (IllegalArgumentException e)
+		}
+		catch (IllegalArgumentException e)
 		{
 			e.getMessage();
 		}

@@ -10,21 +10,23 @@ import software_masters.planner_networking.ServerImplementation;
 
 /**
  * @author lee.kendall
- *
  */
-public class MockMain extends Main {
+public class MockMain extends Main
+{
 
 	@Override
 	public void showConnectToServer()
 	{
-		try {
+		try
+		{
 			ServerImplementation server = new ServerImplementation();
 			model = new PlannerModel(server);
 			showLoginView();
-		} catch (RemoteException e) {
+		}
+		catch (RemoteException e)
+		{
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 }

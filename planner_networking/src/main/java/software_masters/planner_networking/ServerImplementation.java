@@ -20,16 +20,13 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Lee Kendall
- * @author Wesley Murray
- * 
- *         This class is the server for our business planner application
- *
- *         initialized with two accounts - an Admin(Username: admin, password:
- *         admin, cookie: 0) and a normal user (Username: user, password: user,
- *         cookie: 1) initialized with one department - (name: default) The
- *         default department has a default plan file - (year: "2019", candEdit:
- *         true, Plan Centre_Plan_1) planTemplateMap is initialized with VMOSA
- *         and Centre
+ * @author Wesley Murray This class is the server for our business planner
+ *             application initialized with two accounts - an Admin(Username:
+ *             admin, password: admin, cookie: 0) and a normal user (Username:
+ *             user, password: user, cookie: 1) initialized with one department
+ *             - (name: default) The default department has a default plan file
+ *             - (year: "2019", candEdit: true, Plan Centre_Plan_1)
+ *             planTemplateMap is initialized with VMOSA and Centre
  */
 
 public class ServerImplementation implements Server
@@ -59,7 +56,7 @@ public class ServerImplementation implements Server
 		plan.setName("Centre_Plan_1");
 		PlanFile planfile = new PlanFile("2019", true, plan);
 		dpt.addPlan("2019", planfile);
-		
+
 		Plan plan2 = new VMOSA();
 		plan.setName("VMOSA_Plan_1");
 		PlanFile planfile2 = new PlanFile("2020", false, plan2);
@@ -74,7 +71,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#logIn(java.lang.String,
 	 * java.lang.String)
 	 */
@@ -93,7 +89,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#getPlan(java.lang.String,
 	 * java.lang.String)
 	 */
@@ -113,7 +108,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * software_masters.planner_networking.Server#getPlanOutline(java.lang.String,
 	 * java.lang.String)
@@ -133,7 +127,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#savePlan(software_masters.
 	 * planner_networking.PlanFile, java.lang.String)
 	 */
@@ -165,7 +158,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#addUser(java.lang.String,
 	 * java.lang.String, java.lang.String, boolean, java.lang.String)
 	 */
@@ -220,7 +212,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#flagPlan(java.lang.String,
 	 * java.lang.String, boolean, java.lang.String)
 	 */
@@ -242,7 +233,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * software_masters.planner_networking.Server#addDepartment(java.lang.String,
 	 * java.lang.String)
@@ -258,7 +248,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * software_masters.planner_networking.Server#addPlanTemplate(java.lang.String,
 	 * software_masters.planner_networking.PlanFile)
@@ -286,7 +275,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#save()
 	 */
 	public void save()
@@ -296,7 +284,8 @@ public class ServerImplementation implements Server
 		try
 		{
 			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
-		} catch (FileNotFoundException fileNotFound)
+		}
+		catch (FileNotFoundException fileNotFound)
 		{
 			System.out.println("ERROR: While Creating or Opening the File " + filename);
 		}
@@ -351,7 +340,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#getLoginMap()
 	 */
 	public ConcurrentHashMap<String, Account> getLoginMap()
@@ -361,7 +349,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * software_masters.planner_networking.Server#setLoginMap(java.util.concurrent.
 	 * ConcurrentHashMap)
@@ -373,7 +360,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#getCookieMap()
 	 */
 	public ConcurrentHashMap<String, Account> getCookieMap()
@@ -383,7 +369,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see
 	 * software_masters.planner_networking.Server#setCookieMap(java.util.concurrent.
 	 * ConcurrentHashMap)
@@ -395,7 +380,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#getDepartmentMap()
 	 */
 	public ConcurrentHashMap<String, Department> getDepartmentMap()
@@ -405,7 +389,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#setDepartmentMap(java.util.
 	 * concurrent.ConcurrentHashMap)
 	 */
@@ -416,7 +399,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#getPlanTemplateMap()
 	 */
 	public ConcurrentHashMap<String, PlanFile> getPlanTemplateMap()
@@ -426,7 +408,6 @@ public class ServerImplementation implements Server
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#setPlanTemplateMap(java.util.
 	 * concurrent.ConcurrentHashMap)
 	 */
@@ -434,27 +415,30 @@ public class ServerImplementation implements Server
 	{
 		this.planTemplateMap = planTemplateMap;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#listPlanTemplates()
 	 */
 	public Collection<PlanFile> listPlanTemplates()
 	{
-		Collection<PlanFile> collections=planTemplateMap.values();
-		LinkedList<PlanFile> list=new LinkedList<PlanFile>();
-		Iterator<PlanFile> iter=collections.iterator();
+		Collection<PlanFile> collections = planTemplateMap.values();
+		LinkedList<PlanFile> list = new LinkedList<PlanFile>();
+		Iterator<PlanFile> iter = collections.iterator();
 		PlanFile temp;
 		String name;
-		for (Enumeration<String> e = planTemplateMap.keys(); e.hasMoreElements();) {
-		       name=e.nextElement();
-		       temp=iter.next();
-		       list.add(new PlanFile(name,temp.isCanEdit(),null));
+		for (Enumeration<String> e = planTemplateMap.keys(); e.hasMoreElements();)
+		{
+			name = e.nextElement();
+			temp = iter.next();
+			list.add(new PlanFile(name, temp.isCanEdit(), null));
 		}
-		collections=(Collection<PlanFile>) list;
+		collections = (Collection<PlanFile>) list;
 		return collections;
 	}
-	
-	/* (non-Javadoc)
+
+	/*
+	 * (non-Javadoc)
 	 * @see software_masters.planner_networking.Server#listPlans(java.lang.String)
 	 */
 	public Collection<PlanFile> listPlans(String cookie)
@@ -463,21 +447,21 @@ public class ServerImplementation implements Server
 
 		Account userAccount = this.cookieMap.get(cookie);
 		Department department = userAccount.getDepartment();
-	
-		Collection<PlanFile> collections=department.getPlanFileMap().values();
-		LinkedList<PlanFile> list=new LinkedList<PlanFile>();
+
+		Collection<PlanFile> collections = department.getPlanFileMap().values();
+		LinkedList<PlanFile> list = new LinkedList<PlanFile>();
 		PlanFile temp;
-		for (Iterator<PlanFile> iter=collections.iterator(); iter.hasNext();) {
-		       temp=iter.next();
-		       list.add(new PlanFile(temp.getYear(),temp.isCanEdit(),null));
+		for (Iterator<PlanFile> iter = collections.iterator(); iter.hasNext();)
+		{
+			temp = iter.next();
+			list.add(new PlanFile(temp.getYear(), temp.isCanEdit(), null));
 		}
-		collections=(Collection<PlanFile>) list;
+		collections = (Collection<PlanFile>) list;
 		return collections;
 	}
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see software_masters.planner_networking.Server#equals(java.lang.Object)
 	 */
 	public boolean equals(Object obj)
@@ -493,26 +477,34 @@ public class ServerImplementation implements Server
 		{
 			if (other.cookieMap != null)
 				return false;
-		} else if (!ServerImplementation.<String, Account>hashesEqual(cookieMap, other.cookieMap))
-			return false;
+		}
+		else
+			if (!ServerImplementation.<String, Account>hashesEqual(cookieMap, other.cookieMap))
+				return false;
 		if (departmentMap == null)
 		{
 			if (other.departmentMap != null)
 				return false;
-		} else if (!ServerImplementation.<String, Department>hashesEqual(departmentMap, other.departmentMap))
-			return false;
+		}
+		else
+			if (!ServerImplementation.<String, Department>hashesEqual(departmentMap, other.departmentMap))
+				return false;
 		if (loginMap == null)
 		{
 			if (other.loginMap != null)
 				return false;
-		} else if (!ServerImplementation.<String, Account>hashesEqual(loginMap, other.loginMap))
-			return false;
+		}
+		else
+			if (!ServerImplementation.<String, Account>hashesEqual(loginMap, other.loginMap))
+				return false;
 		if (planTemplateMap == null)
 		{
 			if (other.planTemplateMap != null)
 				return false;
-		} else if (!ServerImplementation.<String, PlanFile>hashesEqual(planTemplateMap, other.planTemplateMap))
-			return false;
+		}
+		else
+			if (!ServerImplementation.<String, PlanFile>hashesEqual(planTemplateMap, other.planTemplateMap))
+				return false;
 		return true;
 	}
 
@@ -547,14 +539,15 @@ public class ServerImplementation implements Server
 	public static void main(String[] args) throws RemoteException
 	{
 		System.out.println("Start Server");
-		ServerImplementation server=new ServerImplementation();
+		ServerImplementation server = new ServerImplementation();
 		server.save();
 		Registry registry;
 		try
 		{
 			registry = LocateRegistry.createRegistry(1060);
 			server = ServerImplementation.load();
-		} catch (FileNotFoundException e)
+		}
+		catch (FileNotFoundException e)
 		{
 			e.printStackTrace();
 			return;
@@ -564,7 +557,8 @@ public class ServerImplementation implements Server
 		try
 		{
 			registry.bind("PlannerServer", stub);
-		} catch (java.rmi.AlreadyBoundException e)
+		}
+		catch (java.rmi.AlreadyBoundException e)
 		{
 			e.printStackTrace();
 		}

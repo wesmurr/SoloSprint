@@ -11,7 +11,6 @@ import org.junit.Test;
 
 /**
  * @author Courtney and Jack
- *
  */
 public class IowaStateTest
 {
@@ -91,7 +90,8 @@ public class IowaStateTest
 		{
 			IowaStatePlan2.removeNode(r);
 			fail("My method didn't throw when I expected it to");
-		} catch (IllegalArgumentException e)
+		}
+		catch (IllegalArgumentException e)
 		{
 			e.getMessage();
 		}
@@ -101,7 +101,8 @@ public class IowaStateTest
 
 			IowaStatePlan2.addNode(r);
 			fail("My method didn't throw when I expected it to");
-		} catch (IllegalArgumentException e)
+		}
+		catch (IllegalArgumentException e)
 		{
 			e.getMessage();
 		}

@@ -17,7 +17,6 @@ public class Client
 	 * This class represents the client which users interact with. It includes
 	 * methods for retrieving and editing business plans, keeping track of the
 	 * user's cookie after login.
-	 * 
 	 */
 	private String cookie;
 	private PlanFile currPlanFile;
@@ -31,7 +30,7 @@ public class Client
 	{
 		this.server = null;
 	}
-	
+
 	/**
 	 * Sets the client's server.
 	 * 
@@ -41,19 +40,19 @@ public class Client
 	{
 		this.server = server;
 	}
-	
-	
+
 	/**
 	 * @param ip
 	 * @param port
-	 * @throws RemoteException 
-	 * @throws NotBoundException 
+	 * @throws RemoteException
+	 * @throws NotBoundException
 	 */
-	public void connectToServer(String ip,int port) throws RemoteException, NotBoundException {
+	public void connectToServer(String ip, int port) throws RemoteException, NotBoundException
+	{
 		String hostName = ip;
 		Registry registry = LocateRegistry.getRegistry(hostName, port);
 		Server stub = (Server) registry.lookup("PlannerServer");
-		this.server=stub;
+		this.server = stub;
 	}
 
 	/**
@@ -86,7 +85,6 @@ public class Client
 	}
 
 	/**
-	 * 
 	 * Returns a blank plan outline given a name. Throws exception if the plan
 	 * outline doesn't exist.
 	 * 
@@ -179,18 +177,20 @@ public class Client
 		this.currPlanFile.getPlan().removeNode(this.currNode);
 		this.currNode = temp.getChildren().get(0);
 	}
-	
+
 	/**
 	 * @return collection of planfiles associated with the client's department
 	 */
-	public Collection<PlanFile> listPlans() throws RemoteException{
+	public Collection<PlanFile> listPlans() throws RemoteException
+	{
 		return server.listPlans(this.cookie);
 	}
-	
+
 	/**
 	 * @return collection of plan templates held by the server
 	 */
-	public Collection<PlanFile> listPlanTemplates() throws RemoteException{
+	public Collection<PlanFile> listPlanTemplates() throws RemoteException
+	{
 		return server.listPlanTemplates();
 	}
 
@@ -203,9 +203,10 @@ public class Client
 	{
 		this.currNode.setData(data);
 	}
-	
+
 	/**
-	 * @param name to set node title to
+	 * @param name
+	 *                 to set node title to
 	 */
 	public void editName(String name)
 	{
@@ -237,7 +238,8 @@ public class Client
 	}
 
 	/**
-	 * @param cookie the cookie to set
+	 * @param cookie
+	 *                   the cookie to set
 	 */
 	public void setCookie(String cookie)
 	{
@@ -253,7 +255,8 @@ public class Client
 	}
 
 	/**
-	 * @param currPlanFile the currPlanFile to set
+	 * @param currPlanFile
+	 *                         the currPlanFile to set
 	 */
 	public void setCurrPlanFile(PlanFile currPlanFile)
 	{
@@ -269,7 +272,8 @@ public class Client
 	}
 
 	/**
-	 * @param currNode the currNode to set
+	 * @param currNode
+	 *                     the currNode to set
 	 */
 	public void setCurrNode(Node currNode)
 	{
@@ -285,7 +289,8 @@ public class Client
 	}
 
 	/**
-	 * @param server the server to set
+	 * @param server
+	 *                   the server to set
 	 */
 	public void setServer(Server server)
 	{

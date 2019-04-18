@@ -11,27 +11,31 @@ import software_masters.model.PlannerModel;
 public class LoginViewController
 {
 	Main application;
-	@FXML TextField usernameField;
-	@FXML TextField passWordField;
-	
-	
 	@FXML
-    void login(ActionEvent event) 
+	TextField usernameField;
+	@FXML
+	TextField passWordField;
+
+	@FXML
+	void login(ActionEvent event)
 	{
-		try {
+		try
+		{
 			application.getModel().login(usernameField.getText(), passWordField.getText());
 			application.showPlanSelectionView();
-		} catch (IllegalArgumentException e) {
-			application.sendError(e.toString());
-		} catch (RemoteException e) {
+		}
+		catch (IllegalArgumentException e)
+		{
 			application.sendError(e.toString());
 		}
-    }
-	
+		catch (RemoteException e)
+		{
+			application.sendError(e.toString());
+		}
+	}
+
 	public void setApplication(Main application)
 	{
 		this.application = application;
 	}
-}	
-	
-	
+}

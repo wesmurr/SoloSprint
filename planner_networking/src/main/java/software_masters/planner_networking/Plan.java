@@ -7,7 +7,6 @@ import java.util.ArrayList;
 /**
  * @author Courtney and Jack
  * @author wesley and lee.
- *
  */
 public abstract class Plan implements Serializable// extends UnicastRemoteObject
 {
@@ -57,9 +56,10 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 	/**
 	 * Takes a Node node and String data Sets data for the node
 	 * 
-	 * @param node node to set data for
-	 * @param data data to set in node
-	 * 
+	 * @param node
+	 *                 node to set data for
+	 * @param data
+	 *                 data to set in node
 	 */
 	public void setNodeData(Node node, String data)
 	{
@@ -70,7 +70,6 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 	 * returns the root node
 	 * 
 	 * @return Node root node
-	 * 
 	 */
 	public Node getRoot()
 	{
@@ -91,7 +90,6 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 	 * returns a String name of plan
 	 * 
 	 * @return String strings of plan name
-	 * 
 	 */
 	public String getName()
 	{
@@ -101,8 +99,8 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 	/**
 	 * Takes a String name and sets name of plan
 	 * 
-	 * @param name name to set as plan name
-	 * 
+	 * @param name
+	 *                 name to set as plan name
 	 */
 	public void setName(String name)
 	{
@@ -111,7 +109,6 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 
 	/*
 	 * (non-Javadoc)
-	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
 	@Override
@@ -128,20 +125,26 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 		{
 			if (other.defaultNodes != null)
 				return false;
-		} else if (!defaultNodes.equals(other.defaultNodes))
-			return false;
+		}
+		else
+			if (!defaultNodes.equals(other.defaultNodes))
+				return false;
 		if (name == null)
 		{
 			if (other.name != null)
 				return false;
-		} else if (!name.equals(other.name))
-			return false;
+		}
+		else
+			if (!name.equals(other.name))
+				return false;
 		if (root == null)
 		{
 			if (other.root != null)
 				return false;
-		} else if (!root.equals(other.root))
-			return false;
+		}
+		else
+			if (!root.equals(other.root))
+				return false;
 		return true;
 	}
 

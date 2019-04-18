@@ -23,35 +23,39 @@ import software_masters.model.PlannerModel;
 
 /**
  * @author lee.kendall
- *
  */
-public class Main extends Application {
+public class Main extends Application
+{
 
 	/**
-	 * Initializes the server connection window and includes methods for changing the window to display a new view
+	 * Initializes the server connection window and includes methods for changing
+	 * the window to display a new view
+	 * 
 	 * @param args
 	 */
-	
+
 	PlannerModel model;
 	Stage primaryStage;
 	Parent mainView;
-	public static void main(String[] args) 
+
+	public static void main(String[] args)
 	{
 		launch(args);
 	}
 
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 * Initializes server connection view
+	/*
+	 * (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage) Initializes
+	 * server connection view
 	 */
 	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage)
+	{
 		this.primaryStage = primaryStage;
-		this.model=new PlannerModel();
-		
+		this.model = new PlannerModel();
+
 		this.showConnectToServer();
 	}
-	
 
 	/**
 	 * Shows the connect to server window
@@ -60,27 +64,31 @@ public class Main extends Application {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("../serverConnectionView/serverConnectionView.fxml"));
-		
-		try {
+
+		try
+		{
 			mainView = loader.load();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		ServerConnectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
-		
-		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+
+		primaryStage.setOnCloseRequest((WindowEvent e) ->
+		{
 			primaryStage.close();
-			
+
 		});
-		
+
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
-		
+
 		primaryStage.show();
 		primaryStage.sizeToScene();
 	}
-	
+
 	/**
 	 * Shows the login view window
 	 */
@@ -88,55 +96,62 @@ public class Main extends Application {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("../loginView/loginView.fxml"));
-		
-		try {
+
+		try
+		{
 			mainView = loader.load();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		LoginViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
-		
-		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+
+		primaryStage.setOnCloseRequest((WindowEvent e) ->
+		{
 			primaryStage.close();
-			
+
 		});
-		
+
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
 		primaryStage.sizeToScene();
 	}
-	
-	/**Shows the plan selection view
-	 * 
+
+	/**
+	 * Shows the plan selection view
 	 */
 	public void showPlanSelectionView()
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("../planSelectionView/planSelectionView.fxml"));
-		
-		try {
+
+		try
+		{
 			mainView = loader.load();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		PlanSelectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanEditView and showPlanReadOnlyView
-		
-		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+
+		primaryStage.setOnCloseRequest((WindowEvent e) ->
+		{
 			primaryStage.close();
-			
+
 		});
-		
+
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.sizeToScene();
 		primaryStage.show();
-		
-		
+
 	}
-	
+
 	/**
 	 * Shows the plan edit view
 	 */
@@ -144,34 +159,38 @@ public class Main extends Application {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("../planEditView/planEditView.fxml"));
-		
-		try {
+
+		try
+		{
 			mainView = loader.load();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		PlanEditViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
-		
-		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+
+		primaryStage.setOnCloseRequest((WindowEvent e) ->
+		{
 			e.consume();
 			cont.changeSection();
-			if(!cont.isPushed())
+			if (!cont.isPushed())
 			{
 				closeWindow(cont);
 			}
-			else {
+			else
+			{
 				primaryStage.close();
 			}
 		});
-		
-		
+
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
 		primaryStage.sizeToScene();
 	}
-	
+
 	/**
 	 * Shows the plan read-only view
 	 */
@@ -179,20 +198,24 @@ public class Main extends Application {
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("../planReadOnlyView/planReadOnlyView.fxml"));
-		
-		try {
+
+		try
+		{
 			mainView = loader.load();
-		} catch (IOException e) {
+		}
+		catch (IOException e)
+		{
 			e.printStackTrace();
 		}
 		PlanReadOnlyViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
-		
-		primaryStage.setOnCloseRequest((WindowEvent e) -> {
+
+		primaryStage.setOnCloseRequest((WindowEvent e) ->
+		{
 			primaryStage.close();
-			
+
 		});
-		
+
 		Scene s = new Scene(mainView);
 		primaryStage.setScene(s);
 		primaryStage.show();
@@ -202,36 +225,44 @@ public class Main extends Application {
 	/**
 	 * @return the model
 	 */
-	public PlannerModel getModel() {
+	public PlannerModel getModel()
+	{
 		return model;
 	}
 
 	/**
-	 * @param model the model to set
+	 * @param model
+	 *                  the model to set
 	 */
-	public void setModel(PlannerModel model) {
+	public void setModel(PlannerModel model)
+	{
 		this.model = model;
 	}
-	
+
 	/**
-	 * This method helps to pop up error message happens when controller is operating the model
-	 * For example, delete a node that is not allowed to be deleted
-	 * @param message error message from wrong operation on the model
+	 * This method helps to pop up error message happens when controller is
+	 * operating the model For example, delete a node that is not allowed to be
+	 * deleted
+	 * 
+	 * @param message
+	 *                    error message from wrong operation on the model
 	 */
-	public void sendError(String message) 
+	public void sendError(String message)
 	{
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Warning Dialog");
 		alert.setHeaderText(message);
 		alert.setContentText(null);
-		//alert.getButtonTypes().get(0).
-		
+		// alert.getButtonTypes().get(0).
+
 		alert.showAndWait();
 	}
-	
+
 	/**
 	 * Handles the exit without saving popup
-	 * @param cont plan edit view controller
+	 * 
+	 * @param cont
+	 *                 plan edit view controller
 	 */
 	private void closeWindow(PlanEditViewController cont)
 	{
@@ -241,21 +272,22 @@ public class Main extends Application {
 		ButtonType okButton = new ButtonType("Yes");
 		ButtonType noButton = new ButtonType("No");
 		ButtonType cancelButton = new ButtonType("Cancel");
-		alert.getButtonTypes().setAll(okButton,noButton,cancelButton);
+		alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == okButton)
 		{
-				if(cont.push())
-				{	
-					primaryStage.close();
-				}
+			if (cont.push())
+			{
+				primaryStage.close();
+			}
 		}
-		else if (result.get() == noButton) {
-			primaryStage.close();
+		else
+			if (result.get() == noButton)
+			{
+				primaryStage.close();
 
-		}
+			}
 
 	}
-
 
 }

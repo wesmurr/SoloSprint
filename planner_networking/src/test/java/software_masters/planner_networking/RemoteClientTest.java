@@ -12,14 +12,12 @@ import org.junit.Test;
 
 /**
  * @author Lee Kendall
- * @author Wes Murray
- *
- *         This test is for the situation where the server and client are
- *         running on separate machines. For this test to work the other machine
- *         needs to have a working RMI registry and server. This test requires
- *         the ip address and port number of the rmi registry running on the
- *         other machine in order to work. This information is located in the
- *         setUpBeforeClass method.
+ * @author Wes Murray This test is for the situation where the server and client
+ *             are running on separate machines. For this test to work the other
+ *             machine needs to have a working RMI registry and server. This
+ *             test requires the ip address and port number of the rmi registry
+ *             running on the other machine in order to work. This information
+ *             is located in the setUpBeforeClass method.
  */
 public class RemoteClientTest
 {
@@ -37,9 +35,10 @@ public class RemoteClientTest
 	static Registry registry;
 
 	/**
-	 * @throws Exception Sets up RMI registry, ensures that a server is pulled from
-	 *                   the registry, and sets up a client. The server and client
-	 *                   are used for subsequent tests.
+	 * @throws Exception
+	 *                       Sets up RMI registry, ensures that a server is pulled
+	 *                       from the registry, and sets up a client. The server and
+	 *                       client are used for subsequent tests.
 	 */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception
@@ -51,7 +50,8 @@ public class RemoteClientTest
 			registry = LocateRegistry.getRegistry(hostName, 1060);
 			testServer = (Server) registry.lookup("PlannerServer");
 			testClient = new Client(testServer);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -96,7 +96,6 @@ public class RemoteClientTest
 	 * 
 	 * @throws RemoteException
 	 * @throws IllegalArgumentException
-	 * 
 	 */
 	@Test
 	public void testAddUser() throws IllegalArgumentException, RemoteException
@@ -276,7 +275,6 @@ public class RemoteClientTest
 	 * 
 	 * @throws RemoteException
 	 * @throws IllegalArgumentException
-	 * 
 	 */
 	@Test
 	public void testAddBranch() throws IllegalArgumentException, RemoteException

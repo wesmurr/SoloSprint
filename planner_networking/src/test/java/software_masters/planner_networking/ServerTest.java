@@ -9,16 +9,13 @@ import org.junit.Test;
 
 /**
  * @author Wesley Murray
- * @author Lee Kendall
- * 
- *         This class verifies that server is working properly. initialized with
- *         two accounts - an Admin(Username: admin, password: admin, cookie: 0)
- *         and a normal user (Username: user, password: user, cookie: 1)
- *         initialized with one department - (name: default) The default
- *         department has a default plan file - (year: "2019", candEdit: true,
- *         Plan Centre_Plan_1) planTemplateMap is initialized with VMOSA and
- *         Centre
- *
+ * @author Lee Kendall This class verifies that server is working properly.
+ *             initialized with two accounts - an Admin(Username: admin,
+ *             password: admin, cookie: 0) and a normal user (Username: user,
+ *             password: user, cookie: 1) initialized with one department -
+ *             (name: default) The default department has a default plan file -
+ *             (year: "2019", candEdit: true, Plan Centre_Plan_1)
+ *             planTemplateMap is initialized with VMOSA and Centre
  */
 public class ServerTest
 {
