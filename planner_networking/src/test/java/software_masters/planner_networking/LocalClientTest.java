@@ -85,7 +85,7 @@ public class LocalClientTest
 		assertThrows(IllegalArgumentException.class, () -> testClient.login("user", "invalidPassword"));
 		assertThrows(IllegalArgumentException.class, () -> testClient.login("invalidUsername", "user"));
 
-		// Checks valid logins
+		// Checks valid login
 		testClient.login("user", "user");
 		assertEquals("1", testClient.getCookie());
 		testClient.login("admin", "admin");

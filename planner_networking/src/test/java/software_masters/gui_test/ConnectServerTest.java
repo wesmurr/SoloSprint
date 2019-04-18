@@ -2,6 +2,7 @@ package software_masters.gui_test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
 import org.junit.Before;
 import org.junit.After;
@@ -14,17 +15,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import software_masters.planner_networking.ServerImplementation;
+
 import static org.testfx.api.FxAssert.verifyThat;
+
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 
 class ConnectServerTest extends ApplicationTest {
 
-//	@Before
-//	public void setUpClass() throws Exception {
-//		
-//		System.out.println("Got here!");
-//		
-//	}
+
 	
 	
 	@Override
@@ -33,8 +33,13 @@ class ConnectServerTest extends ApplicationTest {
 		stage.show();
 	}
 	
-	public void afterEachTest() throws TimeoutException {
-		FxToolkit.hideStage();
+	private void afterEachTest()  {
+		try {
+			FxToolkit.hideStage();
+		} catch (TimeoutException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		release(new KeyCode[] {});
 		release(new MouseButton[] {});
 	}
@@ -45,33 +50,118 @@ class ConnectServerTest extends ApplicationTest {
 	String PORTFIELD_ID ="#portField";
 	String CONNECTBUTTON_ID = "#connectButton";
 	
+	/**
+	 * Main test running all subtests, ensures they run sequentially
+	 */
 	@Test
-	public void defaultValueTest() throws Exception
-	{	
+	public void mainTest()
+	{
 		setUp();
-		System.out.println("Test, here!");
-		verifyThat(IPFIELD_ID, (TextField field) -> {return field.getText().equals("127.0.0.1");});
-		verifyThat(PORTFIELD_ID, (TextField field) -> {return field.getText().equals("1060");});
-		verifyThat(IPLABEL_ID, (Label label)-> {return label.getText().equals("IP Address:");});
-		verifyThat(PORTLABEL_ID, (Label label)-> {return label.getText().equals("Port:");});
+		try {
+			ServerImplementation.main(null);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		defaultValueTest();
+		invalidPortTest();
+		invalidIPTest();
+		invalidIpAndPortTest();
+		validConnectTest();
 		afterEachTest();
 		
 	}
 	
-	String userNameLabel = "#usernameLabel";
-	@Test
-	public void connectTest() throws Exception {
-		setUp();
-		clickOn(CONNECTBUTTON_ID);
-		verifyThat(userNameLabel, (Label label)-> {return label.getText().equals("IP Address:");});
+	public <T extends Node> T find(final String query) {
 		
+		return (T) lookup(query).queryAll().iterator().next();
+	}
+	
+	
+	/**
+	 * Esnures all labels and text fields have the intended text values
+	 */
+	public void defaultValueTest()
+	{	
+		verifyThat(IPFIELD_ID, (TextField field) -> {return field.getText().equals("127.0.0.1");});
+		verifyThat(PORTFIELD_ID, (TextField field) -> {return field.getText().equals("1060");});
+		verifyThat(IPLABEL_ID, (Label label)-> {return label.getText().equals("IP Address:");});
+		verifyThat(PORTLABEL_ID, (Label label)-> {return label.getText().equals("Port:");});
+		
+	}
+	
+	String userNameLabel = "#usernameLabel";
+	
+	/**Tests that login window displayed when user enters valid IP address and port, by checking that the login
+	 * wondow's username label is present
+	 * @throws Exception
+	 */
+	public void validConnectTest() {
+		clickOn(CONNECTBUTTON_ID);
+		verifyThat(userNameLabel, (Label label)-> {return label.getText().equals("Username");});
 		
 		
 	}
 	
-	private void setUp() throws Exception {
+	/**
+	 * Verifies that login window is not displayed when user enters invalid IP, by checking that the 
+	 * connection window's IP address label is still present.
+	 */
+	public void invalidIPTest() {
+		clickOn(IPFIELD_ID);
+		write("INVALID IP");
+		clickOn(CONNECTBUTTON_ID);
+		verifyThat(IPLABEL_ID, (Label label)-> {return label.getText().equals("IP Address:");});
+		clickOn("OK");
+		TextField textfield = (TextField)find(IPFIELD_ID);
+		textfield.setText("127.0.0.1");
 		
-		ApplicationTest.launch(Main.class);
+	}
+	
+	/**
+	 * Verifies that login window is not displayed when user enters invalid port, by checking that the 
+	 * connection window's IP address label is still present.
+	 */
+	public void invalidPortTest() {
+		clickOn(PORTFIELD_ID);
+		write("INVALID PORT");
+		clickOn(CONNECTBUTTON_ID);
+		verifyThat(IPLABEL_ID, (Label label)-> {return label.getText().equals("IP Address:");});
+		clickOn("OK");
+		TextField textfield = (TextField)find(PORTFIELD_ID);
+		textfield.setText("1060");
+		
+	}
+	
+	/**
+	 * Verifies that login window is not displayed when user enters an invalid port and IP, by checking that the 
+	 * connection window's IP address label is still present.
+	 */
+	public void invalidIpAndPortTest() {
+		clickOn(PORTFIELD_ID);
+		write("INVALID PORT");
+		clickOn(IPFIELD_ID);
+		write("INVALID IP");
+		clickOn(CONNECTBUTTON_ID);
+		verifyThat(IPLABEL_ID, (Label label)-> {return label.getText().equals("IP Address:");});
+		clickOn("OK");
+		TextField textfield = (TextField)find(PORTFIELD_ID);
+		textfield.setText("1060");
+		textfield = (TextField)find(IPFIELD_ID);
+		textfield.setText("127.0.0.1");
+		
+	}
+
+
+	
+	private void setUp() {
+		
+		
+		
+		try {
+			ApplicationTest.launch(Main.class);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 

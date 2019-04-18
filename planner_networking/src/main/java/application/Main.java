@@ -224,6 +224,8 @@ public class Main extends Application {
 		alert.setTitle("Warning Dialog");
 		alert.setHeaderText(message);
 		alert.setContentText(null);
+		//alert.getButtonTypes().get(0).
+		
 		alert.showAndWait();
 	}
 	

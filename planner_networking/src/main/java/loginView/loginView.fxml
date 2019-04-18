@@ -14,16 +14,16 @@
             <HBox alignment="CENTER" prefHeight="42.0" prefWidth="600.0">
                <children>
                   <Label id="usernameLabel" alignment="CENTER" prefHeight="16.0" prefWidth="96.0" text="Username" />
-                  <TextField fx:id="usernameField" text="user" />
+                  <TextField id="usernameField" fx:id="usernameField" text="user" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="278.0">
                <children>
-                  <Label alignment="CENTER" prefHeight="16.0" prefWidth="96.0" text="Password" />
-                  <TextField fx:id="passWordField" prefHeight="26.0" prefWidth="171.0" text="user" />
+                  <Label id="passwordLabel" alignment="CENTER" prefHeight="16.0" prefWidth="96.0" text="Password" />
+                  <TextField id="passwordField" fx:id="passWordField" prefHeight="26.0" prefWidth="171.0" text="user" />
                </children>
             </HBox>
-            <Button fx:id="logInButton" mnemonicParsing="false" onAction="#login" prefHeight="18.0" prefWidth="72.0" text="Log in" />
+            <Button id="loginButton" fx:id="logInButton" mnemonicParsing="false" onAction="#login" prefHeight="18.0" prefWidth="72.0" text="Log in" />
          </children>
       </VBox>
    </center>
