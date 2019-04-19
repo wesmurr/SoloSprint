@@ -15,7 +15,7 @@ class PlanEditViewTest extends GuiTestBase
 	String addButtonID = "#addSectionButton";
 	String deleteButtonID = "#deleteSectionButton";
 	String saveID = "#saveButton";
-	String backID = "#backToPlanButton";
+	String backID = "#backToPlansButton";
 	String yearLabelID = "#yearLabel";
 	String yearFieldID = "#editYearField";
 	String logoutID = "#logoutButton";
@@ -56,8 +56,8 @@ class PlanEditViewTest extends GuiTestBase
 	private void validAddSection()
 	{
 		TreeView<Node> tree = find(treeViewID);
-		expand(tree.getRoot());
-		sleep(1000);
+		doubleClickOn("Mission");
+		//sleep(1000);
 		clickOn((javafx.scene.Node)find("Goal"));
 		clickOn(addButtonID);
 		verifyThat(treeViewID, (TreeView<Node> treeview) -> {
@@ -77,8 +77,7 @@ class PlanEditViewTest extends GuiTestBase
 	private void validDeleteSection()
 	{
 		TreeView<Node> tree = find(treeViewID);
-		expand(tree.getRoot());
-		sleep(1000);
+		doubleClickOn("Mission");
 		clickOn((javafx.scene.Node)find("Goal"));
 		clickOn(deleteButtonID);
 		
@@ -98,18 +97,6 @@ class PlanEditViewTest extends GuiTestBase
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	private void expand(TreeItem<Node> root)
-	{
-		root.setExpanded(true);
-		for(TreeItem<Node> item : root.getChildren())
-			expand(item);
-	}
-	
+
 	
 }
