@@ -13,7 +13,7 @@
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
-            <TreeView fx:id="treeView" onMouseClicked="#changeSection" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <TreeView id="treeView" fx:id="treeView" onMouseClicked="#changeSection" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <tooltip>
                   <Tooltip text="Click to navigate between sections" />
                </tooltip></TreeView>
@@ -21,13 +21,13 @@
          <center>
             <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <top>
-                  <TextField fx:id="nameField" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                  <TextField id="nameField" fx:id="nameField" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                      <tooltip>
                         <Tooltip text="Edit Section Title" />
                      </tooltip></TextField>
                </top>
                <center>
-                  <TextField fx:id="dataField" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="372.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                  <TextField id="dataField" fx:id="dataField" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" prefHeight="372.0" prefWidth="400.0" BorderPane.alignment="CENTER">
                      <tooltip>
                         <Tooltip text="Edit Section Content" />
                      </tooltip></TextField>
@@ -39,29 +39,29 @@
    <top>
       <HBox maxWidth="1.7976931348623157E308" prefHeight="38.0" prefWidth="801.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#addSection" prefHeight="26.0" prefWidth="108.0" text="Add Section">
+            <Button id="addSectionButton" mnemonicParsing="false" onAction="#addSection" prefHeight="26.0" prefWidth="108.0" text="Add Section">
                <tooltip>
                   <Tooltip text="Click to add another section of this type" />
                </tooltip></Button>
-            <Button mnemonicParsing="false" onAction="#deleteSection" prefHeight="26.0" prefWidth="129.0" text="Delete Section">
+            <Button id="deleteSectionButton" mnemonicParsing="false" onAction="#deleteSection" prefHeight="26.0" prefWidth="129.0" text="Delete Section">
                <tooltip>
                   <Tooltip text="Click to delete this section and all dependencies" />
                </tooltip></Button>
-            <Button mnemonicParsing="false" onAction="#push" prefHeight="26.0" prefWidth="65.0" text="Save">
+            <Button id="saveButton" mnemonicParsing="false" onAction="#push" prefHeight="26.0" prefWidth="65.0" text="Save">
                <tooltip>
                   <Tooltip text="Click to save" />
                </tooltip></Button>
-            <Button mnemonicParsing="false" onAction="#backToPlans" prefHeight="26.0" prefWidth="121.0" text="Back to plans">
+            <Button id="backToPlanButton" mnemonicParsing="false" onAction="#backToPlans" prefHeight="26.0" prefWidth="121.0" text="Back to plans">
                <tooltip>
                   <Tooltip text="Return to plan selection page" />
                </tooltip></Button>
             <Separator maxWidth="1.7976931348623157E308" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Label prefHeight="26.0" prefWidth="44.0" text="Year" />
-            <TextField fx:id="yearField" prefHeight="26.0" prefWidth="126.0">
+            <Label id="yearLabel" prefHeight="26.0" prefWidth="44.0" text="Year" />
+            <TextField id="yearField" fx:id="yearField" prefHeight="26.0" prefWidth="126.0">
                <tooltip>
                   <Tooltip text="Edit year" />
                </tooltip></TextField>
-            <Button mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="83.0" text="Log Out">
+            <Button id="logoutButton" mnemonicParsing="false" onAction="#logOut" prefHeight="26.0" prefWidth="83.0" text="Log Out">
                <tooltip>
                   <Tooltip text="Click to log out" />
                </tooltip></Button>
