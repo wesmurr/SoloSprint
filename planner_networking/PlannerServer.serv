@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<java version="9.0.4" class="java.beans.XMLDecoder">
- <object class="software_masters.planner_networking.ServerImplementation"/>
-</java>
