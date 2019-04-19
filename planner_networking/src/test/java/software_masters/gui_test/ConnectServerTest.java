@@ -4,8 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.rmi.RemoteException;
 import java.util.concurrent.TimeoutException;
-import org.junit.Before;
-import org.junit.After;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
@@ -32,6 +33,7 @@ class ConnectServerTest extends ApplicationTest
 		stage.show();
 	}
 
+	@AfterEach
 	private void afterEachTest()
 	{
 		try
@@ -59,7 +61,7 @@ class ConnectServerTest extends ApplicationTest
 	@Test
 	public void mainTest()
 	{
-		setUp();
+	//	setUp();
 		try
 		{
 			ServerImplementation.main(null);
@@ -73,7 +75,7 @@ class ConnectServerTest extends ApplicationTest
 		invalidIPTest();
 		invalidIpAndPortTest();
 		validConnectTest();
-		afterEachTest();
+	//	afterEachTest();
 
 	}
 
@@ -193,7 +195,8 @@ class ConnectServerTest extends ApplicationTest
 
 	}
 
-	private void setUp()
+	@BeforeAll
+	private static void setUp()
 	{
 
 		try
