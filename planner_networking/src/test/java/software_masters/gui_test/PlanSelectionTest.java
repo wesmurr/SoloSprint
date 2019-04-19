@@ -100,7 +100,7 @@ class PlanSelectionTest extends GuiTestBase
 	
 	/**
 	 * Verifies the user can click on an editable plan template from the plan templates list view and view the 
-	 * plan edit window.
+	 * plan edit window. 
 	 */
 	private void testSelectReadOnlyPlan() {
 		
