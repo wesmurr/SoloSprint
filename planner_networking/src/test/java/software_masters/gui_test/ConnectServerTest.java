@@ -40,7 +40,7 @@ class ConnectServerTest extends GuiTestBase
 	}
 
 	/**
-	 * Esnures all labels and text fields have the intended text values
+	 * Ensures all labels and text fields have the intended text values
 	 */
 	public void defaultValueTest()
 	{
@@ -90,9 +90,9 @@ class ConnectServerTest extends GuiTestBase
 		clickOn(IPFIELD_ID);
 		write("INVALID IP");
 		clickOn(CONNECTBUTTON_ID);
-		verifyThat(IPLABEL_ID, (Label label) ->
+		verifyThat("cannot connect to server", (Label label) ->
 		{
-			return label.getText().equals("IP Address:");
+			return label.getText().equals("cannot connect to server");
 		});
 		clickOn("OK");
 		TextField textfield = (TextField) find(IPFIELD_ID);
@@ -109,9 +109,9 @@ class ConnectServerTest extends GuiTestBase
 		clickOn(PORTFIELD_ID);
 		write("INVALID PORT");
 		clickOn(CONNECTBUTTON_ID);
-		verifyThat(IPLABEL_ID, (Label label) ->
+		verifyThat("cannot connect to server", (Label label) ->
 		{
-			return label.getText().equals("IP Address:");
+			return label.getText().equals("cannot connect to server");
 		});
 		clickOn("OK");
 		TextField textfield = (TextField) find(PORTFIELD_ID);
@@ -131,9 +131,9 @@ class ConnectServerTest extends GuiTestBase
 		clickOn(IPFIELD_ID);
 		write("INVALID IP");
 		clickOn(CONNECTBUTTON_ID);
-		verifyThat(IPLABEL_ID, (Label label) ->
+		verifyThat("cannot connect to server", (Label label) ->
 		{
-			return label.getText().equals("IP Address:");
+			return label.getText().equals("cannot connect to server");
 		});
 		clickOn("OK");
 		TextField textfield = (TextField) find(PORTFIELD_ID);
