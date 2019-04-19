@@ -41,7 +41,7 @@ class ReadOnlyTest extends GuiTestBase
 	
 
 	/**
-	 * Verifies labels, buttons, and textfields are initialized with intended text.
+	 * Verifies labels, buttons, and textfields are initialized with intended text. 
 	 */
 	private void testDefaultValues() {
 		
