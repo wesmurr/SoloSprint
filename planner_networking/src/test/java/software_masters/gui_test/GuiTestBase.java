@@ -70,7 +70,7 @@ public abstract class GuiTestBase extends ApplicationTest
 	 * Helper method for checking popups for the right error message
 	 * @param msg
 	 */
-	public void checkErrorMsg(String msg) {
+	public void checkPopupMsg(String msg) {
 		verifyThat(msg, LabeledMatchers.hasText(msg));
 	}
 	
