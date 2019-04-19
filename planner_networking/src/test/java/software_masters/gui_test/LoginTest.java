@@ -53,7 +53,7 @@ class LoginTest extends GuiTestBase
 		clickOn("#usernameField");
 		write("INVALID USERNAME");
 		clickOn("#loginButton");
-		checkErrorMsg("invalid credentials");
+		checkPopupMsg("invalid credentials");
 		clickOn("OK");
 		TextField textfield = (TextField) find("#usernameField");
 		textfield.setText("user");
@@ -69,7 +69,7 @@ class LoginTest extends GuiTestBase
 		clickOn("#passwordField");
 		write("INVALID PASSWORD");
 		clickOn("#loginButton");
-		checkErrorMsg("invalid credentials");
+		checkPopupMsg("invalid credentials");
 		clickOn("OK");
 		TextField textfield = (TextField) find("#passwordField");
 		textfield.setText("user");
@@ -88,7 +88,7 @@ class LoginTest extends GuiTestBase
 		clickOn("#usernameField");
 		write("INVALID USERNAME");
 		clickOn("#loginButton");
-		checkErrorMsg("invalid credentials");
+		checkPopupMsg("invalid credentials");
 		clickOn("OK");
 		TextField textfield = (TextField) find("#passwordField");
 		textfield.setText("user");
