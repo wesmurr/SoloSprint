@@ -51,7 +51,7 @@
                <tooltip>
                   <Tooltip text="Click to save" />
                </tooltip></Button>
-            <Button id="backToPlanButton" mnemonicParsing="false" onAction="#backToPlans" prefHeight="26.0" prefWidth="121.0" text="Back to plans">
+            <Button id="backToPlansButton" mnemonicParsing="false" onAction="#backToPlans" prefHeight="26.0" prefWidth="121.0" text="Back to plans">
                <tooltip>
                   <Tooltip text="Return to plan selection page" />
                </tooltip></Button>

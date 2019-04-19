@@ -8,10 +8,13 @@ import static org.testfx.api.FxAssert.verifyThat;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.matcher.control.LabeledMatchers;
 
 import application.MockMain;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
@@ -32,6 +35,8 @@ class PlanSelectionTest extends GuiTestBase
 		testDefaultValues();
 		testLogout();
 		testSelectPlanTemplate();
+		testSelectEditablePlan();
+		testSelectReadOnlyPlan();
 	}
 	
 	
@@ -51,7 +56,8 @@ class PlanSelectionTest extends GuiTestBase
 		verifyThat("#departmentPlansLabel", (Label label) ->
 		{
 			return label.getText().equals("Department Plans");
-		});	
+		});
+		FxAssert.verifyThat("#logoutButton", LabeledMatchers.hasText("Logout"));
 	}
 	
 	/**
@@ -68,10 +74,39 @@ class PlanSelectionTest extends GuiTestBase
 		clickOn("#loginButton");
 	}
 	
+	/**
+	 * Verifies the user can click on a plan template from the plan templates list view and view the plan
+	 * edit window.
+	 */
 	private void testSelectPlanTemplate() {
 		
 		clickOn((Node) find("VMOSA"));
-		sleep(4000);
+		FxAssert.verifyThat("#saveButton", LabeledMatchers.hasText("Save"));
+		clickOn("#backToPlansButton");
+		
+	}
+	
+	/**
+	 * Verifies the user can click on an editable plan template from the plan templates list view and view the 
+	 * plan edit window.
+	 */
+	private void testSelectEditablePlan() {
+		
+		clickOn((Node) find("2019"));
+		FxAssert.verifyThat("#saveButton", LabeledMatchers.hasText("Save"));
+		clickOn("#backToPlansButton");
+		
+	}
+	
+	/**
+	 * Verifies the user can click on an editable plan template from the plan templates list view and view the 
+	 * plan edit window. 
+	 */
+	private void testSelectReadOnlyPlan() {
+		
+		clickOn((Node) find("2020 Read Only"));
+		FxAssert.verifyThat("#readOnlyLabel", LabeledMatchers.hasText("Local View Only - Cannot Save Changes"));
+		clickOn("#backToPlansButton");
 		
 	}
 	

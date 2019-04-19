@@ -26,11 +26,11 @@ public class LoginViewController
 		}
 		catch (IllegalArgumentException e)
 		{
-			application.sendError(e.toString());
+			application.sendError("invalid credentials");
 		}
 		catch (RemoteException e)
 		{
-			application.sendError(e.toString());
+			application.sendError("cannot connect to server");
 		}
 	}
 
