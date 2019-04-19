@@ -90,10 +90,7 @@ class ConnectServerTest extends GuiTestBase
 		clickOn(IPFIELD_ID);
 		write("INVALID IP");
 		clickOn(CONNECTBUTTON_ID);
-		verifyThat("cannot connect to server", (Label label) ->
-		{
-			return label.getText().equals("cannot connect to server");
-		});
+		checkErrorMsg("cannot connect to server");
 		clickOn("OK");
 		TextField textfield = (TextField) find(IPFIELD_ID);
 		textfield.setText("127.0.0.1");
@@ -109,10 +106,7 @@ class ConnectServerTest extends GuiTestBase
 		clickOn(PORTFIELD_ID);
 		write("INVALID PORT");
 		clickOn(CONNECTBUTTON_ID);
-		verifyThat("cannot connect to server", (Label label) ->
-		{
-			return label.getText().equals("cannot connect to server");
-		});
+		checkErrorMsg("cannot connect to server");
 		clickOn("OK");
 		TextField textfield = (TextField) find(PORTFIELD_ID);
 		textfield.setText("1060");
@@ -131,10 +125,7 @@ class ConnectServerTest extends GuiTestBase
 		clickOn(IPFIELD_ID);
 		write("INVALID IP");
 		clickOn(CONNECTBUTTON_ID);
-		verifyThat("cannot connect to server", (Label label) ->
-		{
-			return label.getText().equals("cannot connect to server");
-		});
+		checkErrorMsg("cannot connect to server");
 		clickOn("OK");
 		TextField textfield = (TextField) find(PORTFIELD_ID);
 		textfield.setText("1060");

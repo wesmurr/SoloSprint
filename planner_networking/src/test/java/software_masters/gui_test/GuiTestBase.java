@@ -66,6 +66,17 @@ public abstract class GuiTestBase extends ApplicationTest
 	}
 	
 	/**
+	 * Helper method for checking popups for the right error message
+	 * @param msg
+	 */
+	public void checkErrorMsg(String msg) {
+		verifyThat(msg, (Label label) ->
+		{
+			return label.getText().equals(msg);
+		});
+	}
+	
+	/**
 	 * Helper method for grabbing nodes.
 	 * 
 	 * @param query

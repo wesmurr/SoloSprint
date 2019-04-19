@@ -25,15 +25,15 @@ public class ServerConnectionViewController
 		}
 		catch (NumberFormatException e)
 		{
-			application.sendError(e.toString());
+			application.sendError("cannot connect to server");
 		}
 		catch (RemoteException e)
 		{
-			application.sendError(e.toString());
+			application.sendError("cannot connect to server");
 		}
 		catch (NotBoundException e)
 		{
-			application.sendError(e.toString());
+			application.sendError("cannot connect to server");
 		}
 	}
 
