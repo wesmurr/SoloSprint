@@ -58,7 +58,9 @@ public class ServerImplementation implements Server
 		dpt.addPlan("2019", planfile);
 
 		Plan plan2 = new VMOSA();
-		plan.setName("VMOSA_Plan_1");
+		plan2.setName("VMOSA_Plan_1");
+		plan2.getRoot().setData("My Vision is to...");
+		plan2.getRoot().getChildren().get(0).setData("My Mission is to...");
 		PlanFile planfile2 = new PlanFile("2020", false, plan2);
 		dpt.addPlan("2020", planfile2);
 
