@@ -15,24 +15,24 @@
          <children>
             <BorderPane prefHeight="128.0" prefWidth="280.0">
                <top>
-                  <Label text="Plan Templates" BorderPane.alignment="CENTER" />
+                  <Label id="planTemplatesLabel" text="Plan Templates" BorderPane.alignment="CENTER" />
                </top>
                <center>
                   <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <content>
-                        <ListView fx:id="planTemplateList" maxWidth="1.7976931348623157E308" onMouseClicked="#openPlanTemplate" prefHeight="200.0" />
+                        <ListView id="planTemplatesListView" fx:id="planTemplateList" maxWidth="1.7976931348623157E308" onMouseClicked="#openPlanTemplate" prefHeight="200.0" />
                      </content>
                   </ScrollPane>
                </center>
             </BorderPane>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <top>
-                  <Label text="Department Plans" BorderPane.alignment="CENTER" />
+                  <Label id="departmentPlansLabel" text="Department Plans" BorderPane.alignment="CENTER" />
                </top>
                <center>
                   <ScrollPane fitToWidth="true" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <content>
-                        <ListView fx:id="departmentPlanList" maxWidth="1.7976931348623157E308" onMouseClicked="#openPlan" prefHeight="200.0" />
+                        <ListView id="departmentPlansListView" fx:id="departmentPlanList" maxWidth="1.7976931348623157E308" onMouseClicked="#openPlan" prefHeight="200.0" />
                      </content>
                   </ScrollPane>
                </center>
@@ -46,7 +46,7 @@
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
             <Label id="selectPlanLabel" prefHeight="25.0" prefWidth="100.0" text="Select Plan" />
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Button mnemonicParsing="false" onAction="#Logout" prefWidth="68.0" text="Logout" />
+            <Button id="logoutButton" mnemonicParsing="false" onAction="#Logout" prefWidth="68.0" text="Logout" />
          </children>
       </HBox>
    </top>

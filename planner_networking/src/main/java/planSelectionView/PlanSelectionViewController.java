@@ -18,10 +18,10 @@ public class PlanSelectionViewController
 {
 
 	@FXML
-	private ListView<PlanFile> planTemplateList;// =genTemplateList();
+	private ListView<PlanFile> planTemplateList;
 
 	@FXML
-	private ListView<PlanFile> departmentPlanList;// =genPlansList();
+	private ListView<PlanFile> departmentPlanList;
 
 	private Main app;
 
@@ -72,6 +72,7 @@ public class PlanSelectionViewController
 			this.app.showConnectToServer();
 		}
 		planTemplateList.setItems(items);
+		
 	}
 
 	/**
