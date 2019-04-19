@@ -11,6 +11,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
+import org.testfx.matcher.control.LabeledMatchers;
 
 import application.MockMain;
 import javafx.scene.Node;
@@ -70,10 +71,7 @@ public abstract class GuiTestBase extends ApplicationTest
 	 * @param msg
 	 */
 	public void checkErrorMsg(String msg) {
-		verifyThat(msg, (Label label) ->
-		{
-			return label.getText().equals(msg);
-		});
+		verifyThat(msg, LabeledMatchers.hasText(msg));
 	}
 	
 	/**
