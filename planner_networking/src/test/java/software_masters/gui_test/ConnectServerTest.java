@@ -3,51 +3,21 @@ package software_masters.gui_test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.rmi.RemoteException;
-import java.util.concurrent.TimeoutException;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import application.Main;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import javafx.stage.Stage;
 import software_masters.planner_networking.ServerImplementation;
 
 import static org.testfx.api.FxAssert.verifyThat;
 
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 
-class ConnectServerTest extends ApplicationTest
+class ConnectServerTest extends GuiTestBase
 {
-
-	@Override
-	public void start(Stage stage) throws Exception
-	{
-
-		stage.show();
-	}
-
-	@AfterEach
-	private void afterEachTest()
-	{
-		try
-		{
-			FxToolkit.hideStage();
-		}
-		catch (TimeoutException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		release(new KeyCode[] {});
-		release(new MouseButton[] {});
-	}
 
 	String IPLABEL_ID = "#ipLabel";
 	String PORTLABEL_ID = "#portLabel";
@@ -61,34 +31,12 @@ class ConnectServerTest extends ApplicationTest
 	@Test
 	public void mainTest()
 	{
-	//	setUp();
-		try
-		{
-			ServerImplementation.main(null);
-		}
-		catch (RemoteException e)
-		{
-			e.printStackTrace();
-		}
 		defaultValueTest();
 		invalidPortTest();
 		invalidIPTest();
 		invalidIpAndPortTest();
 		validConnectTest();
-	//	afterEachTest();
 
-	}
-
-	/**
-	 * Helper method for grabbing nodes
-	 * 
-	 * @param query
-	 * @return
-	 */
-	public <T extends Node> T find(final String query)
-	{
-
-		return (T) lookup(query).queryAll().iterator().next();
 	}
 
 	/**
@@ -196,11 +144,11 @@ class ConnectServerTest extends ApplicationTest
 	}
 
 	@BeforeAll
-	private static void setUp()
+	public static void setUpBeforeClass()
 	{
-
 		try
 		{
+			ServerImplementation.main(null);
 			ApplicationTest.launch(Main.class);
 		}
 		catch (Exception e)

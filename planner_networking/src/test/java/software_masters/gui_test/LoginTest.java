@@ -6,86 +6,27 @@ package software_masters.gui_test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.testfx.api.FxAssert.verifyThat;
 
-import java.util.concurrent.TimeoutException;
-
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxToolkit;
-import org.testfx.framework.junit5.ApplicationTest;
 
-import application.Main;
-import application.MockMain;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
-import software_masters.planner_networking.ServerImplementation;
 
 /**
  * @author lee.kendall
  */
-class LoginTest extends ApplicationTest
+class LoginTest extends GuiTestBase
 {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	private void setUp()
-	{
-		try
-		{
-			// ServerImplementation.main(null);
-			ApplicationTest.launch(MockMain.class);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	private void afterEachTest()
-	{
-		try
-		{
-			FxToolkit.hideStage();
-		}
-		catch (TimeoutException e)
-		{
-			e.printStackTrace();
-		}
-		release(new KeyCode[] {});
-		release(new MouseButton[] {});
-	}
-
 	/**
 	 * Main test which calls other tests in sequential order
 	 */
 	@Test
 	void mainTest()
 	{
-		setUp();
 		testDefaultValues();
 		testInvalidUser();
 		testInvalidPassword();
 		testInvalidUsernameAndPassword();
 		testValidLogin();
-		afterEachTest();
-	}
-
-	/**
-	 * Helper method for grabbing nodes
-	 * 
-	 * @param query
-	 * @return
-	 */
-	public <T extends Node> T find(final String query)
-	{
-		return (T) lookup(query).queryAll().iterator().next();
 	}
 
 	/**
