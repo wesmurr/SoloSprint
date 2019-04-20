@@ -3,7 +3,9 @@
  */
 package application;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.rmi.server.ExportException;
 
 import software_masters.model.PlannerModel;
 import software_masters.planner_networking.ServerImplementation;
@@ -27,11 +29,29 @@ public class MockMain extends Main
 	{
 		try
 		{
-			ServerImplementation server = new ServerImplementation();
-			model = new PlannerModel(server);
+			ServerImplementation.main(null);
+			model.connectToServer("127.0.0.1", 1060);
 			showLoginView();
 		}
-		catch (RemoteException e)
+		catch (ExportException e)
+		{
+			try
+			{
+				model.connectToServer("127.0.0.1", 1060);
+			}
+			catch (RemoteException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			catch (NotBoundException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			showLoginView();
+		}
+		catch (RemoteException | NotBoundException e)
 		{
 			e.printStackTrace();
 		}

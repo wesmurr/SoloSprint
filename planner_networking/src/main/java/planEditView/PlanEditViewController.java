@@ -265,7 +265,7 @@ public class PlanEditViewController
 				model.setCookie(null);
 				model.setCurrNode(null);
 				model.setCurrPlanFile(null);
-				// application.showLoginView();
+				application.showLoginView();
 			}
 		}
 		else
