@@ -1,6 +1,5 @@
 package software_masters.gui_test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.testfx.api.FxAssert.verifyThat;
 
 import java.util.concurrent.TimeoutException;
@@ -8,14 +7,13 @@ import java.util.concurrent.TimeoutException;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 
 import application.MockMain;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
@@ -84,6 +82,18 @@ public abstract class GuiTestBase extends ApplicationTest
 	public <T extends Node> T find(final String query)
 	{
 		return (T) lookup(query).queryAll().iterator().next();
+	}
+	
+	/**
+	 * Helper method that simplifies duplicate code for checking nodes with labels.
+	 * @param id
+	 * @param text
+	 */
+	public void verify(String id, String text){
+		verifyThat(id, (val) ->
+		{
+			return ((Labeled) val).getText().equals(text);
+		});
 	}
 
 }

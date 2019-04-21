@@ -4,11 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.testfx.framework.junit5.ApplicationTest;
 
 import application.MockMain;
-import javafx.application.Platform;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import software_masters.planner_networking.Node;
 import static org.testfx.api.FxAssert.verifyThat;
@@ -60,33 +56,15 @@ class PlanEditViewTest extends GuiTestBase
 	 */
 	private void defaultTest()
 	{
-		verifyThat(addButtonID, (Button button) ->
-		{
-			return button.getText().equals("Add Section");
-		});
-		verifyThat(deleteButtonID, (Button button) ->
-		{
-			return button.getText().equals("Delete Section");
-		});
-		verifyThat(saveID, (Button button) ->
-		{
-			return button.getText().equals("Save");
-		});
-		verifyThat(backID, (Button button) ->
-		{
-			return button.getText().equals("Back to plans");
-		});
-		verifyThat(yearLabelID, (Label label) ->
-		{
-			return label.getText().equals("Year");
-		});
+		verify(addButtonID,"Add Section");
+		verify(deleteButtonID,"Delete Section");
+		verify(saveID,"Save");
+		verify(backID,"Back to plans");
+		verify(yearLabelID,"Year");
+		verify(logoutID,"Log Out");
 		verifyThat(yearFieldID, (TextField textField) ->
 		{
 			return textField.getText().equals("2019");
-		});
-		verifyThat(logoutID, (Button button) ->
-		{
-			return button.getText().equals("Log Out");
 		});
 		verifyThat(treeViewID, (TreeView<Node> tree) ->
 		{
@@ -100,7 +78,6 @@ class PlanEditViewTest extends GuiTestBase
 	 */
 	private void validAddSection()
 	{
-		TreeView<Node> tree = find(treeViewID);
 		doubleClickOn("Mission");
 		clickOn((javafx.scene.Node) find("Goal"));
 		((TextField) find(nameFieldID)).setText("Go 1");
@@ -127,7 +104,6 @@ class PlanEditViewTest extends GuiTestBase
 	 */
 	private void invalidAddSection()
 	{
-		TreeView<Node> tree = find(treeViewID);
 		doubleClickOn("Mission");
 		clickOn(addButtonID);
 		checkPopupMsg("Cannot add a section of this type");
@@ -145,7 +121,6 @@ class PlanEditViewTest extends GuiTestBase
 	 */
 	private void validDeleteSection()
 	{
-		TreeView<Node> tree = find(treeViewID);
 		doubleClickOn("Mission");
 		clickOn((javafx.scene.Node) find("Go 1"));
 		clickOn(deleteButtonID);
@@ -172,7 +147,6 @@ class PlanEditViewTest extends GuiTestBase
 	 */
 	private void invalidDeleteSection()
 	{
-		TreeView<Node> tree = find(treeViewID);
 		clickOn((javafx.scene.Node) find("Mission"));
 		clickOn(deleteButtonID);
 		checkPopupMsg("Are you sure you want to delete this section and all dependencies?"+
@@ -198,8 +172,23 @@ class PlanEditViewTest extends GuiTestBase
 		
 	}
 	
+	/**
+	 * This method verifies the save button works. 
+	 */
 	private void testSave() {
+		clickOn("Mission");
+		clickOn(dataFieldID);
+		write("mission edit");
+		clickOn(saveID);
+		clickOn(logoutID);
+		getToPlanEditView();
+		checkPage("Mission","mission edit");
 		
+		((TextField) find(dataFieldID)).setText("");
+		clickOn(saveID);
+		clickOn(logoutID);
+		getToPlanEditView();
+		checkPage("Mission","");
 	}
 	
 	/**
