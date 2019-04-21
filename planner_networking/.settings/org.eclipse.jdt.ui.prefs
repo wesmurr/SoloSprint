@@ -59,6 +59,6 @@ cleanup.use_this_for_non_static_method_access_only_if_necessary=false
 cleanup_profile=_Bradshaw
 cleanup_settings_version=2
 eclipse.preferences.version=1
-formatter_profile=_Bradshaw
+formatter_profile=_wes_formatter
 formatter_settings_version=16
 org.eclipse.jdt.ui.text.custom_code_templates=
