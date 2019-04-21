@@ -150,7 +150,7 @@ public class ServerImplementation implements Server
 
 		}
 		dept.addPlan(plan.getYear(), plan);
-
+		this.save();
 	}
 
 	/*
@@ -539,6 +539,7 @@ public class ServerImplementation implements Server
 	 */
 	public static void testSpawn() {
 		if (server == null) {
+			System.out.println("Starting New Server");
 			Registry registry = null;
 			Server stub=null;
 			try {
@@ -550,9 +551,11 @@ public class ServerImplementation implements Server
 				System.out.println("Unable to create and bind to server using rmi.");
 				System.exit(0);
 			} catch (AlreadyBoundException e) {
-				return;
+				System.out.println("Connecting to Existing Server");
 			}
+			return;
 		}
+		System.out.println("Connecting to Existing Server");
 	}
 	
 	/**
@@ -561,6 +564,7 @@ public class ServerImplementation implements Server
 	 */
 	public static void spawn() {
 		if (server == null) {
+			System.out.println("Starting New Server");
 			Registry registry = null;
 			Server stub=null;
 			try {
@@ -572,12 +576,14 @@ public class ServerImplementation implements Server
 				System.out.println("Unable to create and bind to server using rmi.");
 				System.exit(1);
 			} catch (AlreadyBoundException e) {
-				return;
+				System.out.println("Connecting to Existing Server");
 			} catch (FileNotFoundException e) {
 				System.out.print("Cannot find file to load server from.");
 				System.exit(1);
 			}
+			return;
 		}
+		System.out.println("Connecting to Existing Server");
 	}
 
 	/**
@@ -588,7 +594,6 @@ public class ServerImplementation implements Server
 	 */
 	public static void main(String[] args) throws RemoteException
 	{
-		System.out.println("Start Server");
 		ServerImplementation.spawn();
 	}
 }
