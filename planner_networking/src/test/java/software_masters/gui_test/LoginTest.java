@@ -1,9 +1,5 @@
-/**
- * 
- */
 package software_masters.gui_test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.testfx.api.FxAssert.verifyThat;
 
 import org.junit.jupiter.api.Test;
@@ -12,7 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * @author lee.kendall
+ * @author software masters
  */
 class LoginTest extends GuiTestBase
 {
@@ -22,6 +18,7 @@ class LoginTest extends GuiTestBase
 	@Test
 	void mainTest()
 	{
+		clickOn("Connect");
 		testDefaultValues();
 		testInvalidUser();
 		testInvalidPassword();

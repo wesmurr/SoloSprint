@@ -1,25 +1,16 @@
-/**
- * 
- */
 package software_masters.gui_test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.testfx.api.FxAssert.verifyThat;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
-import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 
-import application.MockMain;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 /**
- * @author lee.kendall
- *
+ * @author software masters
  */
 class PlanSelectionTest extends GuiTestBase
 {
@@ -31,6 +22,7 @@ class PlanSelectionTest extends GuiTestBase
 	@Test
 	void mainTest()
 	{
+		clickOn("Connect");
 		clickOn("#loginButton");
 		testDefaultValues();
 		testLogout();

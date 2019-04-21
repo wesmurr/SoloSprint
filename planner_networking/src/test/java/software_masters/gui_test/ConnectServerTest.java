@@ -1,21 +1,17 @@
 package software_masters.gui_test;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-import java.rmi.RemoteException;
-
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.testfx.framework.junit5.ApplicationTest;
 
-import application.Main;
 import javafx.scene.control.TextField;
-import software_masters.planner_networking.ServerImplementation;
 
 import static org.testfx.api.FxAssert.verifyThat;
 
 import javafx.scene.control.Label;
 
+
+/**
+ * @author software masters
+ */
 class ConnectServerTest extends GuiTestBase
 {
 
@@ -52,14 +48,8 @@ class ConnectServerTest extends GuiTestBase
 		{
 			return field.getText().equals("1060");
 		});
-		verifyThat(IPLABEL_ID, (Label label) ->
-		{
-			return label.getText().equals("IP Address:");
-		});
-		verifyThat(PORTLABEL_ID, (Label label) ->
-		{
-			return label.getText().equals("Port:");
-		});
+		verify(IPLABEL_ID,"IP Address:");
+		verify(PORTLABEL_ID,"Port:");
 
 	}
 
@@ -132,20 +122,6 @@ class ConnectServerTest extends GuiTestBase
 		textfield = (TextField) find(IPFIELD_ID);
 		textfield.setText("127.0.0.1");
 
-	}
-
-	@BeforeAll
-	public static void setUpBeforeClass()
-	{
-		try
-		{
-			ServerImplementation.main(null);
-			ApplicationTest.launch(Main.class);
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 }

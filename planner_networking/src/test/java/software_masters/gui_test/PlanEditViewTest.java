@@ -1,14 +1,14 @@
 package software_masters.gui_test;
 
 import org.junit.jupiter.api.Test;
-import org.testfx.framework.junit5.ApplicationTest;
-
-import application.MockMain;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import software_masters.planner_networking.Node;
 import static org.testfx.api.FxAssert.verifyThat;
 
+/**
+ * @author software masters
+ */
 class PlanEditViewTest extends GuiTestBase
 {
 
@@ -23,9 +23,14 @@ class PlanEditViewTest extends GuiTestBase
 	String nameFieldID = "#nameField";
 	String dataFieldID = "#dataField";
 
+	/**
+	 * method that coordinates order of gui test.
+	 * @throws Exception
+	 */
 	@Test
 	void test() throws Exception
 	{
+		clickOn("Connect");
 		getToPlanEditView();
 		checkBranch();
 		doubleClickOn("Mission");
@@ -289,7 +294,8 @@ class PlanEditViewTest extends GuiTestBase
 		closeCurrentWindow();
 		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
 		clickOn("No");
-		ApplicationTest.launch(MockMain.class);
+		setUpBeforeClass();
+		clickOn("Connect");
 		getToPlanEditView();
 		checkPage("Mission","");
 		//save changes, "yes" case
@@ -298,7 +304,8 @@ class PlanEditViewTest extends GuiTestBase
 		closeCurrentWindow();
 		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
 		clickOn("Yes");
-		ApplicationTest.launch(MockMain.class);
+		setUpBeforeClass();
+		clickOn("Connect");
 		getToPlanEditView();
 		clickOn((javafx.scene.Node) find("2019"));
 		checkPage("Mission","mission edit");
@@ -308,7 +315,8 @@ class PlanEditViewTest extends GuiTestBase
 		clickOn("Goal");
 		checkPage("Goal","");
 		closeCurrentWindow();
-		ApplicationTest.launch(MockMain.class);
+		setUpBeforeClass();
+		clickOn("Connect");
 		getToPlanEditView();
 		clickOn((javafx.scene.Node) find("2019"));
 		clickOn("Mission");

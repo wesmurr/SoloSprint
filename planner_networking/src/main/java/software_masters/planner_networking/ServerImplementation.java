@@ -21,13 +21,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author Lee Kendall
- * @author Wesley Murray This class is the server for our business planner
- *             application initialized with two accounts - an Admin(Username:
- *             admin, password: admin, cookie: 0) and a normal user (Username:
- *             user, password: user, cookie: 1) initialized with one department
- *             - (name: default) The default department has a default plan file
- *             - (year: "2019", candEdit: true, Plan Centre_Plan_1)
- *             planTemplateMap is initialized with VMOSA and Centre
+ * @author Wesley Murray 
  */
 
 public class ServerImplementation implements Server
@@ -39,7 +33,7 @@ public class ServerImplementation implements Server
 	private ConcurrentHashMap<String, PlanFile> planTemplateMap = new ConcurrentHashMap<String, PlanFile>();
 
 	/**
-	 * Initializes server with default objects listed above for testing
+	 * Initializes server with default objects for testing purposes.
 	 */
 	public ServerImplementation() throws RemoteException
 	{
@@ -540,21 +534,48 @@ public class ServerImplementation implements Server
 	public static Server server=null;
 	
 	/**
-	 * Helper static method that allows us to use singleton pattern.
+	 * Helper static method that allows us to use singleton pattern for testing.
+	 * Ensures server being tested is an object with known values.
+	 */
+	public static void testSpawn() {
+		if (server == null) {
+			Registry registry = null;
+			Server stub=null;
+			try {
+				server = new ServerImplementation();
+				registry = LocateRegistry.createRegistry(1060);
+				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
+				registry.bind("PlannerServer", stub);
+			} catch (RemoteException e) {
+				System.out.println("Unable to create and bind to server using rmi.");
+				System.exit(0);
+			} catch (AlreadyBoundException e) {
+				return;
+			}
+		}
+	}
+	
+	/**
+	 * Helper static method that enforces a modified singleton pattern for program.
+	 * Constructor is not private because XML serialization.
 	 */
 	public static void spawn() {
 		if (server == null) {
 			Registry registry = null;
 			Server stub=null;
 			try {
-				server = new ServerImplementation();//ServerImplementation.load();
+				server = ServerImplementation.load();
 				registry = LocateRegistry.createRegistry(1060);
 				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
 				registry.bind("PlannerServer", stub);
 			} catch (RemoteException e) {
-				e.printStackTrace();
+				System.out.println("Unable to create and bind to server using rmi.");
+				System.exit(1);
 			} catch (AlreadyBoundException e) {
-				e.printStackTrace();
+				return;
+			} catch (FileNotFoundException e) {
+				System.out.print("Cannot find file to load server from.");
+				System.exit(1);
 			}
 		}
 	}

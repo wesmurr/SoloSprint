@@ -11,25 +11,31 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 
-import application.MockMain;
+import application.Main;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import software_masters.planner_networking.ServerImplementation;
 
+/**
+ * @author software masters
+ * This class contains methods that are common to all of the gui tests.
+ * It is the testing super class.
+ */
 public abstract class GuiTestBase extends ApplicationTest
 {
 	/**
-	 * This the gui interface starting at the login window rather than connect to server.
-	 * The client is given the actual server object.
+	 * Spawns the gui.
 	 */
 	@BeforeAll
 	public static void setUpBeforeClass()
 	{
 		try
 		{
-			ApplicationTest.launch(MockMain.class);
+			ServerImplementation.testSpawn();
+			ApplicationTest.launch(Main.class);
 		}
 		catch (Exception e)
 		{

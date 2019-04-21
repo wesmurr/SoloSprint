@@ -1,35 +1,29 @@
-/**
- * 
- */
 package software_masters.gui_test;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.testfx.api.FxAssert.verifyThat;
 
 
 import org.junit.jupiter.api.Test;
-import org.testfx.api.FxAssert;
 import org.testfx.matcher.control.LabeledMatchers;
-import org.testfx.matcher.control.TextMatchers;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
- * @author lee.kendall
- *
+ * @author software masters
  */
 class ReadOnlyTest extends GuiTestBase
 {
 
 	/**
-	 * 
-	 * Main test which calls other tests in sequential order
+	 * method that coordinates order of gui test.
+	 * @throws Exception
 	 */
 	@Test
 	void mainTest()
 	{
+		clickOn("Connect");
 		clickOn("#loginButton");
 		clickOn((Node) find("2020 Read Only"));
 		testDefaultValues();
