@@ -7,6 +7,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -531,6 +532,32 @@ public class ServerImplementation implements Server
 		}
 		return true;
 	}
+	
+	
+	/**
+	 * Attribute for singleton pattern 
+	 */
+	public static Server server=null;
+	
+	/**
+	 * Helper static method that allows us to use singleton pattern.
+	 */
+	public static void spawn() {
+		if (server == null) {
+			Registry registry = null;
+			Server stub=null;
+			try {
+				server = new ServerImplementation();//ServerImplementation.load();
+				registry = LocateRegistry.createRegistry(1060);
+				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
+				registry.bind("PlannerServer", stub);
+			} catch (RemoteException e) {
+				e.printStackTrace();
+			} catch (AlreadyBoundException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 
 	/**
 	 * Starts the server, allows clients to access it
@@ -541,29 +568,6 @@ public class ServerImplementation implements Server
 	public static void main(String[] args) throws RemoteException
 	{
 		System.out.println("Start Server");
-		ServerImplementation server = new ServerImplementation();
-		server.save();
-		Registry registry;
-		try
-		{
-			registry = LocateRegistry.createRegistry(1060);
-			server = ServerImplementation.load();
-		}
-		catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-			return;
-		}
-
-		Server stub = (Server) UnicastRemoteObject.exportObject(server, 0);
-		try
-		{
-			registry.bind("PlannerServer", stub);
-		}
-		catch (java.rmi.AlreadyBoundException e)
-		{
-			e.printStackTrace();
-		}
-
+		ServerImplementation.spawn();
 	}
 }
