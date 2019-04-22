@@ -531,7 +531,7 @@ public class ServerImplementation implements Server
 	/**
 	 * Attribute for singleton pattern 
 	 */
-	public static Server server=null;
+	private static Server server=null;
 	
 	/**
 	 * Helper static method that allows us to use singleton pattern for testing.

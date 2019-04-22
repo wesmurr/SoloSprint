@@ -33,13 +33,14 @@ class PlanEditViewTest extends GuiTestBase
 		clickOn("Connect");
 		getToPlanEditView();
 		checkBranch();
-		doubleClickOn("Mission");
-		defaultTest();
-		validAddSection();
-		invalidAddSection();
-		validDeleteSection();
-		invalidDeleteSection();
-		testSave();
+//		doubleClickOn("Mission");
+//		defaultTest();
+//		validAddSection();
+//		invalidAddSection();
+//		validDeleteSection();
+//		invalidDeleteSection();
+//		testSave();
+		testSavePopup();
 		testLogout();
 		testBackToPlans();
 		testClose();
@@ -178,12 +179,31 @@ class PlanEditViewTest extends GuiTestBase
 	}
 	
 	/**
-	 * This method verifies the save button works. 
+	 * This method verifies the save button works. We don't expect the warning popup to show because
+	 * we exit right after clicking the save button.
 	 */
 	private void testSave() {
+		
 		clickOn("Mission");
 		clickOn(dataFieldID);
 		write("mission edit");
+		clickOn(nameFieldID);
+		write(" name field edit");
+		clickOn("Goal");
+		clickOn(nameFieldID);
+		write(" original");
+		clickOn(addButtonID);
+		clickOn(yearFieldID);
+		write("0");
+		clickOn(saveID);
+		clickOn(backID);
+		clickOn("20190");
+		
+		clickOn("Mission name field edit"); //checks that tree view changed in response to name field edit
+		checkPage("Mission name field edit", "mission edit", "20190");
+		
+		
+		
 		clickOn(saveID);
 		clickOn(logoutID);
 		getToPlanEditView();
@@ -197,10 +217,61 @@ class PlanEditViewTest extends GuiTestBase
 	}
 	
 	/**
+	 * Tests the save warning popup is displayed in response to all types of edits
+	 */
+	private void testSavePopup() {
+		
+		//Tests data field, name field, and year field
+		testSavePopupHelp(yearFieldID);
+		testSavePopupHelp(dataFieldID);
+		testSavePopupHelp(nameFieldID);
+		
+		//Tests add section
+		//doubleClickOn("Mission");
+		clickOn("Goal");
+		clickOn(addButtonID);
+		clickOn(logoutID);
+		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
+		clickOn("Cancel");
+		clickOn(saveID);
+		
+		//Tests delete 
+		doubleClickOn("Mission1"); //This also tests that treeview labels change in response to name field edits
+		clickOn("Goal");
+		clickOn(deleteButtonID);
+		clickOn("Delete");
+		clickOn(logoutID);
+		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
+		clickOn("Cancel");
+		clickOn(saveID);
+		
+		clickOn(logoutID);
+		getToPlanEditView();
+		
+	}
+	
+	
+	/**Helper method to handle checking save popup is displayed in response to different kinds of changes
+	 * @param ID
+	 */
+	private void testSavePopupHelp(String ID) {
+		
+		clickOn("Mission");
+		clickOn(ID);
+		write("1");
+		clickOn(logoutID);
+		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
+		clickOn("Cancel");
+		clickOn(saveID);
+	}
+	
+	/**
 	 * Verifies the logout button works as advertised. Handles if changes have been made or not.
 	 */
 	private void testLogout() {
 		//test that unsaved changes produce popup
+		
+		
 		//cancel case
 		clickOn("Mission");
 		clickOn(dataFieldID);
@@ -349,6 +420,20 @@ class PlanEditViewTest extends GuiTestBase
 		{
 			return textfield.getText().equals(content);
 		});
+	}
+	
+	/**
+	 * Helper method that checks the content displayed for a given node based on provided string. This version
+	 * also checks the year field.
+	 * @param name
+	 * @param content
+	 */
+	private void checkPage(String name,String content, String year) {
+		verifyThat(yearFieldID, (TextField textfield) ->
+		{
+			return textfield.getText().equals(year);
+		});
+		checkPage(name, content);
 	}
 	
 	
