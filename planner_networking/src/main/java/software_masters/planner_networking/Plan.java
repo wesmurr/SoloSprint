@@ -41,6 +41,14 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 		addNode(newParent);
 	}
 
+	protected int index_depth(Node node) {
+		if(node.getParent() == null)
+			return 0;
+		else
+			return index_depth(node.getParent()) +1;
+		
+		
+	}
 	/**
 	 * @param parent
 	 * @return

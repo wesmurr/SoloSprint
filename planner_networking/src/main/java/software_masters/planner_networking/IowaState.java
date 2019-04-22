@@ -59,7 +59,7 @@ public class IowaState extends Plan
 			else
 			{
 
-				for (int i = (this.getList().indexOf(parent.getName())) + 1; i < this.getList().size(); i++)
+				for (int i = index_depth(parent) + 1; i < this.getList().size(); i++)
 				{
 
 					Node newNode = new Node(parent, this.getList().get(i), null, null);
