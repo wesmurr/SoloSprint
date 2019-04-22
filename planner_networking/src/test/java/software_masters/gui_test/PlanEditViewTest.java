@@ -4,7 +4,11 @@ import org.junit.jupiter.api.Test;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
 import software_masters.planner_networking.Node;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testfx.api.FxAssert.verifyThat;
+
+import java.util.NoSuchElementException;
 
 /**
  * @author software masters
@@ -33,13 +37,13 @@ class PlanEditViewTest extends GuiTestBase
 		clickOn("Connect");
 		getToPlanEditView();
 		checkBranch();
-//		doubleClickOn("Mission");
-//		defaultTest();
-//		validAddSection();
-//		invalidAddSection();
-//		validDeleteSection();
-//		invalidDeleteSection();
-//		testSave();
+		doubleClickOn("Mission");
+		defaultTest();
+		validAddSection();
+		invalidAddSection();
+		validDeleteSection();
+		invalidDeleteSection();
+		testSave();
 		testSavePopup();
 		testLogout();
 		testBackToPlans();
@@ -199,21 +203,27 @@ class PlanEditViewTest extends GuiTestBase
 		clickOn(backID);
 		clickOn("20190");
 		
-		clickOn("Mission name field edit"); //checks that tree view changed in response to name field edit
+		doubleClickOn("Mission name field edit"); //checks that tree view changed in response to name field edit
 		checkPage("Mission name field edit", "mission edit", "20190");
 		
+		String[] names = {"Goal","Learning Objective","Assessment Process","Results"};
+		checkBranch(names);
+		clickOn("Goal original");
+		String[] names2 = {"Goal original","Learning Objective","Assessment Process","Results"};
+		checkBranch(names2);
 		
-		
+		clickOn("Goal original");
+		clickOn(deleteButtonID);
+		clickOn("Delete");
 		clickOn(saveID);
-		clickOn(logoutID);
-		getToPlanEditView();
-		checkPage("Mission","mission edit");
+		clickOn(backID);
+		clickOn("20190");
+		doubleClickOn("Mission name field edit");
+		checkBranch(names);
+		assertThrows(NoSuchElementException.class, () -> find("Goal original"));
 		
-		((TextField) find(dataFieldID)).setText("");
-		clickOn(saveID);
-		clickOn(logoutID);
-		getToPlanEditView();
-		checkPage("Mission","");
+		clickOn(backID);
+		clickOn("2019");
 	}
 	
 	/**
@@ -227,7 +237,7 @@ class PlanEditViewTest extends GuiTestBase
 		testSavePopupHelp(nameFieldID);
 		
 		//Tests add section
-		//doubleClickOn("Mission");
+		doubleClickOn("Mission1");
 		clickOn("Goal");
 		clickOn(addButtonID);
 		clickOn(logoutID);
@@ -400,6 +410,10 @@ class PlanEditViewTest extends GuiTestBase
 	 */
 	private void checkBranch() {
 		String[] names= {"Mission","Goal","Learning Objective","Assessment Process","Results"};
+		checkBranch(names);
+	}
+	
+	private void checkBranch(String[] names) {
 		for(String name: names) {
 			doubleClickOn(name);
 			checkPage(name,"");
