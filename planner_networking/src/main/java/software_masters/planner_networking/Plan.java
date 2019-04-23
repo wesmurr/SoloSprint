@@ -166,7 +166,7 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 				return false;
 		}
 		else
-			if (!root.equals(other.root))
+			if (!root.testEquals(other.root))
 				return false;
 		return true;
 	}

@@ -2,10 +2,9 @@ package software_masters.gui_test;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.scene.control.TextField;
-
 import static org.testfx.api.FxAssert.verifyThat;
 
+import javafx.scene.control.TextField;
 import javafx.scene.control.Label;
 
 

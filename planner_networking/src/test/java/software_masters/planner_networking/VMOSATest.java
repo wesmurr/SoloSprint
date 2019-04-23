@@ -1,6 +1,3 @@
-/**
- * 
- */
 package software_masters.planner_networking;
 
 import static org.junit.Assert.*;

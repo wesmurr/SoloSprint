@@ -217,6 +217,7 @@ public class PlanEditViewController
 		boolean isChanged = !(nameField.getText().equals(model.getCurrNode().getName())
 				&& dataField.getText().equals(model.getCurrNode().getData())
 				&& yearField.getText().equals(model.getCurrPlanFile().getYear()));
+		
 		TreeItem<Node> item = treeView.getSelectionModel().getSelectedItem();
 		model.editName(nameField.getText());
 		model.editData(dataField.getText());

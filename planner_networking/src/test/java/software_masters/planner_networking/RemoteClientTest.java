@@ -46,7 +46,8 @@ public class RemoteClientTest
 		System.out.println("Starting Test");
 		try
 		{
-			String hostName = "10.14.1.76";
+			ServerImplementation.testSpawn();
+			String hostName = "127.0.0.1";
 			registry = LocateRegistry.getRegistry(hostName, 1060);
 			testServer = (Server) registry.lookup("PlannerServer");
 			testClient = new Client(testServer);
@@ -111,12 +112,6 @@ public class RemoteClientTest
 		testClient.login("admin", "admin");
 		testClient.addUser("newUser", "newUser", "default", false);
 
-		// test if account was actually created and correct department was added
-//		ConcurrentHashMap<String, Account> loginMap = actualServer.getLoginMap();
-//		assertTrue(loginMap.containsKey("newUser"));
-//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-//		assertEquals(departmentMap.get("default"),loginMap.get("newUser").getDepartment());
-
 		// verify can successfully obtain default plan using the created account
 		testClient.login("newUser", "newUser");
 		testClient.getPlan("2019");
@@ -148,10 +143,6 @@ public class RemoteClientTest
 		testClient.login("admin", "admin");
 		testClient.addDepartment("newDepartment");
 
-		// verifies the department object was created and added to hash
-//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-//		assertTrue(departmentMap.containsKey("newDepartment"));
-
 		// verifies department was created because user cannot be assign a department
 		// that does not exist. That would throw an exception.
 		testClient.addUser("testDepartment", "testDepartment", "newDepartment", false);
@@ -174,8 +165,6 @@ public class RemoteClientTest
 		// tests admin can flag file.
 		testClient.login("admin", "admin");
 		testClient.flagPlan("default", "2019", true);
-//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-//		PlanFile file=departmentMap.get("default").getPlan("2019");
 		testClient.getPlan("2019");
 		PlanFile file = testClient.getCurrPlanFile();
 		assertTrue(file.isCanEdit());
@@ -200,7 +189,6 @@ public class RemoteClientTest
 		assertThrows(IllegalArgumentException.class, () -> testClient.getPlan("2000"));
 
 		// verify obtained plan is as expected
-//		ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
 		Plan plan = new Centre();
 		plan.setName("Centre_Plan_1");
 		PlanFile planfile = new PlanFile("2016", true, plan);
@@ -222,7 +210,7 @@ public class RemoteClientTest
 		testClient.login("user", "user");
 
 		// build expected file.
-		PlanFile centreBase = new PlanFile(null, true, new Centre());
+		PlanFile centreBase = new PlanFile("", true, new Centre());
 
 		// test that retrieved business plan outline matches expected
 		testClient.getPlanOutline("Centre");
@@ -327,11 +315,13 @@ public class RemoteClientTest
 	private void testBranchCopy() throws IllegalArgumentException, RemoteException
 	{
 		testClient.addBranch();
-		assertEquals(testClient.getCurrNode(), testClient.getCurrNode().getParent().getChildren().get(1));
+		assertTrue(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
+		
 		// assures deep copy not shallow. this is tested by changing one copy and
 		// verifying that the original was not changed.
 		testClient.getCurrNode().getParent().getChildren().get(1).setData("some text");
-		assertNotEquals(testClient.getCurrNode(), testClient.getCurrNode().getParent().getChildren().get(1));
+		assertFalse(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
+		
 	}
 
 	/**

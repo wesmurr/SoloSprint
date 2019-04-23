@@ -201,7 +201,6 @@ public class LocalClientTest
 	@Test
 	public void testGetPlanOutline() throws RemoteException
 	{
-
 		testClient.login("user", "user");
 
 		// build expected file.
@@ -209,11 +208,10 @@ public class LocalClientTest
 
 		// test that retrieved business plan outline matches expected
 		testClient.getPlanOutline("Centre");
-		assertEquals(centreBase, testClient.getCurrPlanFile());
+		assertTrue(centreBase.getPlan().getRoot().testEquals(testClient.getCurrPlanFile().getPlan().getRoot()));
 
 		// if plan outline does not exist throw exception
 		assertThrows(IllegalArgumentException.class, () -> testClient.getPlanOutline("invalid_outline"));
-
 	}
 
 	/**
@@ -248,7 +246,7 @@ public class LocalClientTest
 		testClient.login("user", "user");
 		testClient.pushPlan(test);
 		testClient.getPlan("2019");
-		assertEquals(test, testClient.getCurrPlanFile());
+		assertTrue(test.getPlan().getRoot().testEquals(testClient.getCurrPlanFile().getPlan().getRoot()));
 
 	}
 
@@ -310,11 +308,13 @@ public class LocalClientTest
 	private void testBranchCopy() throws IllegalArgumentException, RemoteException
 	{
 		testClient.addBranch();
-		assertEquals(testClient.getCurrNode(), testClient.getCurrNode().getParent().getChildren().get(1));
+		assertTrue(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
+		
 		// assures deep copy not shallow. this is tested by changing one copy and
 		// verifying that the original was not changed.
 		testClient.getCurrNode().getParent().getChildren().get(1).setData("some text");
-		assertNotEquals(testClient.getCurrNode(), testClient.getCurrNode().getParent().getChildren().get(1));
+		assertFalse(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
+		
 	}
 
 	/**

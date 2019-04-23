@@ -108,45 +108,47 @@ public class Node implements Serializable {
 	@Override
 	public String toString() { return name; }
 
-//	/*
-//	 * (non-Javadoc)
-//	 * 
-//	 * @see java.lang.Object#equals(java.lang.Object)
-//	 */
-//	@Override
-//	public boolean equals(Object obj)
-//	{
-//		if (this == obj)
-//			return true;
-//		if (obj == null)
-//			return false;
-//		if (getClass() != obj.getClass())
-//			return false;
-//		Node other = (Node) obj;
-//		if (children == null)
-//		{
-//			if (other.children != null)
-//				return false;
-//		} else if (!children.equals(other.children))
-//			return false;
-//		if (data == null)
-//		{
-//			if (other.data != null)
-//				return false;
-//		} else if (!data.equals(other.data))
-//			return false;
-//		if (name == null)
-//		{
-//			if (other.name != null)
-//				return false;
-//		} else if (!name.equals(other.name))
-//			return false;
-//		if (parent == null)
-//		{
-//			if (other.parent != null)
-//				return false;
-//		}
-//		return true;
-//	}
+	/*
+	 * (non-Javadoc)
+	 * For testing only.
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	public boolean testEquals(Object obj)
+	{
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Node other = (Node) obj;
+		if (children == null)
+		{
+			if (other.children != null)
+				return false;
+		} 
+		for(int i=0;i<children.size();i++) {
+			if (!children.get(i).testEquals(other.children.get(i)))
+				return false;
+		}
+		if (data == null)
+		{
+			if (other.data != null)
+				return false;
+		} else if (!data.equals(other.data))
+			return false;
+		if (name == null)
+		{
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (parent == null)
+		{
+			if (other.parent != null)
+				return false;
+		}
+		return true;
+	}
 
 }
