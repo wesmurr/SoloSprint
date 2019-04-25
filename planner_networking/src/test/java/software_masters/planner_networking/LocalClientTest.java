@@ -12,6 +12,18 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import businessPlannerApp.backend.Account;
+import businessPlannerApp.backend.Centre;
+import businessPlannerApp.backend.Client;
+import businessPlannerApp.backend.Department;
+import businessPlannerApp.backend.IowaState;
+import businessPlannerApp.backend.Node;
+import businessPlannerApp.backend.Plan;
+import businessPlannerApp.backend.PlanFile;
+import businessPlannerApp.backend.Server;
+import businessPlannerApp.backend.ServerImplementation;
+import businessPlannerApp.backend.VMOSA;
+
 /**
  * @author lee Kendall
  * @author Wes Murray Verifies that client methods work correctly.

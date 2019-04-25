@@ -11,13 +11,13 @@ import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.matcher.control.LabeledMatchers;
 
-import application.Main;
+import businessPlannerApp.Main;
+import businessPlannerApp.backend.ServerImplementation;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import software_masters.planner_networking.ServerImplementation;
 
 /**
  * @author software masters

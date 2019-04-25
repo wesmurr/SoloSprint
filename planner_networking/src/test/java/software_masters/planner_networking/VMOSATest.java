@@ -7,6 +7,10 @@ import java.rmi.RemoteException;
 
 import org.junit.Test;
 
+import businessPlannerApp.backend.Node;
+import businessPlannerApp.backend.Plan;
+import businessPlannerApp.backend.VMOSA;
+
 /**
  * @author Courtney and Jack
  */

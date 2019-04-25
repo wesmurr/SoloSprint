@@ -1,9 +1,10 @@
 package software_masters.gui_test;
 
 import org.junit.jupiter.api.Test;
+
+import businessPlannerApp.backend.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeView;
-import software_masters.planner_networking.Node;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testfx.api.FxAssert.verifyThat;

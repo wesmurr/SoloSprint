@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="191.0" prefWidth="451.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessPlannerApp.frontend.loginView.LoginViewController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="204.0" prefWidth="451.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="42.0" prefWidth="600.0">
+               <children>
+                  <Label id="usernameLabel" alignment="CENTER" prefHeight="16.0" prefWidth="96.0" text="Username" />
+                  <TextField id="usernameField" fx:id="usernameField" text="user" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="278.0">
+               <children>
+                  <Label id="passwordLabel" alignment="CENTER" prefHeight="16.0" prefWidth="96.0" text="Password" />
+                  <TextField id="passwordField" fx:id="passWordField" prefHeight="26.0" prefWidth="171.0" text="user" />
+               </children>
+            </HBox>
+            <Button id="loginButton" fx:id="logInButton" mnemonicParsing="false" onAction="#login" prefHeight="18.0" prefWidth="72.0" text="Log in" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>

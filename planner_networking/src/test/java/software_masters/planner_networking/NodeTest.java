@@ -6,6 +6,8 @@ import java.rmi.RemoteException;
 
 import org.junit.Test;
 
+import businessPlannerApp.backend.Node;
+
 public class NodeTest
 {
 

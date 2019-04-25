@@ -10,6 +10,16 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import businessPlannerApp.backend.Centre;
+import businessPlannerApp.backend.Client;
+import businessPlannerApp.backend.IowaState;
+import businessPlannerApp.backend.Node;
+import businessPlannerApp.backend.Plan;
+import businessPlannerApp.backend.PlanFile;
+import businessPlannerApp.backend.Server;
+import businessPlannerApp.backend.ServerImplementation;
+import businessPlannerApp.backend.VMOSA;
+
 /**
  * @author Lee Kendall
  * @author Wes Murray This test is for the situation where the server and client
