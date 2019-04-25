@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import businessPlannerApp.Main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class LoginViewController
@@ -13,14 +14,14 @@ public class LoginViewController
 	@FXML
 	TextField usernameField;
 	@FXML
-	TextField passWordField;
+	PasswordField passwordField;
 
 	@FXML
 	void login(ActionEvent event)
 	{
 		try
 		{
-			application.getModel().login(usernameField.getText(), passWordField.getText());
+			application.getModel().login(usernameField.getText(), passwordField.getText());
 			application.showPlanSelectionView();
 		}
 		catch (IllegalArgumentException e)

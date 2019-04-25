@@ -8,7 +8,7 @@ import businessPlannerApp.frontend.loginView.LoginViewController;
 import businessPlannerApp.frontend.planEditView.PlanEditViewController;
 import businessPlannerApp.frontend.planReadOnlyView.PlanReadOnlyViewController;
 import businessPlannerApp.frontend.planSelectionView.PlanSelectionViewController;
-import businessPlannerApp.frontend.serverConnectionView.*;
+import businessPlannerApp.frontend.serverConnectionView.ServerConnectionViewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
