@@ -23,14 +23,13 @@ import businessPlannerApp.backend.VMOSA;
 /**
  * @author Lee Kendall
  * @author Wes Murray This test is for the situation where the server and client
- *             are running on separate machines. For this test to work the other
- *             machine needs to have a working RMI registry and server. This
- *             test requires the ip address and port number of the rmi registry
- *             running on the other machine in order to work. This information
- *             is located in the setUpBeforeClass method.
+ *         are running on separate machines. For this test to work the other
+ *         machine needs to have a working RMI registry and server. This test
+ *         requires the ip address and port number of the rmi registry running
+ *         on the other machine in order to work. This information is located in
+ *         the setUpBeforeClass method.
  */
-public class RemoteClientTest
-{
+public class RemoteClientTest {
 
 	/**
 	 * The server is initialized with two accounts - an Admin(Username: admin,
@@ -45,25 +44,20 @@ public class RemoteClientTest
 	static Registry registry;
 
 	/**
-	 * @throws Exception
-	 *                       Sets up RMI registry, ensures that a server is pulled
-	 *                       from the registry, and sets up a client. The server and
-	 *                       client are used for subsequent tests.
+	 * @throws Exception Sets up RMI registry, ensures that a server is pulled from
+	 *                   the registry, and sets up a client. The server and client
+	 *                   are used for subsequent tests.
 	 */
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception
-	{
+	public static void setUpBeforeClass() throws Exception {
 		System.out.println("Starting Test");
-		try
-		{
+		try {
 			ServerImplementation.testSpawn();
 			String hostName = "127.0.0.1";
 			registry = LocateRegistry.getRegistry(hostName, 1060);
 			testServer = (Server) registry.lookup("PlannerServer");
 			testClient = new Client(testServer);
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -71,8 +65,7 @@ public class RemoteClientTest
 	}
 
 	@AfterClass
-	public static void tearDownAfterClass() throws Exception
-	{
+	public static void tearDownAfterClass() throws Exception {
 //		registry.unbind("PlannerServer");
 //        // Unexport; this will also remove us from the RMI runtime
 //        UnicastRemoteObject.unexportObject(testServer, true);
@@ -87,8 +80,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testLogin() throws IllegalArgumentException, RemoteException
-	{
+	public void testLogin() throws IllegalArgumentException, RemoteException {
 
 		// Checks invalid cases
 		assertThrows(IllegalArgumentException.class, () -> testClient.login("invalidUsername", "invalidPassword"));
@@ -109,8 +101,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testAddUser() throws IllegalArgumentException, RemoteException
-	{
+	public void testAddUser() throws IllegalArgumentException, RemoteException {
 
 		// tests non-admin addUser
 		testClient.login("user", "user");
@@ -143,8 +134,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testAddDepartment() throws IllegalArgumentException, RemoteException
-	{
+	public void testAddDepartment() throws IllegalArgumentException, RemoteException {
 		// tests non-admin addDepartment
 		testClient.login("user", "user");
 		assertThrows(IllegalArgumentException.class, () -> testClient.addDepartment("newDepartment"));
@@ -166,8 +156,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testFlagPlan() throws IllegalArgumentException, RemoteException
-	{
+	public void testFlagPlan() throws IllegalArgumentException, RemoteException {
 		// tests non-admin flagFile
 		testClient.login("user", "user");
 		assertThrows(IllegalArgumentException.class, () -> testClient.flagPlan("default", "2019", false));
@@ -192,8 +181,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testGetPlan() throws IllegalArgumentException, RemoteException
-	{
+	public void testGetPlan() throws IllegalArgumentException, RemoteException {
 		// plan does not exist throws exception
 		testClient.login("user", "user");
 		assertThrows(IllegalArgumentException.class, () -> testClient.getPlan("2000"));
@@ -214,8 +202,7 @@ public class RemoteClientTest
 	 * @throws RemoteException
 	 */
 	@Test
-	public void testGetPlanOutline() throws RemoteException
-	{
+	public void testGetPlanOutline() throws RemoteException {
 
 		testClient.login("user", "user");
 
@@ -239,8 +226,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testpushPlan() throws IllegalArgumentException, RemoteException
-	{
+	public void testpushPlan() throws IllegalArgumentException, RemoteException {
 		// change canEdit flag to false for default planfile
 		testClient.login("admin", "admin");
 		testClient.flagPlan("default", "2019", false);
@@ -275,8 +261,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testAddBranch() throws IllegalArgumentException, RemoteException
-	{
+	public void testAddBranch() throws IllegalArgumentException, RemoteException {
 		testClient.login("user", "user");
 		//////////////////////////////////// Centre
 		//////////////////////////////////// example/////////////////////////////////////////////
@@ -322,16 +307,15 @@ public class RemoteClientTest
 	 * @throws RemoteException
 	 * @throws IllegalArgumentException
 	 */
-	private void testBranchCopy() throws IllegalArgumentException, RemoteException
-	{
+	private void testBranchCopy() throws IllegalArgumentException, RemoteException {
 		testClient.addBranch();
 		assertTrue(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
-		
+
 		// assures deep copy not shallow. this is tested by changing one copy and
 		// verifying that the original was not changed.
 		testClient.getCurrNode().getParent().getChildren().get(1).setData("some text");
 		assertFalse(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
-		
+
 	}
 
 	/**
@@ -342,8 +326,7 @@ public class RemoteClientTest
 	 * @throws IllegalArgumentException
 	 */
 	@Test
-	public void testCentreRemoveBranch() throws IllegalArgumentException, RemoteException
-	{
+	public void testCentreRemoveBranch() throws IllegalArgumentException, RemoteException {
 		testClient.login("user", "user");
 		//////////////////////////////////// Centre
 		//////////////////////////////////// example/////////////////////////////////////////////
@@ -370,8 +353,7 @@ public class RemoteClientTest
 	 * @throws RemoteException
 	 */
 	@Test
-	public void testVMOSARemoveBranch() throws RemoteException
-	{
+	public void testVMOSARemoveBranch() throws RemoteException {
 		/////////////////////////////////// VMOSA
 		/////////////////////////////////// example///////////////////////////////////////////////
 		Plan VMOSA_test = new VMOSA();
@@ -398,8 +380,7 @@ public class RemoteClientTest
 	 * @throws RemoteException
 	 */
 	@Test
-	public void testIowaRemoveBranch() throws RemoteException
-	{
+	public void testIowaRemoveBranch() throws RemoteException {
 		/////////////////////////////////// Iowa state
 		/////////////////////////////////// example///////////////////////////////////////////////
 		Plan IOWA_test = new IowaState();

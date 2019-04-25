@@ -1,4 +1,153 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <java version="1.8.0_211" class="java.beans.XMLDecoder">
- <object class="businessPlannerApp.backend.ServerImplementation"/>
+ <object class="businessPlannerApp.backend.ServerImplementation" id="ServerImplementation0">
+  <void id="ConcurrentHashMap0" property="cookieMap">
+   <void id="Account0" method="get">
+    <string>0</string>
+    <void id="Department0" property="department">
+     <void id="ConcurrentHashMap1" property="planFileMap">
+      <void id="PlanFile0" method="get">
+       <string>2019</string>
+       <void property="canEdit">
+        <boolean>false</boolean>
+       </void>
+       <void property="plan">
+        <void property="name">
+         <string>Centre_Plan_2</string>
+        </void>
+       </void>
+      </void>
+      <void method="put">
+       <string>2016</string>
+       <object class="businessPlannerApp.backend.PlanFile">
+        <void property="canEdit">
+         <boolean>true</boolean>
+        </void>
+        <void property="plan">
+         <object class="businessPlannerApp.backend.Centre">
+          <void property="name">
+           <string>Centre_Plan_1</string>
+          </void>
+         </object>
+        </void>
+        <void property="year">
+         <string>2016</string>
+        </void>
+       </object>
+      </void>
+      <void method="put">
+       <string>2023</string>
+       <object class="businessPlannerApp.backend.PlanFile">
+        <void property="canEdit">
+         <boolean>true</boolean>
+        </void>
+        <void property="plan">
+         <object class="businessPlannerApp.backend.VMOSA"/>
+        </void>
+        <void property="year">
+         <string>2023</string>
+        </void>
+       </object>
+      </void>
+      <void method="put">
+       <string>20191</string>
+       <object class="businessPlannerApp.backend.PlanFile">
+        <void property="canEdit">
+         <boolean>true</boolean>
+        </void>
+        <void property="plan">
+         <object class="businessPlannerApp.backend.Centre" id="Centre0">
+          <void property="name">
+           <string>Centre_Plan_1</string>
+          </void>
+          <void property="root">
+           <void property="data">
+            <string>1</string>
+           </void>
+           <void property="name">
+            <string>Mission1</string>
+           </void>
+          </void>
+         </object>
+        </void>
+        <void property="year">
+         <string>20191</string>
+        </void>
+       </object>
+      </void>
+      <void method="put">
+       <string>20190</string>
+       <object class="businessPlannerApp.backend.PlanFile">
+        <void property="canEdit">
+         <boolean>true</boolean>
+        </void>
+        <void property="plan">
+         <object class="businessPlannerApp.backend.Centre" id="Centre1">
+          <void property="name">
+           <string>Centre_Plan_1</string>
+          </void>
+          <void property="root">
+           <void property="data">
+            <string>mission edit</string>
+           </void>
+           <void property="name">
+            <string>Mission name field edit</string>
+           </void>
+          </void>
+         </object>
+        </void>
+        <void property="year">
+         <string>20190</string>
+        </void>
+       </object>
+      </void>
+     </void>
+    </void>
+   </void>
+   <void method="put">
+    <string>nxzdAS`Xjbhi?EW8x`&gt;*w2UP0</string>
+    <object class="businessPlannerApp.backend.Account" id="Account1">
+     <void property="cookie">
+      <string>nxzdAS`Xjbhi?EW8x`&gt;*w2UP0</string>
+     </void>
+     <void property="department">
+      <object class="businessPlannerApp.backend.Department" id="Department1"/>
+     </void>
+     <void property="password">
+      <string>testDepartment</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>.T]?Y%ne6fdNmtZ2KFYmmZ`&amp;Y</string>
+    <object class="businessPlannerApp.backend.Account" id="Account2">
+     <void property="cookie">
+      <string>.T]?Y%ne6fdNmtZ2KFYmmZ`&amp;Y</string>
+     </void>
+     <void property="department">
+      <object idref="Department0"/>
+     </void>
+     <void property="password">
+      <string>newUser</string>
+     </void>
+    </object>
+   </void>
+  </void>
+  <void property="departmentMap">
+   <void method="put">
+    <string>newDepartment</string>
+    <object idref="Department1"/>
+   </void>
+  </void>
+  <void property="loginMap">
+   <void method="put">
+    <string>newUser</string>
+    <object idref="Account2"/>
+   </void>
+   <void method="put">
+    <string>testDepartment</string>
+    <object idref="Account1"/>
+   </void>
+  </void>
+ </object>
 </java>

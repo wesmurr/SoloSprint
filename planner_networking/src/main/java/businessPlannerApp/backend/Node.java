@@ -94,7 +94,7 @@ public class Node implements Serializable {
 	 * @param child child to be added to this node
 	 */
 	public void addChild(Node child) { this.children.add(child); }
-	
+
 	/**
 	 * @param children the children to set
 	 */
@@ -109,45 +109,26 @@ public class Node implements Serializable {
 	public String toString() { return name; }
 
 	/*
-	 * (non-Javadoc)
-	 * For testing only.
+	 * (non-Javadoc) For testing only.
+	 * 
 	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public boolean testEquals(Object obj)
-	{
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
+	public boolean testEquals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
 		Node other = (Node) obj;
-		if (children == null)
-		{
-			if (other.children != null)
-				return false;
-		} 
-		for(int i=0;i<children.size();i++) {
-			if (!children.get(i).testEquals(other.children.get(i)))
-				return false;
+		if (children == null) { if (other.children != null) return false; }
+		for (int i = 0; i < children.size(); i++) {
+			if (!children.get(i).testEquals(other.children.get(i))) return false;
 		}
-		if (data == null)
-		{
-			if (other.data != null)
-				return false;
-		} else if (!data.equals(other.data))
-			return false;
-		if (name == null)
-		{
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (parent == null)
-		{
-			if (other.parent != null)
-				return false;
-		}
+		if (data == null) {
+			if (other.data != null) return false;
+		} else if (!data.equals(other.data)) return false;
+		if (name == null) {
+			if (other.name != null) return false;
+		} else if (!name.equals(other.name)) return false;
+		if (parent == null) { if (other.parent != null) return false; }
 		return true;
 	}
 

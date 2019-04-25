@@ -22,8 +22,7 @@ import javafx.stage.WindowEvent;
 /**
  * @author lee.kendall
  */
-public class Main extends Application
-{
+public class Main extends Application {
 
 	/**
 	 * Initializes the server connection window and includes methods for changing
@@ -36,19 +35,16 @@ public class Main extends Application
 	Stage primaryStage;
 	Parent mainView;
 
-	public static void main(String[] args)
-	{
-		launch(args);
-	}
+	public static void main(String[] args) { launch(args); }
 
 	/*
 	 * (non-Javadoc)
+	 * 
 	 * @see javafx.application.Application#start(javafx.stage.Stage) Initializes
 	 * server connection view
 	 */
 	@Override
-	public void start(Stage primaryStage)
-	{
+	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.model = new PlannerModel();
 
@@ -58,24 +54,19 @@ public class Main extends Application
 	/**
 	 * Shows the connect to server window
 	 */
-	public void showConnectToServer()
-	{
+	public void showConnectToServer() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("frontend/serverConnectionView/serverConnectionView.fxml"));
 
-		try
-		{
+		try {
 			mainView = loader.load();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		ServerConnectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
 
-		primaryStage.setOnCloseRequest((WindowEvent e) ->
-		{
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			primaryStage.close();
 
 		});
@@ -90,24 +81,19 @@ public class Main extends Application
 	/**
 	 * Shows the login view window
 	 */
-	public void showLoginView()
-	{
+	public void showLoginView() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("frontend/loginView/loginView.fxml"));
 
-		try
-		{
+		try {
 			mainView = loader.load();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		LoginViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView
 
-		primaryStage.setOnCloseRequest((WindowEvent e) ->
-		{
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			primaryStage.close();
 
 		});
@@ -121,24 +107,19 @@ public class Main extends Application
 	/**
 	 * Shows the plan selection view
 	 */
-	public void showPlanSelectionView()
-	{
+	public void showPlanSelectionView() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("frontend/planSelectionView/planSelectionView.fxml"));
 
-		try
-		{
+		try {
 			mainView = loader.load();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		PlanSelectionViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanEditView and showPlanReadOnlyView
 
-		primaryStage.setOnCloseRequest((WindowEvent e) ->
-		{
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			primaryStage.close();
 
 		});
@@ -153,32 +134,24 @@ public class Main extends Application
 	/**
 	 * Shows the plan edit view
 	 */
-	public void showPlanEditView()
-	{
+	public void showPlanEditView() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("frontend/planEditView/planEditView.fxml"));
 
-		try
-		{
+		try {
 			mainView = loader.load();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		PlanEditViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 
-		primaryStage.setOnCloseRequest((WindowEvent e) ->
-		{
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			e.consume();
 			cont.changeSection();
-			if (!cont.isPushed())
-			{
+			if (!cont.isPushed()) {
 				closeWindow(cont);
-			}
-			else
-			{
+			} else {
 				primaryStage.close();
 			}
 		});
@@ -192,24 +165,19 @@ public class Main extends Application
 	/**
 	 * Shows the plan read-only view
 	 */
-	public void showPlanReadOnlyView()
-	{
+	public void showPlanReadOnlyView() {
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource("frontend/planReadOnlyView/planReadOnlyView.fxml"));
 
-		try
-		{
+		try {
 			mainView = loader.load();
-		}
-		catch (IOException e)
-		{
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		PlanReadOnlyViewController cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 
-		primaryStage.setOnCloseRequest((WindowEvent e) ->
-		{
+		primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			primaryStage.close();
 
 		});
@@ -223,30 +191,21 @@ public class Main extends Application
 	/**
 	 * @return the model
 	 */
-	public PlannerModel getModel()
-	{
-		return model;
-	}
+	public PlannerModel getModel() { return model; }
 
 	/**
-	 * @param model
-	 *                  the model to set
+	 * @param model the model to set
 	 */
-	public void setModel(PlannerModel model)
-	{
-		this.model = model;
-	}
+	public void setModel(PlannerModel model) { this.model = model; }
 
 	/**
 	 * This method helps to pop up error message happens when controller is
 	 * operating the model For example, delete a node that is not allowed to be
 	 * deleted
 	 * 
-	 * @param message
-	 *                    error message from wrong operation on the model
+	 * @param message error message from wrong operation on the model
 	 */
-	public void sendError(String message)
-	{
+	public void sendError(String message) {
 		Alert alert = new Alert(AlertType.ERROR);
 		alert.setTitle("Warning Dialog");
 		alert.setHeaderText(message);
@@ -259,11 +218,9 @@ public class Main extends Application
 	/**
 	 * Handles the exit without saving popup
 	 * 
-	 * @param cont
-	 *                 plan edit view controller
+	 * @param cont plan edit view controller
 	 */
-	private void closeWindow(PlanEditViewController cont)
-	{
+	private void closeWindow(PlanEditViewController cont) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		String message = "You have unsaved changes. Do you wish to save before exiting?";
 		alert.setContentText(message);
@@ -272,19 +229,12 @@ public class Main extends Application
 		ButtonType cancelButton = new ButtonType("Cancel");
 		alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
 		Optional<ButtonType> result = alert.showAndWait();
-		if (result.get() == okButton)
-		{
-			if (cont.push())
-			{
-				primaryStage.close();
-			}
-		}
-		else
-			if (result.get() == noButton)
-			{
-				primaryStage.close();
+		if (result.get() == okButton) {
+			if (cont.push()) { primaryStage.close(); }
+		} else if (result.get() == noButton) {
+			primaryStage.close();
 
-			}
+		}
 
 	}
 
