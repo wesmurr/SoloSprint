@@ -1,6 +1,3 @@
-/**
- * 
- */
 package businessPlannerApp.backend;
 
 import java.util.Enumeration;

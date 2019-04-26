@@ -14,7 +14,6 @@ import org.junit.Test;
 
 import businessPlannerApp.backend.Account;
 import businessPlannerApp.backend.Centre;
-import businessPlannerApp.backend.Client;
 import businessPlannerApp.backend.Department;
 import businessPlannerApp.backend.IowaState;
 import businessPlannerApp.backend.Node;
@@ -23,6 +22,7 @@ import businessPlannerApp.backend.PlanFile;
 import businessPlannerApp.backend.Server;
 import businessPlannerApp.backend.ServerImplementation;
 import businessPlannerApp.backend.VMOSA;
+import businessPlannerApp.backend.model.Client;
 
 /**
  * @author lee Kendall

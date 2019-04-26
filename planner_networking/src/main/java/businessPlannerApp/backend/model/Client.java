@@ -1,10 +1,14 @@
-package businessPlannerApp.backend;
+package businessPlannerApp.backend.model;
 
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.Collection;
+
+import businessPlannerApp.backend.Node;
+import businessPlannerApp.backend.PlanFile;
+import businessPlannerApp.backend.Server;
 
 /**
  * @author lee kendall and wesley murray

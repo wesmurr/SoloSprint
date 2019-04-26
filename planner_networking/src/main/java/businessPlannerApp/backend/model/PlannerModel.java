@@ -1,6 +1,5 @@
 package businessPlannerApp.backend.model;
 
-import businessPlannerApp.backend.Client;
 import businessPlannerApp.backend.Server;
 
 public class PlannerModel extends Client {

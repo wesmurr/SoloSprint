@@ -105,30 +105,30 @@
     </void>
    </void>
    <void method="put">
-    <string>nxzdAS`Xjbhi?EW8x`&gt;*w2UP0</string>
+    <string>qAr.-n&gt;H$(&lt;c#@;eMt\eWOkKW</string>
     <object class="businessPlannerApp.backend.Account" id="Account1">
      <void property="cookie">
-      <string>nxzdAS`Xjbhi?EW8x`&gt;*w2UP0</string>
-     </void>
-     <void property="department">
-      <object class="businessPlannerApp.backend.Department" id="Department1"/>
-     </void>
-     <void property="password">
-      <string>testDepartment</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>.T]?Y%ne6fdNmtZ2KFYmmZ`&amp;Y</string>
-    <object class="businessPlannerApp.backend.Account" id="Account2">
-     <void property="cookie">
-      <string>.T]?Y%ne6fdNmtZ2KFYmmZ`&amp;Y</string>
+      <string>qAr.-n&gt;H$(&lt;c#@;eMt\eWOkKW</string>
      </void>
      <void property="department">
       <object idref="Department0"/>
      </void>
      <void property="password">
       <string>newUser</string>
+     </void>
+    </object>
+   </void>
+   <void method="put">
+    <string>&quot;!)zB*qN(K]?^QUI!5JWJF]&amp;X</string>
+    <object class="businessPlannerApp.backend.Account" id="Account2">
+     <void property="cookie">
+      <string>&quot;!)zB*qN(K]?^QUI!5JWJF]&amp;X</string>
+     </void>
+     <void property="department">
+      <object class="businessPlannerApp.backend.Department" id="Department1"/>
+     </void>
+     <void property="password">
+      <string>testDepartment</string>
      </void>
     </object>
    </void>
@@ -142,11 +142,11 @@
   <void property="loginMap">
    <void method="put">
     <string>newUser</string>
-    <object idref="Account2"/>
+    <object idref="Account1"/>
    </void>
    <void method="put">
     <string>testDepartment</string>
-    <object idref="Account1"/>
+    <object idref="Account2"/>
    </void>
   </void>
  </object>
