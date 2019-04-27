@@ -15,10 +15,10 @@ import businessPlannerApp.Main;
 import businessPlannerApp.backend.ServerImplementation;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
 
 /**
  * @author software masters This class contains methods that are common to all
@@ -26,24 +26,8 @@ import javafx.scene.control.TextField;
  */
 public abstract class GuiTestBase extends ApplicationTest {
 	/**
-	 * Spawns the gui.
-	 */
-	@BeforeEach
-	public void setUpBeforeEachTest() {
-		try {
-			ServerImplementation.testSpawn();
-			ApplicationTest.launch(Main.class);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void start(Stage stage) throws Exception { stage.show(); }
-
-	/**
 	 * This closes the window and clears any action event after a test is executed.
-	 * 
+	 *
 	 * @throws TimeoutException
 	 */
 	@AfterAll
@@ -58,30 +42,46 @@ public abstract class GuiTestBase extends ApplicationTest {
 	@SuppressWarnings("deprecation")
 	@AfterEach
 	public void afterEachTest() {
-		closeCurrentWindow();
-		release(new KeyCode[] {});
-		release(new MouseButton[] {});
+		this.closeCurrentWindow();
+		this.release(new KeyCode[] {});
+		this.release(new MouseButton[] {});
 	}
 
 	/**
 	 * Helper method for checking popups for the right error message
-	 * 
+	 *
 	 * @param msg
 	 */
 	public void checkPopupMsg(String msg) { verifyThat(msg, LabeledMatchers.hasText(msg)); }
 
 	/**
 	 * Helper method for grabbing nodes.
-	 * 
+	 *
 	 * @param query
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends Node> T find(final String query) { return (T) lookup(query).queryAll().iterator().next(); }
+	public <T extends Node> T find(final String query) { return (T) this.lookup(query).queryAll().iterator().next(); }
+
+	/**
+	 * Spawns the gui.
+	 */
+	@BeforeEach
+	public void setUpBeforeEachTest() {
+		try {
+			ServerImplementation.testSpawn();
+			ApplicationTest.launch(Main.class);
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void start(Stage stage) throws Exception { stage.show(); }
 
 	/**
 	 * Helper method that simplifies duplicate code for checking nodes with labels.
-	 * 
+	 *
 	 * @param id
 	 * @param text
 	 */
@@ -91,7 +91,7 @@ public abstract class GuiTestBase extends ApplicationTest {
 
 	/**
 	 * Helper method that simplifies duplicate code for checking nodes with labels.
-	 * 
+	 *
 	 * @param id
 	 * @param text
 	 */

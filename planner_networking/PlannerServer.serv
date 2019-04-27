@@ -8,32 +8,58 @@
      <void id="ConcurrentHashMap1" property="planFileMap">
       <void id="PlanFile0" method="get">
        <string>2019</string>
-       <void property="canEdit">
-        <boolean>false</boolean>
-       </void>
-       <void property="plan">
-        <void property="name">
-         <string>Centre_Plan_2</string>
-        </void>
-       </void>
-      </void>
-      <void method="put">
-       <string>2016</string>
-       <object class="businessPlannerApp.backend.PlanFile">
-        <void property="canEdit">
-         <boolean>true</boolean>
-        </void>
-        <void property="plan">
-         <object class="businessPlannerApp.backend.Centre">
-          <void property="name">
-           <string>Centre_Plan_1</string>
+       <void id="Centre0" property="plan">
+        <void id="PlanSection0" property="root">
+         <void id="ArrayList0" property="children">
+          <void id="PlanSection1" index="0">
+           <void property="comments">
+            <void method="clear"/>
+           </void>
           </void>
-         </object>
+         </void>
+         <void id="LinkedList0" property="comments">
+          <void index="0">
+           <void property="content">
+            <string>New Comment</string>
+           </void>
+          </void>
+          <void index="1">
+           <void property="content">
+            <string>no show</string>
+           </void>
+           <void property="resolved">
+            <boolean>true</boolean>
+           </void>
+           <void property="username">
+            <string>user</string>
+           </void>
+          </void>
+          <void index="2">
+           <void property="content">
+            <string>Testing  default comment display</string>
+           </void>
+           <void property="username">
+            <string>admin</string>
+           </void>
+          </void>
+          <void index="3">
+           <void property="content">
+            <string>mission comment</string>
+           </void>
+          </void>
+          <void method="add">
+           <object class="businessPlannerApp.backend.Comment">
+            <void property="content">
+             <string>Testing  default comment display</string>
+            </void>
+            <void property="username">
+             <string>user</string>
+            </void>
+           </object>
+          </void>
+         </void>
         </void>
-        <void property="year">
-         <string>2016</string>
-        </void>
-       </object>
+       </void>
       </void>
       <void method="put">
        <string>2023</string>
@@ -56,11 +82,69 @@
          <boolean>true</boolean>
         </void>
         <void property="plan">
-         <object class="businessPlannerApp.backend.Centre" id="Centre0">
+         <object class="businessPlannerApp.backend.Centre" id="Centre1">
           <void property="name">
            <string>Centre_Plan_1</string>
           </void>
-          <void property="root">
+          <void id="PlanSection2" property="root">
+           <void property="comments">
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>New Comment</string>
+              </void>
+              <void property="resolved">
+               <boolean>true</boolean>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>no show</string>
+              </void>
+              <void property="resolved">
+               <boolean>true</boolean>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>Testing  default comment display</string>
+              </void>
+              <void property="username">
+               <string>admin</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>mission comment</string>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>Testing  default comment display</string>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+           </void>
            <void property="data">
             <string>1</string>
            </void>
@@ -82,11 +166,69 @@
          <boolean>true</boolean>
         </void>
         <void property="plan">
-         <object class="businessPlannerApp.backend.Centre" id="Centre1">
+         <object class="businessPlannerApp.backend.Centre" id="Centre2">
           <void property="name">
            <string>Centre_Plan_1</string>
           </void>
-          <void property="root">
+          <void id="PlanSection3" property="root">
+           <void property="comments">
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>New Comment</string>
+              </void>
+              <void property="resolved">
+               <boolean>true</boolean>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>no show</string>
+              </void>
+              <void property="resolved">
+               <boolean>true</boolean>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>Testing  default comment display</string>
+              </void>
+              <void property="username">
+               <string>admin</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>mission comment</string>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlannerApp.backend.Comment">
+              <void property="content">
+               <string>Testing  default comment display</string>
+              </void>
+              <void property="username">
+               <string>user</string>
+              </void>
+             </object>
+            </void>
+           </void>
            <void property="data">
             <string>mission edit</string>
            </void>
@@ -103,50 +245,6 @@
       </void>
      </void>
     </void>
-   </void>
-   <void method="put">
-    <string>qAr.-n&gt;H$(&lt;c#@;eMt\eWOkKW</string>
-    <object class="businessPlannerApp.backend.Account" id="Account1">
-     <void property="cookie">
-      <string>qAr.-n&gt;H$(&lt;c#@;eMt\eWOkKW</string>
-     </void>
-     <void property="department">
-      <object idref="Department0"/>
-     </void>
-     <void property="password">
-      <string>newUser</string>
-     </void>
-    </object>
-   </void>
-   <void method="put">
-    <string>&quot;!)zB*qN(K]?^QUI!5JWJF]&amp;X</string>
-    <object class="businessPlannerApp.backend.Account" id="Account2">
-     <void property="cookie">
-      <string>&quot;!)zB*qN(K]?^QUI!5JWJF]&amp;X</string>
-     </void>
-     <void property="department">
-      <object class="businessPlannerApp.backend.Department" id="Department1"/>
-     </void>
-     <void property="password">
-      <string>testDepartment</string>
-     </void>
-    </object>
-   </void>
-  </void>
-  <void property="departmentMap">
-   <void method="put">
-    <string>newDepartment</string>
-    <object idref="Department1"/>
-   </void>
-  </void>
-  <void property="loginMap">
-   <void method="put">
-    <string>newUser</string>
-    <object idref="Account1"/>
-   </void>
-   <void method="put">
-    <string>testDepartment</string>
-    <object idref="Account2"/>
    </void>
   </void>
  </object>

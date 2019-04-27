@@ -1,8 +1,9 @@
-package software_masters.planner_networking;
+package software_masters.backend_test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.rmi.RemoteException;
+
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class ServerTest {
 	static Server testServer;
 
 	@BeforeClass
-	public static void setUpBeforeClass() throws Exception { testServer = (Server) new ServerImplementation(); }
+	public static void setUpBeforeClass() throws Exception { testServer = new ServerImplementation(); }
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {}
@@ -36,27 +37,27 @@ public class ServerTest {
 	/**
 	 * This method tests that a new type of business plan can be added to server by
 	 * a developer
-	 * 
+	 *
 	 * @throws RemoteException
 	 */
 	@Test
 	public void testAddPlanTemplate() throws RemoteException {
-		Plan Iowa_State = new IowaState();
-		PlanFile Iowa_test = new PlanFile(null, true, Iowa_State);
+		final Plan Iowa_State = new IowaState();
+		final PlanFile Iowa_test = new PlanFile(null, true, Iowa_State);
 		testServer.addPlanTemplate("IowaState", Iowa_test);
-		PlanFile other = testServer.getPlanOutline("IowaState", "1");
+		final PlanFile other = testServer.getPlanOutline("IowaState", "1");
 		assertEquals(Iowa_test, other);
 	}
 
 	/**
 	 * Tests that the server can be saved to xml and reloaded correctly
-	 * 
+	 *
 	 * @throws Exception
 	 */
 	@Test
 	public void testSerialization() throws Exception {
 		testServer.save();
-		Server temp = ServerImplementation.load();
+		final Server temp = ServerImplementation.load();
 		assertEquals(testServer, temp);
 
 	}

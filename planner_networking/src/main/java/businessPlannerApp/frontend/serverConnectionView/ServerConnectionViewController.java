@@ -3,12 +3,12 @@ package businessPlannerApp.frontend.serverConnectionView;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import businessPlannerApp.Main;
+import businessPlannerApp.frontend.ViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class ServerConnectionViewController {
-	Main application;
+public class ServerConnectionViewController extends ViewController {
+
 	@FXML
 	TextField ipAddress;
 	@FXML
@@ -17,17 +17,15 @@ public class ServerConnectionViewController {
 	@FXML
 	public void connect() {
 		try {
-			application.getModel().connectToServer(ipAddress.getText(), Integer.parseInt(port.getText()));
-			application.showLoginView();
-		} catch (NumberFormatException e) {
-			application.sendError("cannot connect to server");
-		} catch (RemoteException e) {
-			application.sendError("cannot connect to server");
-		} catch (NotBoundException e) {
-			application.sendError("cannot connect to server");
+			this.app.getModel().connectToServer(this.ipAddress.getText(), Integer.parseInt(this.port.getText()));
+			this.app.showLoginView();
+		} catch (final NumberFormatException e) {
+			this.app.sendError("cannot connect to server");
+		} catch (final RemoteException e) {
+			this.app.sendError("cannot connect to server");
+		} catch (final NotBoundException e) {
+			this.app.sendError("cannot connect to server");
 		}
 	}
-
-	public void setApplication(Main application) { this.application = application; }
 
 }

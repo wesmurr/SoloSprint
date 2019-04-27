@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 import org.testfx.api.FxAssert;
 import org.testfx.matcher.control.LabeledMatchers;
 
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 
 /**
@@ -17,24 +16,24 @@ class PlanSelectionTest extends GuiTestBase {
 	 */
 	@Test
 	void mainTest() {
-		clickOn("Connect");
-		((TextField) find("#usernameField")).setText("user");
-		((TextField) find("#passwordField")).setText("user");
-		clickOn("#loginButton");
-		testDefaultValues();
-		testLogout();
-		testSelectPlanTemplate();
-		testSelectEditablePlan();
-		testSelectReadOnlyPlan();
+		this.clickOn("Connect");
+		((TextField) this.find("#usernameField")).setText("user");
+		((TextField) this.find("#passwordField")).setText("user");
+		this.clickOn("#loginButton");
+		this.testDefaultValues();
+		this.testLogout();
+		this.testSelectPlanTemplate();
+		this.testSelectEditablePlan();
+		this.testSelectReadOnlyPlan();
 	}
 
 	/**
 	 * Verifies labels are initialized with intended text.
 	 */
 	private void testDefaultValues() {
-		verify("#selectPlanLabel", "Select Plan");
-		verify("#planTemplatesLabel", "Plan Templates");
-		verify("#departmentPlansLabel", "Department Plans");
+		this.verify("#selectPlanLabel", "Select Plan");
+		this.verify("#planTemplatesLabel", "Plan Templates");
+		this.verify("#departmentPlansLabel", "Department Plans");
 		FxAssert.verifyThat("#logoutButton", LabeledMatchers.hasText("Logout"));
 	}
 
@@ -43,19 +42,9 @@ class PlanSelectionTest extends GuiTestBase {
 	 * presence of the username label in the login window.
 	 */
 	private void testLogout() {
-		clickOn("#logoutButton");
-		verify("#usernameLabel", "Username");
-		clickOn("#loginButton");
-	}
-
-	/**
-	 * Verifies the user can click on a plan template from the plan templates list
-	 * view and view the plan edit window.
-	 */
-	private void testSelectPlanTemplate() {
-		clickOn((Node) find("VMOSA"));
-		FxAssert.verifyThat("#saveButton", LabeledMatchers.hasText("Save"));
-		clickOn("#backToPlansButton");
+		this.clickOn("#logoutButton");
+		this.verify("#usernameLabel", "Username");
+		this.clickOn("#loginButton");
 	}
 
 	/**
@@ -63,9 +52,19 @@ class PlanSelectionTest extends GuiTestBase {
 	 * templates list view and view the plan edit window.
 	 */
 	private void testSelectEditablePlan() {
-		clickOn((Node) find("2019"));
+		this.clickOn(this.find("2019"));
 		FxAssert.verifyThat("#saveButton", LabeledMatchers.hasText("Save"));
-		clickOn("#backToPlansButton");
+		this.clickOn("#backToPlansButton");
+	}
+
+	/**
+	 * Verifies the user can click on a plan template from the plan templates list
+	 * view and view the plan edit window.
+	 */
+	private void testSelectPlanTemplate() {
+		this.clickOn(this.find("VMOSA"));
+		FxAssert.verifyThat("#saveButton", LabeledMatchers.hasText("Save"));
+		this.clickOn("#backToPlansButton");
 	}
 
 	/**
@@ -73,9 +72,9 @@ class PlanSelectionTest extends GuiTestBase {
 	 * templates list view and view the plan edit window.
 	 */
 	private void testSelectReadOnlyPlan() {
-		clickOn((Node) find("2020 Read Only"));
+		this.clickOn(this.find("2020 Read Only"));
 		FxAssert.verifyThat("#readOnlyLabel", LabeledMatchers.hasText("Local View Only - Cannot Save Changes"));
-		clickOn("#backToPlansButton");
+		this.clickOn("#backToPlansButton");
 	}
 
 }

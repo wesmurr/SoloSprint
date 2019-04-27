@@ -2,30 +2,28 @@ package businessPlannerApp.frontend.loginView;
 
 import java.rmi.RemoteException;
 
-import businessPlannerApp.Main;
+import businessPlannerApp.frontend.ViewController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-public class LoginViewController {
-	Main application;
-	@FXML
-	TextField usernameField;
+public class LoginViewController extends ViewController {
 	@FXML
 	PasswordField passwordField;
+	@FXML
+	TextField usernameField;
 
 	@FXML
 	void login(ActionEvent event) {
 		try {
-			application.getModel().login(usernameField.getText(), passwordField.getText());
-			application.showPlanSelectionView();
-		} catch (IllegalArgumentException e) {
-			application.sendError("invalid credentials");
-		} catch (RemoteException e) {
-			application.sendError("cannot connect to server");
+			this.app.getModel().login(this.usernameField.getText(), this.passwordField.getText());
+			this.app.showPlanSelectionView();
+		} catch (final IllegalArgumentException e) {
+			this.app.sendError("invalid credentials");
+		} catch (final RemoteException e) {
+			this.app.sendError("cannot connect to server");
 		}
 	}
 
-	public void setApplication(Main application) { this.application = application; }
 }

@@ -1,4 +1,4 @@
-package software_masters.planner_networking;
+package software_masters.backend_test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

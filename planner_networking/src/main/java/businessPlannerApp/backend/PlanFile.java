@@ -9,9 +9,18 @@ import java.io.Serializable;
 public class PlanFile implements Serializable {
 
 	private static final long serialVersionUID = 8679415216780269027L;
-	private String year;
 	private boolean canEdit;
 	private Plan plan;
+	private String year;
+
+	/**
+	 * Default constructor for serialization
+	 */
+	public PlanFile() {
+		this.year = null;
+		this.canEdit = false;
+		this.plan = null;
+	}
 
 	/**
 	 * @param year
@@ -24,29 +33,41 @@ public class PlanFile implements Serializable {
 		this.plan = plan;
 	}
 
-	/**
-	 * Default constructor for serialization
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
 	 */
-	public PlanFile() {
-		this.year = null;
-		this.canEdit = false;
-		this.plan = null;
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (this.getClass() != obj.getClass()) return false;
+		final PlanFile other = (PlanFile) obj;
+		if (this.canEdit != other.canEdit) return false;
+		if (this.plan == null) {
+			if (other.plan != null) return false;
+		} else if (!this.plan.equals(other.plan)) return false;
+		if (this.year == null) {
+			if (other.year != null) return false;
+		} else if (!this.year.equals(other.year)) return false;
+		return true;
 	}
+
+	/**
+	 * @return the plan
+	 */
+	public Plan getPlan() { return this.plan; }
 
 	/**
 	 * @return the year
 	 */
-	public String getYear() { return year; }
-
-	/**
-	 * @param year the year to set
-	 */
-	public void setYear(String year) { this.year = year; }
+	public String getYear() { return this.year; }
 
 	/**
 	 * @return the canEdit
 	 */
-	public boolean isCanEdit() { return canEdit; }
+	public boolean isCanEdit() { return this.canEdit; }
 
 	/**
 	 * @param canEdit the canEdit to set
@@ -54,44 +75,20 @@ public class PlanFile implements Serializable {
 	public void setCanEdit(boolean canEdit) { this.canEdit = canEdit; }
 
 	/**
-	 * @return the plan
-	 */
-	public Plan getPlan() { return plan; }
-
-	/**
 	 * @param plan the plan to set
 	 */
 	public void setPlan(Plan plan) { this.plan = plan; }
 
+	/**
+	 * @param year the year to set
+	 */
+	public void setYear(String year) { this.year = year; }
+
 	@Override
 	public String toString() {
-		if (isCanEdit()) {
-			return year;
-		} else {
-			return year + " Read Only";
-		}
+		if (this.isCanEdit()) return this.year;
+		else return this.year + " Read Only";
 
-	}
-
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (getClass() != obj.getClass()) return false;
-		PlanFile other = (PlanFile) obj;
-		if (canEdit != other.canEdit) return false;
-		if (plan == null) {
-			if (other.plan != null) return false;
-		} else if (!plan.equals(other.plan)) return false;
-		if (year == null) {
-			if (other.year != null) return false;
-		} else if (!year.equals(other.year)) return false;
-		return true;
 	}
 
 }

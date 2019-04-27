@@ -1,0 +1,406 @@
+package software_masters.backend_test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import businessPlannerApp.backend.Centre;
+import businessPlannerApp.backend.IowaState;
+import businessPlannerApp.backend.Plan;
+import businessPlannerApp.backend.PlanFile;
+import businessPlannerApp.backend.PlanSection;
+import businessPlannerApp.backend.Server;
+import businessPlannerApp.backend.ServerImplementation;
+import businessPlannerApp.backend.VMOSA;
+import businessPlannerApp.backend.model.PlannerModel;
+
+/**
+ * @author Lee Kendall
+ * @author Wes Murray This test is for the situation where the server and client
+ *         are running on separate machines. For this test to work the other
+ *         machine needs to have a working RMI registry and server. This test
+ *         requires the ip address and port number of the rmi registry running
+ *         on the other machine in order to work. This information is located in
+ *         the setUpBeforeClass method.
+ */
+public class RemoteClientTest {
+
+	static Registry registry;
+	static PlannerModel testClient;
+	/**
+	 * The server is initialized with two accounts - an Admin(Username: admin,
+	 * password: admin, cookie: 0) and a normal user (Username: user, password:
+	 * user, cookie: 1) The server is initialized with one department - (name:
+	 * default) The default department has a default plan file - (year: "2019",
+	 * candEdit: true, Plan Centre_Plan_1) planTemplateMap is initialized with VMOSA
+	 * and Centre templates
+	 */
+	static Server testServer;
+
+	/**
+	 * @throws Exception Sets up RMI registry, ensures that a server is pulled from
+	 *                   the registry, and sets up a client. The server and client
+	 *                   are used for subsequent tests.
+	 */
+	@BeforeClass
+	public static void setUpBeforeClass() throws Exception {
+		System.out.println("Starting Test");
+		try {
+			ServerImplementation.testSpawn();
+			final String hostName = "127.0.0.1";
+			registry = LocateRegistry.getRegistry(hostName, 1060);
+			testServer = (Server) registry.lookup("PlannerServer");
+			testClient = new PlannerModel(testServer);
+		} catch (final Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+	}
+
+	@AfterClass
+	public static void tearDownAfterClass() throws Exception {
+//		registry.unbind("PlannerServer");
+//        // Unexport; this will also remove us from the RMI runtime
+//        UnicastRemoteObject.unexportObject(testServer, true);
+//        System.out.println("closing server");
+	}
+
+	/**
+	 * verifies client can add a branch to plan only if the root of that branch is
+	 * allowed to be copied.
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testAddBranch() throws IllegalArgumentException, RemoteException {
+		testClient.login("user", "user");
+		//////////////////////////////////// Centre
+		//////////////////////////////////// example/////////////////////////////////////////////
+		testClient.getPlan("2019");
+		final PlanFile test = testClient.getCurrPlanFile();
+		PlanSection root = test.getPlan().getRoot();
+		// try adding second mission should throw exception
+		testClient.setCurrNode(root);
+		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
+		// try adding second goal
+		testClient.setCurrNode(root.getChildren().get(0));// at goal level
+		this.testBranchCopy();
+		/////////////////////////////////// VMOSA
+		/////////////////////////////////// example///////////////////////////////////////////////
+		final Plan VMOSA_test = new VMOSA();
+		root = VMOSA_test.getRoot();
+		final PlanFile vmosaTest = new PlanFile("2018", true, VMOSA_test);
+		testClient.setCurrPlanFile(vmosaTest);
+		// try adding second mission should throw exception
+		testClient.setCurrNode(root.getChildren().get(0));
+		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
+		// try adding second objective
+		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// at objective level
+		this.testBranchCopy();
+		/////////////////////////////////// Iowa state
+		/////////////////////////////////// example///////////////////////////////////////////////
+		final Plan IOWA_test = new IowaState();
+		root = IOWA_test.getRoot();
+		final PlanFile iowaTest = new PlanFile("2017", true, IOWA_test);
+		testClient.setCurrPlanFile(iowaTest);
+		// try adding second mission should throw exception
+		testClient.setCurrNode(root.getChildren().get(0));
+		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
+		// try adding second core value
+		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// at core value level
+		this.testBranchCopy();
+	}
+
+	/**
+	 * Verifies addDepartment method works and that only admins can call it
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testAddDepartment() throws IllegalArgumentException, RemoteException {
+		// tests non-admin addDepartment
+		testClient.login("user", "user");
+		assertThrows(IllegalArgumentException.class, () -> testClient.addDepartment("newDepartment"));
+
+		// tests admin can add new department.
+		testClient.login("admin", "admin");
+		testClient.addDepartment("newDepartment");
+
+		// verifies department was created because user cannot be assign a department
+		// that does not exist. That would throw an exception.
+		testClient.addUser("testDepartment", "testDepartment", "newDepartment", false);
+
+	}
+
+	/**
+	 * Verifies addUser method works and that only admins can call it
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testAddUser() throws IllegalArgumentException, RemoteException {
+
+		// tests non-admin addUser
+		testClient.login("user", "user");
+		testClient.getPlan("2019");
+		final PlanFile base = testClient.getCurrPlanFile();
+		assertThrows(IllegalArgumentException.class, () -> testClient.addUser("newUser", "newUser", "default", false));
+
+		// tests admin can add new account.
+		testClient.login("admin", "admin");
+		testClient.addUser("newUser", "newUser", "default", false);
+
+		// verify can successfully obtain default plan using the created account
+		testClient.login("newUser", "newUser");
+		testClient.getPlan("2019");
+		final PlanFile test = testClient.getCurrPlanFile();
+		assertEquals(base, test);
+
+		// Verifies an exception is thrown when admins attempt to add a user with a
+		// non-existent department
+		testClient.login("admin", "admin");
+		assertThrows(IllegalArgumentException.class,
+				() -> testClient.addUser("anotherUser", "anotherUser", "invalidDepartment", false));
+
+	}
+
+	/**
+	 * This is a helper method. It tests that a branch is added to plan. It also
+	 * verifies that the new branch is a deep copy of the original branch
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	private void testBranchCopy() throws IllegalArgumentException, RemoteException {
+		testClient.addBranch();
+		assertTrue(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
+
+		// assures deep copy not shallow. this is tested by changing one copy and
+		// verifying that the original was not changed.
+		testClient.getCurrNode().getParent().getChildren().get(1).setData("some text");
+		assertFalse(testClient.getCurrNode().testEquals(testClient.getCurrNode().getParent().getChildren().get(1)));
+
+	}
+
+	/**
+	 * This method verifies that the centre template enforces remove branch
+	 * constraints. Cannot remove node if only one exists.
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testCentreRemoveBranch() throws IllegalArgumentException, RemoteException {
+		testClient.login("user", "user");
+		//////////////////////////////////// Centre
+		//////////////////////////////////// example/////////////////////////////////////////////
+		testClient.getPlan("2019");
+		final PlanFile test = testClient.getCurrPlanFile();
+		final PlanSection root = test.getPlan().getRoot();
+		// try removing mission should throw exception
+		testClient.setCurrNode(root);// mission level
+		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
+		// try removing goal should throw exception bc only one exists
+		testClient.setCurrNode(root.getChildren().get(0));// goal level
+		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
+		// add second goal and verify that it can be removed
+		testClient.setCurrNode(root.getChildren().get(0));// at goal level
+		this.testBranchCopy();
+		testClient.removeBranch();
+		assertEquals("some text", testClient.getCurrNode().getParent().getChildren().get(0).getData());
+	}
+
+	/**
+	 * This method verifies that only admins can flag a plan as editable.
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testFlagPlan() throws IllegalArgumentException, RemoteException {
+		// tests non-admin flagFile
+		testClient.login("user", "user");
+		assertThrows(IllegalArgumentException.class, () -> testClient.flagPlan("default", "2019", false));
+
+		// tests admin can flag file.
+		testClient.login("admin", "admin");
+		testClient.flagPlan("default", "2019", true);
+		testClient.getPlan("2019");
+		final PlanFile file = testClient.getCurrPlanFile();
+		assertTrue(file.isCanEdit());
+
+		// tests exception is thrown if try to flag invalid file.
+		assertThrows(IllegalArgumentException.class, () -> testClient.flagPlan("default", "2000", true));
+
+	}
+
+	/**
+	 * This method verifies that the client can retrieve plans that exist. Throws
+	 * exception if plan does not exist.
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testGetPlan() throws IllegalArgumentException, RemoteException {
+		// plan does not exist throws exception
+		testClient.login("user", "user");
+		assertThrows(IllegalArgumentException.class, () -> testClient.getPlan("2000"));
+
+		// verify obtained plan is as expected
+		final Plan plan = new Centre();
+		plan.setName("Centre_Plan_1");
+		final PlanFile planfile = new PlanFile("2016", true, plan);
+		testClient.pushPlan(planfile);
+		testClient.getPlan("2016");
+		assertEquals(planfile, testClient.getCurrPlanFile());
+	}
+
+	/**
+	 * This method verifies that the client can retrieve plan outlines that exist.
+	 * Throws exception if plan outline does not exist.
+	 *
+	 * @throws RemoteException
+	 */
+	@Test
+	public void testGetPlanOutline() throws RemoteException {
+
+		testClient.login("user", "user");
+
+		// build expected file.
+		final PlanFile centreBase = new PlanFile("", true, new Centre());
+
+		// test that retrieved business plan outline matches expected
+		testClient.getPlanOutline("Centre");
+		assertEquals(centreBase, testClient.getCurrPlanFile());
+
+		// if plan outline does not exist throw exception
+		assertThrows(IllegalArgumentException.class, () -> testClient.getPlanOutline("invalid_outline"));
+
+	}
+
+	/**
+	 * This method verifies that the Iowa template enforces remove branch
+	 * constraints. Cannot remove node if only one exists.
+	 *
+	 * @throws RemoteException
+	 */
+	@Test
+	public void testIowaRemoveBranch() throws RemoteException {
+		/////////////////////////////////// Iowa state
+		/////////////////////////////////// example///////////////////////////////////////////////
+		final Plan IOWA_test = new IowaState();
+		final PlanSection root = IOWA_test.getRoot();
+		final PlanFile iowaTest = new PlanFile("2017", true, IOWA_test);
+		testClient.setCurrPlanFile(iowaTest);
+		// try remove mission should throw exception
+		testClient.setCurrNode(root.getChildren().get(0));
+		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
+		// try removing core value should throw exception bc only one exists
+		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// objective level
+		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
+		// add second core value
+		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// at core value level
+		this.testBranchCopy();
+		testClient.removeBranch();
+		assertEquals("some text", testClient.getCurrNode().getParent().getChildren().get(0).getData());
+	}
+
+	/**
+	 * Verifies that the login method works by returning a valid cookie from a valid
+	 * login.
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testLogin() throws IllegalArgumentException, RemoteException {
+
+		// Checks invalid cases
+		assertThrows(IllegalArgumentException.class, () -> testClient.login("invalidUsername", "invalidPassword"));
+		assertThrows(IllegalArgumentException.class, () -> testClient.login("user", "invalidPassword"));
+		assertThrows(IllegalArgumentException.class, () -> testClient.login("invalidUsername", "user"));
+
+		// Checks valid logins
+		testClient.login("user", "user");
+		assertEquals("1", testClient.getCookie());
+		testClient.login("admin", "admin");
+		assertEquals("0", testClient.getCookie());
+	}
+
+	/**
+	 * Verifies the client can push plans if and only if the planfile flag canEdit
+	 * is true.
+	 *
+	 * @throws RemoteException
+	 * @throws IllegalArgumentException
+	 */
+	@Test
+	public void testpushPlan() throws IllegalArgumentException, RemoteException {
+		// change canEdit flag to false for default planfile
+		testClient.login("admin", "admin");
+		testClient.flagPlan("default", "2019", false);
+
+		// edit existing default planfile
+		testClient.login("user", "user");
+		testClient.getPlan("2019");
+		final PlanFile test = testClient.getCurrPlanFile();
+		final Plan temp = test.getPlan(); // if issues later verify shallow not deep copy
+		temp.setName("Centre_Plan_2");
+
+		// throws exception when pushing edited planfile if canEdit is false
+		assertThrows(IllegalArgumentException.class, () -> testClient.pushPlan(test));
+
+		// change can edit flag to true for default planfile
+		testClient.login("admin", "admin");
+		testClient.flagPlan("default", "2019", true);
+
+		// verifies test file now on server is the same as the object that was pushed
+		testClient.login("user", "user");
+		testClient.pushPlan(test);
+		testClient.getPlan("2019");
+		assertEquals(test, testClient.getCurrPlanFile());
+
+	}
+
+	/**
+	 * This method verifies that the VMOSA template enforces remove branch
+	 * constraints. Cannot remove node if only one exists.
+	 *
+	 * @throws RemoteException
+	 */
+	@Test
+	public void testVMOSARemoveBranch() throws RemoteException {
+		/////////////////////////////////// VMOSA
+		/////////////////////////////////// example///////////////////////////////////////////////
+		final Plan VMOSA_test = new VMOSA();
+		final PlanSection root = VMOSA_test.getRoot();
+		final PlanFile vmosaTest = new PlanFile("2018", true, VMOSA_test);
+		testClient.setCurrPlanFile(vmosaTest);
+		// try removing mission should throw exception
+		testClient.setCurrNode(root.getChildren().get(0));
+		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
+		// try removing objective should throw exception bc only one exists
+		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// objective level
+		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
+		// add second objective
+		testClient.setCurrNode(testClient.getCurrNode());// at objective level
+		this.testBranchCopy();
+		testClient.removeBranch();
+		assertEquals("some text", testClient.getCurrNode().getParent().getChildren().get(0).getData());
+	}
+
+}

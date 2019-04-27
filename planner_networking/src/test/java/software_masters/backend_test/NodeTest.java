@@ -1,12 +1,12 @@
-package software_masters.planner_networking;
+package software_masters.backend_test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.rmi.RemoteException;
 
 import org.junit.Test;
 
-import businessPlannerApp.backend.Node;
+import businessPlannerApp.backend.PlanSection;
 
 public class NodeTest {
 
@@ -20,7 +20,7 @@ public class NodeTest {
 		// get child when no child
 
 		// make tree node and test data methods
-		Node tree = new Node(null, "TreeNode", null, null);
+		final PlanSection tree = new PlanSection(null, "TreeNode", null, null);
 		assertEquals("TreeNode", tree.getName());
 		tree.setName("Tree");
 		assertEquals("Tree", tree.getName());
@@ -33,25 +33,25 @@ public class NodeTest {
 		assertEquals(true, tree.getChildren().isEmpty());
 
 		// make child nodes for tree, test addChild and getParent
-		Node n1 = new Node(tree, "Vision", null, null);
+		final PlanSection n1 = new PlanSection(tree, "Vision", null, null);
 		tree.addChild(n1);
 		assertEquals(tree, n1.getParent());
 		assertEquals("Vision", n1.getName());
 		assertEquals(true, tree.getChildren().contains(n1));
 
-		Node n2 = new Node(tree, "node", null, null);
+		final PlanSection n2 = new PlanSection(tree, "node", null, null);
 		tree.addChild(n2);
 		assertEquals(true, tree.getChildren().contains(n2));
 		assertEquals(tree, n2.getParent());
 
 		// add child to n2
-		Node n3 = new Node(n2, "node3", null, null);
+		final PlanSection n3 = new PlanSection(n2, "node3", null, null);
 		n2.addChild(n3);
 		assertEquals(true, n2.getChildren().contains(n3));
 		assertEquals(n2, n3.getParent());
 
 		// add child to n3
-		Node n4 = new Node(n3, "node3", null, null);
+		final PlanSection n4 = new PlanSection(n3, "node3", null, null);
 		n3.addChild(n4);
 
 		// get grandparent
