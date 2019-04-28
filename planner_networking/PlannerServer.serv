@@ -12,8 +12,21 @@
         <void id="PlanSection0" property="root">
          <void id="ArrayList0" property="children">
           <void id="PlanSection1" index="0">
-           <void property="comments">
-            <void method="clear"/>
+           <void id="ArrayList1" property="children">
+            <void id="PlanSection2" index="0">
+             <void property="comments">
+              <void method="add">
+               <object class="businessPlannerApp.backend.Comment">
+                <void property="content">
+                 <string>learning objective comment</string>
+                </void>
+                <void property="username">
+                 <string>user</string>
+                </void>
+               </object>
+              </void>
+             </void>
+            </void>
            </void>
           </void>
          </void>
@@ -86,21 +99,8 @@
           <void property="name">
            <string>Centre_Plan_1</string>
           </void>
-          <void id="PlanSection2" property="root">
+          <void id="PlanSection3" property="root">
            <void property="comments">
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>New Comment</string>
-              </void>
-              <void property="resolved">
-               <boolean>true</boolean>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
             <void method="add">
              <object class="businessPlannerApp.backend.Comment">
               <void property="content">
@@ -170,21 +170,8 @@
           <void property="name">
            <string>Centre_Plan_1</string>
           </void>
-          <void id="PlanSection3" property="root">
+          <void id="PlanSection4" property="root">
            <void property="comments">
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>New Comment</string>
-              </void>
-              <void property="resolved">
-               <boolean>true</boolean>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
             <void method="add">
              <object class="businessPlannerApp.backend.Comment">
               <void property="content">

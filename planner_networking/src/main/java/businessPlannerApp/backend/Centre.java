@@ -25,9 +25,9 @@ public class Centre extends Plan {
 	public boolean addNode(PlanSection parent) throws RemoteException, IllegalArgumentException {
 		if (parent == null) throw new IllegalArgumentException("Cannot add to this parent");
 		else {
-			for (int i = this.index_depth(parent) + 1; i < this.getList().size(); i++) {
+			for (int i = index_depth(parent) + 1; i < getList().size(); i++) {
 
-				final PlanSection newNode = new PlanSection(parent, this.getList().get(i), null, null);
+				final PlanSection newNode = new PlanSection(parent, getList().get(i), null, null);
 
 				parent.addChild(newNode);
 				parent = newNode;
@@ -52,8 +52,7 @@ public class Centre extends Plan {
 	{
 		if (nodeRemove == null) throw new IllegalArgumentException("Cannot remove this node");
 		else if (nodeRemove.getParent() == null) throw new IllegalArgumentException("Cannot remove this node");
-		else if (nodeRemove.getName().equals(this.getRoot().getName())
-				|| (nodeRemove.getParent().getChildren().size() == 1))
+		else if (nodeRemove.getName().equals(getRoot().getName()) || (nodeRemove.getParent().getChildren().size() == 1))
 			throw new IllegalArgumentException("Cannot remove this node");
 		else {
 			nodeRemove.getParent().removeChild(nodeRemove);
@@ -72,11 +71,11 @@ public class Centre extends Plan {
 	 */
 	@Override
 	protected void setDefaultStrings() {
-		this.getList().add("Mission");
-		this.getList().add("Goal");
-		this.getList().add("Learning Objective");
-		this.getList().add("Assessment Process");
-		this.getList().add("Results");
+		getList().add("Mission");
+		getList().add("Goal");
+		getList().add("Learning Objective");
+		getList().add("Assessment Process");
+		getList().add("Results");
 	}
 
 }

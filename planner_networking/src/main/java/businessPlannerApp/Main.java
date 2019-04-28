@@ -44,14 +44,14 @@ public class Main extends Application {
 	 * @param cont plan edit view controller
 	 */
 	private void closeWindow(EditController cont) {
-		final Alert alert = new Alert(AlertType.CONFIRMATION);
-		final String message = "You have unsaved changes. Do you wish to save before exiting?";
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		String message = "You have unsaved changes. Do you wish to save before exiting?";
 		alert.setContentText(message);
-		final ButtonType okButton = new ButtonType("Yes");
-		final ButtonType noButton = new ButtonType("No");
-		final ButtonType cancelButton = new ButtonType("Cancel");
+		ButtonType okButton = new ButtonType("Yes");
+		ButtonType noButton = new ButtonType("No");
+		ButtonType cancelButton = new ButtonType("Cancel");
 		alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
-		final Optional<ButtonType> result = alert.showAndWait();
+		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == okButton) {
 			if (cont.push()) this.primaryStage.close();
 		} else if (result.get() == noButton) this.primaryStage.close();
@@ -122,7 +122,7 @@ public class Main extends Application {
 		final ServerConnectionViewController cont = null;
 		this.loadController(cont, "frontend/serverConnectionView/serverConnectionView.fxml");
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.primaryStage.close(); });
-		this.setupDisplay();
+		setupDisplay();
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class Main extends Application {
 		final LoginViewController cont = null;
 		this.loadController(cont, "frontend/loginView/loginView.fxml");
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.primaryStage.close(); });
-		this.setupDisplay();
+		setupDisplay();
 	}
 
 	/**
@@ -152,7 +152,7 @@ public class Main extends Application {
 		final PlanSelectionViewController cont = null;
 		this.loadController(cont, "frontend/planSelectionView/planSelectionView.fxml");
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.primaryStage.close(); });
-		this.setupDisplay();
+		setupDisplay();
 	}
 
 	/**
@@ -178,11 +178,11 @@ public class Main extends Application {
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			e.consume();
 			cont.changeSection();
-			if (!cont.isPushed()) this.closeWindow(cont);
+			if (!cont.isPushed()) closeWindow(cont);
 			else this.primaryStage.close();
 		});
 
-		this.setupDisplay();
+		setupDisplay();
 	}
 
 	/*
@@ -196,7 +196,7 @@ public class Main extends Application {
 		this.primaryStage = primaryStage;
 		this.model = new PlannerModel();
 
-		this.showConnectToServer();
+		showConnectToServer();
 	}
 
 }

@@ -129,7 +129,7 @@ public class Account {
 	 */
 	public String testCredentials(String password) throws IllegalArgumentException // returns cookie
 	{
-		if (this.getPassword().equals(password)) return this.cookie;
+		if (getPassword().equals(password)) return this.cookie;
 		throw new IllegalArgumentException("Invalid username and/or password");
 	}
 

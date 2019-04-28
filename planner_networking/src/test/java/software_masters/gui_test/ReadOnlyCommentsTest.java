@@ -16,16 +16,16 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 */
 	@Test
 	void commentUpdateWithSectionChange() {
-		this.getToPlanEditView("2020 Read Only");
-		this.find("user: Testing  default comment display");
-		this.find("admin: Testing  default comment display");
-		assertThrows(NoSuchElementException.class, () -> this.find("user: no show"));
-		this.find("user: vision comment");
-		this.doubleClickOn("Vision");
-		this.sleep(2000);
-		this.clickOn("Mission");
-		this.find("user: mission comment");
-		assertThrows(NoSuchElementException.class, () -> this.find("user: vision comment"));
+		getToPlanEditView("2020 Read Only");
+		find("user: Testing  default comment display");
+		find("admin: Testing  default comment display");
+		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
+		find("user: vision comment");
+		doubleClickOn("Vision");
+		sleep(2000);
+		clickOn("Mission");
+		find("user: mission comment");
+		assertThrows(NoSuchElementException.class, () -> find("user: vision comment"));
 	}
 
 	/**
@@ -33,12 +33,12 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 */
 	@Test
 	void editablePlanTestNewComment() {
-		this.getToPlanEditView("2020 Read Only");
-		this.find("user: Testing  default comment display");
-		this.find("admin: Testing  default comment display");
-		this.sleep(2000);
-		assertThrows(NoSuchElementException.class, () -> this.find("user: no show"));
-		assertThrows(NoSuchElementException.class, () -> this.find("addComment"));
+		getToPlanEditView("2020 Read Only");
+		find("user: Testing  default comment display");
+		find("admin: Testing  default comment display");
+		sleep(2000);
+		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
+		assertThrows(NoSuchElementException.class, () -> find("addComment"));
 	}
 
 	/**
@@ -46,13 +46,11 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 */
 	@Test
 	void editablePlanTestResolvedComment() {
-		this.getToPlanEditView("2020 Read Only");
-		this.clickOn("user: Testing  default comment display");
-		assertThrows(NoSuchElementException.class, () -> this.find("Resolved"));
-		this.clickOn("OK");
-		this.verifyNoPopup(this.logoutID);
-		this.verifyNoPopup(this.backID);
-		this.clickOn(this.saveID);
+		getToPlanEditView("2020 Read Only");
+		clickOn("user: Testing  default comment display");
+		assertThrows(NoSuchElementException.class, () -> find("Resolved"));
+		clickOn("OK");
+		verifyNoPopup(this.logoutID);
 	}
 
 	/**
@@ -61,7 +59,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	@Override
 	protected void getToPlanEditView(String item) {
 		super.getToPlanEditView(item);
-		this.clickOn(this.toggleComments);
+		clickOn(this.toggleComments);
 	}
 
 	/**
@@ -70,7 +68,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 * @param ID
 	 */
 	private void verifyNoPopup(String ID) {
-		this.clickOn(ID);
-		assertThrows(NoSuchElementException.class, () -> this.find("Cancel"));
+		clickOn(ID);
+		assertThrows(NoSuchElementException.class, () -> find("Cancel"));
 	}
 }

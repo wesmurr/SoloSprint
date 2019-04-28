@@ -86,7 +86,7 @@ public class PlanFile implements Serializable {
 
 	@Override
 	public String toString() {
-		if (this.isCanEdit()) return this.year;
+		if (isCanEdit()) return this.year;
 		else return this.year + " Read Only";
 
 	}

@@ -97,7 +97,7 @@ public class LocalClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
 		// try adding second goal
 		testClient.setCurrNode(root.getChildren().get(0));// at goal level
-		this.testBranchCopy();
+		testBranchCopy();
 		/////////////////////////////////// VMOSA
 		/////////////////////////////////// example///////////////////////////////////////////////
 		final Plan VMOSA_test = new VMOSA();
@@ -109,7 +109,7 @@ public class LocalClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
 		// try adding second objective
 		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// at objective level
-		this.testBranchCopy();
+		testBranchCopy();
 		/////////////////////////////////// Iowa state
 		/////////////////////////////////// example///////////////////////////////////////////////
 		final Plan IOWA_test = new IowaState();
@@ -121,7 +121,7 @@ public class LocalClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.addBranch());
 		// try adding second core value
 		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// at core value level
-		this.testBranchCopy();
+		testBranchCopy();
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class LocalClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
 		// add second goal and verify that it can be removed
 		testClient.setCurrNode(root.getChildren().get(0));// at goal level
-		this.testBranchCopy();
+		testBranchCopy();
 		testClient.removeBranch();
 		assertEquals("some text", testClient.getCurrNode().getParent().getChildren().get(0).getData());
 	}
@@ -309,7 +309,7 @@ public class LocalClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
 		// add second core value
 		testClient.setCurrNode(testClient.getCurrNode().getChildren().get(0));// at core value level
-		this.testBranchCopy();
+		testBranchCopy();
 		testClient.removeBranch();
 		assertEquals("some text", testClient.getCurrNode().getParent().getChildren().get(0).getData());
 	}
@@ -393,7 +393,7 @@ public class LocalClientTest {
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
 		// add second objective
 		testClient.setCurrNode(testClient.getCurrNode());// at objective level
-		this.testBranchCopy();
+		testBranchCopy();
 		testClient.removeBranch();
 		assertEquals("some text", testClient.getCurrNode().getParent().getChildren().get(0).getData());
 	}

@@ -20,8 +20,8 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 	 */
 	public Plan() throws RemoteException {
 		this.defaultNodes = new ArrayList<>();
-		this.setDefaultStrings();
-		this.addDefaultNodes();
+		setDefaultStrings();
+		addDefaultNodes();
 	}
 
 	/**
@@ -33,7 +33,7 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 		this.root = new PlanSection(null, this.defaultNodes.get(0), null, null);
 		final PlanSection newParent = new PlanSection(this.root, this.defaultNodes.get(1), null, null);
 		this.root.addChild(newParent);
-		this.addNode(newParent);
+		addNode(newParent);
 	}
 
 	/**
@@ -93,7 +93,7 @@ public abstract class Plan implements Serializable// extends UnicastRemoteObject
 
 	protected int index_depth(PlanSection node) {
 		if (node.getParent() == null) return 0;
-		else return this.index_depth(node.getParent()) + 1;
+		else return index_depth(node.getParent()) + 1;
 
 	}
 

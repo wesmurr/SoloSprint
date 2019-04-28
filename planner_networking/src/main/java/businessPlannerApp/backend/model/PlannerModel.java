@@ -81,7 +81,7 @@ public class PlannerModel {
 	public void backToPlans() {
 		this.currNode = null;
 		this.currPlanFile = null;
-		this.releaseFile();
+		releaseFile();
 	}
 
 	/**
@@ -218,7 +218,7 @@ public class PlannerModel {
 		this.cookie = null;
 		this.currNode = null;
 		this.currPlanFile = null;
-		this.releaseFile();
+		releaseFile();
 	}
 
 	/**

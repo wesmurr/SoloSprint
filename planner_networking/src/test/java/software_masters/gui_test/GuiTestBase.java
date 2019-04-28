@@ -42,7 +42,7 @@ public abstract class GuiTestBase extends ApplicationTest {
 	@SuppressWarnings("deprecation")
 	@AfterEach
 	public void afterEachTest() {
-		this.closeCurrentWindow();
+		closeCurrentWindow();
 		this.release(new KeyCode[] {});
 		this.release(new MouseButton[] {});
 	}

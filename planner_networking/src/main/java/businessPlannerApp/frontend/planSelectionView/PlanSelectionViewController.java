@@ -125,8 +125,8 @@ public class PlanSelectionViewController extends ViewController {
 	@Override
 	public void setApplication(Main app) {
 		super.setApplication(app);
-		this.genPlansList();
-		this.genTemplateList();
+		genPlansList();
+		genTemplateList();
 	}
 
 }

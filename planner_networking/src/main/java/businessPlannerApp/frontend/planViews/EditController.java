@@ -21,9 +21,9 @@ public class EditController extends PlanController {
 	@FXML
 	public void addSection() {
 		try {
-			this.changeSection();
+			changeSection();
 			this.model.addBranch();
-			this.setTreeView();
+			setTreeView();
 			this.isPushed = false;
 		} catch (final RemoteException e) {
 			this.app.sendError("Cannot connect to server");
@@ -41,9 +41,9 @@ public class EditController extends PlanController {
 	public void backToPlans() {
 		// need to ask users if they want to push
 
-		this.changeSection();
+		changeSection();
 		if (this.isPushed) super.backToPlans();
-		else this.warningToSaveBackToPlans();
+		else warningToSaveBackToPlans();
 	}
 
 	/**
@@ -84,9 +84,9 @@ public class EditController extends PlanController {
 		alert.getButtonTypes().setAll(okButton, noButton);
 		final Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == okButton) try {
-			this.changeSection();
+			changeSection();
 			this.model.removeBranch();
-			this.setTreeView();
+			setTreeView();
 			this.isPushed = false;
 		} catch (final IllegalArgumentException e) {
 			this.app.sendError("Cannot delete this section");
@@ -107,9 +107,9 @@ public class EditController extends PlanController {
 	@FXML
 	public void logout() {
 		// need to ask users if they want to push
-		this.changeSection();
+		changeSection();
 		if (this.isPushed) super.logout();
-		else this.warningToSaveLogout();
+		else warningToSaveLogout();
 	}
 
 	/**
@@ -121,7 +121,7 @@ public class EditController extends PlanController {
 			// set the year to which the user want
 			// This allow the user to decide which year they want to edit
 			// at editing time
-			this.changeSection();
+			changeSection();
 			this.model.getCurrPlanFile().setYear(this.yearField.getText());
 			this.model.pushPlan(this.model.getCurrPlanFile());
 			this.isPushed = true;
@@ -155,7 +155,7 @@ public class EditController extends PlanController {
 	@Override
 	@FXML
 	public void showComments() {
-		this.changeSection();
+		changeSection();
 		super.showComments();
 	}
 
@@ -175,7 +175,7 @@ public class EditController extends PlanController {
 		alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
 		final Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == okButton) {
-			if (this.push()) super.backToPlans();
+			if (push()) super.backToPlans();
 		} else if (result.get() == noButton) super.backToPlans();
 		else if (result.get() == cancelButton) {}
 	}
@@ -196,7 +196,7 @@ public class EditController extends PlanController {
 		alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
 		final Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == okButton) {
-			if (this.push()) super.logout();
+			if (push()) super.logout();
 		} else if (result.get() == noButton) super.logout();
 		else if (result.get() == cancelButton) {}
 	}

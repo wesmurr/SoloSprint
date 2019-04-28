@@ -16,12 +16,12 @@ class LoginTest extends GuiTestBase {
 	 */
 	@Test
 	void mainTest() {
-		this.clickOn("Connect");
-		this.testDefaultValues();
-		this.testInvalidUser();
-		this.testInvalidPassword();
-		this.testInvalidUsernameAndPassword();
-		this.testValidLogin();
+		clickOn("Connect");
+		testDefaultValues();
+		testInvalidUser();
+		testInvalidPassword();
+		testInvalidUsernameAndPassword();
+		testValidLogin();
 	}
 
 	/**
@@ -37,12 +37,12 @@ class LoginTest extends GuiTestBase {
 	 * password is entered, by checking that the username label is still present
 	 */
 	private void testInvalidPassword() {
-		this.clickOn("#passwordField");
-		this.write("INVALID PASSWORD");
-		this.clickOn("#loginButton");
-		this.checkPopupMsg("invalid credentials");
-		this.clickOn("OK");
-		final TextField textfield = (TextField) this.find("#passwordField");
+		clickOn("#passwordField");
+		write("INVALID PASSWORD");
+		clickOn("#loginButton");
+		checkPopupMsg("invalid credentials");
+		clickOn("OK");
+		final TextField textfield = (TextField) find("#passwordField");
 		textfield.setText("user");
 
 	}
@@ -52,12 +52,12 @@ class LoginTest extends GuiTestBase {
 	 * username is entered, by checking that the username label is still present
 	 */
 	private void testInvalidUser() {
-		this.clickOn("#usernameField");
-		this.write("INVALID USERNAME");
-		this.clickOn("#loginButton");
-		this.checkPopupMsg("invalid credentials");
-		this.clickOn("OK");
-		final TextField textfield = (TextField) this.find("#usernameField");
+		clickOn("#usernameField");
+		write("INVALID USERNAME");
+		clickOn("#loginButton");
+		checkPopupMsg("invalid credentials");
+		clickOn("OK");
+		final TextField textfield = (TextField) find("#usernameField");
 		textfield.setText("user");
 
 	}
@@ -68,16 +68,16 @@ class LoginTest extends GuiTestBase {
 	 * still present
 	 */
 	private void testInvalidUsernameAndPassword() {
-		this.clickOn("#passwordField");
-		this.write("INVALID PASSWORD");
-		this.clickOn("#usernameField");
-		this.write("INVALID USERNAME");
-		this.clickOn("#loginButton");
-		this.checkPopupMsg("invalid credentials");
-		this.clickOn("OK");
-		TextField textfield = (TextField) this.find("#passwordField");
+		clickOn("#passwordField");
+		write("INVALID PASSWORD");
+		clickOn("#usernameField");
+		write("INVALID USERNAME");
+		clickOn("#loginButton");
+		checkPopupMsg("invalid credentials");
+		clickOn("OK");
+		TextField textfield = (TextField) find("#passwordField");
 		textfield.setText("user");
-		textfield = (TextField) this.find("#usernameField");
+		textfield = (TextField) find("#usernameField");
 		textfield.setText("user");
 
 	}
@@ -87,7 +87,7 @@ class LoginTest extends GuiTestBase {
 	 * and password is entered, by checking that the select plan label is present.
 	 */
 	private void testValidLogin() {
-		this.clickOn("#loginButton");
+		clickOn("#loginButton");
 		verifyThat("#selectPlanLabel", (Label label) -> { return label.getText().equals("Select Plan"); });
 
 	}

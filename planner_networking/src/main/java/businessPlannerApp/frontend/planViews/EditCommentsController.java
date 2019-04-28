@@ -22,7 +22,7 @@ public class EditCommentsController extends EditController implements CommentCon
 	@Override
 	public void changeSection() {
 		super.changeSection();
-		this.setListView();
+		setListView();
 		this.commentList.refresh();
 	}
 
@@ -33,11 +33,11 @@ public class EditCommentsController extends EditController implements CommentCon
 		final Optional<String> result = comment.showAndWait();
 		if (result.isPresent()) try {
 			this.model.getCurrNode().addComment(new Comment(result.get(), this.model.getUsername()));
-			this.setListView();
+			setListView();
 			this.commentList.refresh();
 			this.isPushed = false;
 		} catch (final IllegalArgumentException e) {
-			this.logout();
+			logout();
 		} catch (final RemoteException e) {
 			this.app.showConnectToServer();
 		}
@@ -45,7 +45,7 @@ public class EditCommentsController extends EditController implements CommentCon
 
 	@Override
 	public void hideComments() {
-		this.changeSection();
+		changeSection();
 		this.app.showPlanView(this.selfPath);
 	}
 
@@ -57,7 +57,7 @@ public class EditCommentsController extends EditController implements CommentCon
 	@Override
 	public void setApplication(Main application) {
 		super.setApplication(application);
-		this.setListView();
+		setListView();
 	}
 
 	private void setListView() {
@@ -79,7 +79,7 @@ public class EditCommentsController extends EditController implements CommentCon
 		final Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == resolvedButton) {
 			comment.setResolved(true);
-			this.setListView();
+			setListView();
 			this.commentList.refresh();
 			this.isPushed = false;
 		}

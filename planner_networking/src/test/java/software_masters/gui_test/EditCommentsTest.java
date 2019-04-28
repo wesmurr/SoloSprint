@@ -24,18 +24,36 @@ class EditCommentsTest extends PlanEditViewTest {
 	 */
 	@Test
 	void commentUpdateWithSectionChange() {
-		this.clickOn("Connect");
-		this.getToPlanEditView("2019");
-		this.sleep(20000);
-		this.find("user: Testing  default comment display");
-		this.find("admin: Testing  default comment display");
-		assertThrows(NoSuchElementException.class, () -> this.find("user: no show"));
-		this.find("user: mission comment");
-		this.doubleClickOn("Mission");
-		this.clickOn("Goal");
-		this.sleep(20000);
-		this.find("user: goal comment");
-		assertThrows(NoSuchElementException.class, () -> this.find("user: mission comment"));
+		clickOn("Connect");
+		getToPlanEditView("2019");
+		doubleClickOn("Mission");
+		doubleClickOn("Goal");
+		clickOn(this.addComment);
+		write("goal comment");
+		clickOn("OK");
+		doubleClickOn("Learning Objective");
+		clickOn(this.addComment);
+		write("learning objective comment");
+		clickOn("OK");
+		
+		clickOn("Mission");
+		find("user: Testing  default comment display");
+		find("admin: Testing  default comment display");
+		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
+		find("user: mission comment");
+		
+		clickOn("Goal");
+		find("user: goal comment");
+		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
+		assertThrows(NoSuchElementException.class, () -> find("user: mission comment"));
+		
+		clickOn("Learning Objective");
+		find("user: learning objective comment");
+		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
+		assertThrows(NoSuchElementException.class, () -> find("user: mission comment"));
+		assertThrows(NoSuchElementException.class, () -> find("user: goal comment"));
+		
+		clickOn(saveID);
 	}
 
 	/**
@@ -43,23 +61,23 @@ class EditCommentsTest extends PlanEditViewTest {
 	 */
 	@Test
 	void editablePlanTestNewComment() {
-		this.clickOn("Connect");
-		this.getToPlanEditView("2019");
-		this.find("user: Testing  default comment display");
-		this.find("admin: Testing  default comment display");
-		assertThrows(NoSuchElementException.class, () -> this.find("user: no show"));
-		this.clickOn(this.addComment);
-		this.write("New Comment");
-		this.clickOn("Cancel");
-		assertThrows(NoSuchElementException.class, () -> this.find("user: New Comment"));
-		this.clickOn(this.addComment);
-		this.write("New Comment");
-		this.clickOn("OK");
-		this.find("user: New Comment");
+		clickOn("Connect");
+		getToPlanEditView("2019");
+		find("user: Testing  default comment display");
+		find("admin: Testing  default comment display");
+		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
+		clickOn(this.addComment);
+		write("New Comment");
+		clickOn("Cancel");
+		assertThrows(NoSuchElementException.class, () -> find("user: New Comment"));
+		clickOn(this.addComment);
+		write("New Comment");
+		clickOn("OK");
+		find("user: New Comment");
 
-		this.verifySavePopup(this.logoutID);
-		this.verifySavePopup(this.backID);
-		this.clickOn(this.saveID);
+		verifySavePopup(this.logoutID);
+		verifySavePopup(this.backID);
+		clickOn(this.saveID);
 	}
 
 	/**
@@ -68,15 +86,15 @@ class EditCommentsTest extends PlanEditViewTest {
 	 */
 	@Test
 	void editablePlanTestResolvedComment() {
-		this.clickOn("Connect");
-		this.getToPlanEditView("2019");
-		this.clickOn("user: New Comment");
-		this.clickOn("Resolved");
-		assertThrows(NoSuchElementException.class, () -> this.find("user: New Comment"));
+		clickOn("Connect");
+		getToPlanEditView("2019");
+		clickOn("user: New Comment");
+		clickOn("Resolved");
+		assertThrows(NoSuchElementException.class, () -> find("user: New Comment"));
 
-		this.verifySavePopup(this.logoutID);
-		this.verifySavePopup(this.backID);
-		this.clickOn(this.saveID);
+		verifySavePopup(this.logoutID);
+		verifySavePopup(this.backID);
+		clickOn(this.saveID);
 	}
 
 	/**
@@ -85,7 +103,7 @@ class EditCommentsTest extends PlanEditViewTest {
 	@Override
 	protected void getToPlanEditView(String item) {
 		super.getToPlanEditView(item);
-		this.clickOn(this.toggleComments);
+		clickOn(this.toggleComments);
 	}
 
 	/**
@@ -94,9 +112,9 @@ class EditCommentsTest extends PlanEditViewTest {
 	 * @param ID
 	 */
 	private void verifySavePopup(String ID) {
-		this.clickOn(ID);
-		this.checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
-		this.clickOn("Cancel");
+		clickOn(ID);
+		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
+		clickOn("Cancel");
 	}
 
 }

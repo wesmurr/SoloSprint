@@ -38,7 +38,7 @@ public class PlanController extends ViewController {
 	private TreeItem<PlanSection> convertTree(PlanSection root) {
 		final TreeItem<PlanSection> newRoot = new TreeItem<>(root);
 		for (int i = 0; i < root.getChildren().size(); i++)
-			newRoot.getChildren().add(this.convertTree(root.getChildren().get(i)));
+			newRoot.getChildren().add(convertTree(root.getChildren().get(i)));
 		return newRoot;
 	}
 
@@ -77,7 +77,7 @@ public class PlanController extends ViewController {
 	@Override
 	public void setApplication(Main app) {
 		super.setApplication(app);
-		this.setTreeView();
+		setTreeView();
 	}
 
 	/**
@@ -94,11 +94,11 @@ public class PlanController extends ViewController {
 	 * Filling the treeview with nodes from business plan
 	 */
 	protected void setTreeView() {
-		this.treeView.setRoot(this.convertTree(this.model.getCurrPlanFile().getPlan().getRoot()));
+		this.treeView.setRoot(convertTree(this.model.getCurrPlanFile().getPlan().getRoot()));
 		this.treeView.getSelectionModel().select(this.treeView.getRoot());
 		this.model.setCurrNode(this.model.getCurrPlanFile().getPlan().getRoot());
 		this.treeView.refresh();
-		this.populateFields();
+		populateFields();
 	}
 
 	/**

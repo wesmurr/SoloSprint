@@ -21,10 +21,10 @@ class ConnectServerTest extends GuiTestBase {
 	 * Ensures all labels and text fields have the intended text values
 	 */
 	public void defaultValueTest() {
-		this.verifyField(this.IPFIELD_ID, "127.0.0.1");
-		this.verifyField(this.PORTFIELD_ID, "1060");
-		this.verify(this.IPLABEL_ID, "IP Address:");
-		this.verify(this.PORTLABEL_ID, "Port:");
+		verifyField(this.IPFIELD_ID, "127.0.0.1");
+		verifyField(this.PORTFIELD_ID, "1060");
+		verify(this.IPLABEL_ID, "IP Address:");
+		verify(this.PORTLABEL_ID, "Port:");
 
 	}
 
@@ -34,16 +34,16 @@ class ConnectServerTest extends GuiTestBase {
 	 * present.
 	 */
 	public void invalidIpAndPortTest() {
-		this.clickOn(this.PORTFIELD_ID);
-		this.write("INVALID PORT");
-		this.clickOn(this.IPFIELD_ID);
-		this.write("INVALID IP");
-		this.clickOn(this.CONNECTBUTTON_ID);
-		this.checkPopupMsg("cannot connect to server");
-		this.clickOn("OK");
-		TextField textfield = (TextField) this.find(this.PORTFIELD_ID);
+		clickOn(this.PORTFIELD_ID);
+		write("INVALID PORT");
+		clickOn(this.IPFIELD_ID);
+		write("INVALID IP");
+		clickOn(this.CONNECTBUTTON_ID);
+		checkPopupMsg("cannot connect to server");
+		clickOn("OK");
+		TextField textfield = (TextField) find(this.PORTFIELD_ID);
 		textfield.setText("1060");
-		textfield = (TextField) this.find(this.IPFIELD_ID);
+		textfield = (TextField) find(this.IPFIELD_ID);
 		textfield.setText("127.0.0.1");
 
 	}
@@ -53,12 +53,12 @@ class ConnectServerTest extends GuiTestBase {
 	 * checking that the connection window's IP address label is still present.
 	 */
 	public void invalidIPTest() {
-		this.clickOn(this.IPFIELD_ID);
-		this.write("INVALID IP");
-		this.clickOn(this.CONNECTBUTTON_ID);
-		this.checkPopupMsg("cannot connect to server");
-		this.clickOn("OK");
-		final TextField textfield = (TextField) this.find(this.IPFIELD_ID);
+		clickOn(this.IPFIELD_ID);
+		write("INVALID IP");
+		clickOn(this.CONNECTBUTTON_ID);
+		checkPopupMsg("cannot connect to server");
+		clickOn("OK");
+		final TextField textfield = (TextField) find(this.IPFIELD_ID);
 		textfield.setText("127.0.0.1");
 
 	}
@@ -68,12 +68,12 @@ class ConnectServerTest extends GuiTestBase {
 	 * checking that the connection window's IP address label is still present.
 	 */
 	public void invalidPortTest() {
-		this.clickOn(this.PORTFIELD_ID);
-		this.write("INVALID PORT");
-		this.clickOn(this.CONNECTBUTTON_ID);
-		this.checkPopupMsg("cannot connect to server");
-		this.clickOn("OK");
-		final TextField textfield = (TextField) this.find(this.PORTFIELD_ID);
+		clickOn(this.PORTFIELD_ID);
+		write("INVALID PORT");
+		clickOn(this.CONNECTBUTTON_ID);
+		checkPopupMsg("cannot connect to server");
+		clickOn("OK");
+		final TextField textfield = (TextField) find(this.PORTFIELD_ID);
 		textfield.setText("1060");
 
 	}
@@ -83,11 +83,11 @@ class ConnectServerTest extends GuiTestBase {
 	 */
 	@Test
 	public void mainTest() {
-		this.defaultValueTest();
-		this.invalidPortTest();
-		this.invalidIPTest();
-		this.invalidIpAndPortTest();
-		this.validConnectTest();
+		defaultValueTest();
+		invalidPortTest();
+		invalidIPTest();
+		invalidIpAndPortTest();
+		validConnectTest();
 
 	}
 
@@ -98,8 +98,8 @@ class ConnectServerTest extends GuiTestBase {
 	 * @throws Exception
 	 */
 	public void validConnectTest() {
-		this.clickOn(this.CONNECTBUTTON_ID);
-		this.verify(this.userNameLabel, "Username");
+		clickOn(this.CONNECTBUTTON_ID);
+		verify(this.userNameLabel, "Username");
 
 	}
 

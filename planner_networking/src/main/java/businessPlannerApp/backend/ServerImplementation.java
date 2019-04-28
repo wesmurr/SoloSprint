@@ -191,8 +191,8 @@ public class ServerImplementation implements Server {
 	 */
 	@Override
 	public void addDepartment(String departmentName, String cookie) {
-		this.cookieChecker(cookie);// checks that cookie is valid and that user is admin
-		this.adminChecker(cookie);
+		cookieChecker(cookie);// checks that cookie is valid and that user is admin
+		adminChecker(cookie);
 
 		this.departmentMap.put(departmentName, new Department());
 
@@ -216,12 +216,12 @@ public class ServerImplementation implements Server {
 	 */
 	@Override
 	public void addUser(String username, String password, String departmentName, boolean isAdmin, String cookie) {
-		this.cookieChecker(cookie);// checks that cookie is valid and that user is admin
-		this.adminChecker(cookie);
+		cookieChecker(cookie);// checks that cookie is valid and that user is admin
+		adminChecker(cookie);
 
-		this.departmentChecker(departmentName);
+		departmentChecker(departmentName);
 
-		final String newCookie = this.cookieMaker();
+		final String newCookie = cookieMaker();
 		final Department newDept = this.departmentMap.get(departmentName);
 		final Account newAccount = new Account(username, password, newCookie, newDept, isAdmin);
 		this.loginMap.put(username, newAccount);
@@ -326,9 +326,9 @@ public class ServerImplementation implements Server {
 	 */
 	@Override
 	public void flagPlan(String departmentName, String year, boolean canEdit, String cookie) {
-		this.cookieChecker(cookie);// checks that cookie is valid and that user is admin
-		this.adminChecker(cookie);
-		this.departmentChecker(departmentName);
+		cookieChecker(cookie);// checks that cookie is valid and that user is admin
+		adminChecker(cookie);
+		departmentChecker(departmentName);
 
 		final Department dept = this.departmentMap.get(departmentName);
 		if (!dept.containsPlan(year)) throw new IllegalArgumentException("Plan doesn't exist");
@@ -368,7 +368,7 @@ public class ServerImplementation implements Server {
 	 */
 	@Override
 	public PlanFile getPlan(String year, String cookie) {
-		this.cookieChecker(cookie);// checks that cookie is valid
+		cookieChecker(cookie);// checks that cookie is valid
 
 		final Account userAccount = this.cookieMap.get(cookie);
 		final Department department = userAccount.getDepartment();
@@ -386,7 +386,7 @@ public class ServerImplementation implements Server {
 	 */
 	@Override
 	public PlanFile getPlanOutline(String name, String cookie) {
-		this.cookieChecker(cookie);// checks that cookie is valid
+		cookieChecker(cookie);// checks that cookie is valid
 
 		if (!this.planTemplateMap.containsKey(name)) throw new IllegalArgumentException("Plan outline doesn't exist");
 		return this.planTemplateMap.get(name);
@@ -403,7 +403,7 @@ public class ServerImplementation implements Server {
 
 	@Override
 	public String getUsername(String cookie) {
-		this.cookieChecker(cookie);
+		cookieChecker(cookie);
 		return this.cookieMap.get(cookie).getUsername();
 	}
 
@@ -414,7 +414,7 @@ public class ServerImplementation implements Server {
 	 */
 	@Override
 	public Collection<PlanFile> listPlans(String cookie) {
-		this.cookieChecker(cookie);// checks that cookie is valid
+		cookieChecker(cookie);// checks that cookie is valid
 
 		final Account userAccount = this.cookieMap.get(cookie);
 		final Department department = userAccount.getDepartment();
@@ -495,7 +495,7 @@ public class ServerImplementation implements Server {
 	@Override
 	public void savePlan(PlanFile plan, String cookie) {
 		Integer.parseInt(plan.getYear());
-		this.cookieChecker(cookie);// checks that cookie is valid
+		cookieChecker(cookie);// checks that cookie is valid
 
 		if (plan.getYear() == null) throw new IllegalArgumentException("This planFile needs a year!");
 
@@ -508,7 +508,7 @@ public class ServerImplementation implements Server {
 
 		}
 		dept.addPlan(plan.getYear(), plan);
-		this.save();
+		save();
 	}
 
 	/*
