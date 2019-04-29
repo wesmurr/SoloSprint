@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessPlannerApp.frontend.planViews.EditCommentsController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="453.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessPlannerApp.frontend.planViews.EditHistoryController">
    <center>
       <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
          <left>
@@ -44,7 +44,7 @@
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
-            <Button id="addSectionButton" mnemonicParsing="false" onAction="#addSection" prefHeight="26.0" prefWidth="108.0" text="Add Section">
+            <Button id="addSectionButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#addSection" prefWidth="96.0" text="Add Section">
                <tooltip>
                   <Tooltip text="Click to add another section of this type" />
                </tooltip>
@@ -98,12 +98,7 @@
       <HBox BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <Button id="addCommentButton" mnemonicParsing="false" onAction="#createComment" text="AddComment">
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin>
-            </Button>
-            <ToggleButton id="toggleCommentsButton" fx:id="commentsToggle" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#hideComments" text="HideComments">
+            <ToggleButton id="editsToggle" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#hideEdits" text="HideEdits">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>
@@ -116,7 +111,7 @@
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
                <children>
-                  <ListView id="commentList" fx:id="commentList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#viewComment" />
+                  <ListView id="editList" fx:id="editList" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onMouseClicked="#viewEdit" />
                </children>
             </AnchorPane>
         </content>

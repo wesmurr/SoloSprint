@@ -3,7 +3,9 @@ package businessPlannerApp.backend;
 import java.io.FileNotFoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Observer;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -82,6 +84,27 @@ public interface Server extends Remote {
 	 * @throws IllegalArgumentException
 	 */
 	PlanFile getPlan(String year, String cookie) throws IllegalArgumentException, RemoteException;
+	
+	/**
+	 * This method returns a representation of the edit history for a given plan
+	 * @param year
+	 * @param cookie
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws RemoteException
+	 */
+	Collection<PlanEdit> getEditHistory(String year,String cookie) throws IllegalArgumentException, RemoteException;
+	
+	/**
+	 * This method returns a particular plan edit.
+	 * @param year
+	 * @param time
+	 * @param cookie
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws RemoteException
+	 */
+	PlanFile getPlanEdit(String year,Timestamp time,String cookie) throws IllegalArgumentException, RemoteException;
 
 	/**
 	 * Returns a blank plan outline given a name. Throws exception if the plan

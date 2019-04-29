@@ -5,83 +5,489 @@
    <void id="Account0" method="get">
     <string>0</string>
     <void id="Department0" property="department">
-     <void id="ConcurrentHashMap1" property="planFileMap">
-      <void id="PlanFile0" method="get">
+     <void id="ConcurrentHashMap1" property="planHistoryMap">
+      <void id="PlanHistory0" method="get">
        <string>2019</string>
-       <void id="Centre0" property="plan">
-        <void id="PlanSection0" property="root">
-         <void id="ArrayList0" property="children">
-          <void id="PlanSection1" index="0">
-           <void id="ArrayList1" property="children">
-            <void id="PlanSection2" index="0">
-             <void property="comments">
-              <void method="add">
-               <object class="businessPlannerApp.backend.Comment">
-                <void property="content">
-                 <string>learning objective comment</string>
-                </void>
-                <void property="username">
-                 <string>user</string>
-                </void>
-               </object>
+       <void property="editMap">
+        <void method="put">
+         <object class="java.sql.Timestamp" id="Timestamp0">
+          <long>1556489044550</long>
+         </object>
+         <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit0">
+          <void property="planFile">
+           <object class="businessPlannerApp.backend.PlanFile">
+            <void property="canEdit">
+             <boolean>true</boolean>
+            </void>
+            <void property="plan">
+             <object class="businessPlannerApp.backend.Centre" id="Centre0">
+              <void property="name">
+               <string>Centre_Plan_1</string>
               </void>
-             </void>
+              <void id="PlanSection0" property="root">
+               <void id="ArrayList0" property="children">
+                <void id="PlanSection1" index="0">
+                 <void property="comments">
+                  <void method="add">
+                   <object class="businessPlannerApp.backend.Comment">
+                    <void property="content">
+                     <string>goal comment</string>
+                    </void>
+                    <void property="username">
+                     <string>user</string>
+                    </void>
+                   </object>
+                  </void>
+                 </void>
+                </void>
+               </void>
+               <void property="comments">
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>no show</string>
+                  </void>
+                  <void property="resolved">
+                   <boolean>true</boolean>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>admin</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>mission comment</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+               </void>
+              </void>
+             </object>
             </void>
-           </void>
-          </void>
-         </void>
-         <void id="LinkedList0" property="comments">
-          <void index="0">
-           <void property="content">
-            <string>New Comment</string>
-           </void>
-          </void>
-          <void index="1">
-           <void property="content">
-            <string>no show</string>
-           </void>
-           <void property="resolved">
-            <boolean>true</boolean>
-           </void>
-           <void property="username">
-            <string>user</string>
-           </void>
-          </void>
-          <void index="2">
-           <void property="content">
-            <string>Testing  default comment display</string>
-           </void>
-           <void property="username">
-            <string>admin</string>
-           </void>
-          </void>
-          <void index="3">
-           <void property="content">
-            <string>mission comment</string>
-           </void>
-          </void>
-          <void method="add">
-           <object class="businessPlannerApp.backend.Comment">
-            <void property="content">
-             <string>Testing  default comment display</string>
-            </void>
-            <void property="username">
-             <string>user</string>
+            <void property="year">
+             <string>2019</string>
             </void>
            </object>
           </void>
-         </void>
+          <void property="timestamp">
+           <object idref="Timestamp0"/>
+          </void>
+          <void property="username">
+           <string>user</string>
+          </void>
+         </object>
+        </void>
+        <void method="put">
+         <object class="java.sql.Timestamp" id="Timestamp1">
+          <long>1556489038746</long>
+         </object>
+         <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit1">
+          <void property="planFile">
+           <object class="businessPlannerApp.backend.PlanFile">
+            <void property="canEdit">
+             <boolean>true</boolean>
+            </void>
+            <void property="plan">
+             <object class="businessPlannerApp.backend.Centre" id="Centre1">
+              <void property="name">
+               <string>Centre_Plan_1</string>
+              </void>
+              <void id="PlanSection2" property="root">
+               <void id="ArrayList1" property="children">
+                <void id="PlanSection3" index="0">
+                 <void property="comments">
+                  <void method="add">
+                   <object class="businessPlannerApp.backend.Comment">
+                    <void property="content">
+                     <string>goal comment</string>
+                    </void>
+                    <void property="username">
+                     <string>user</string>
+                    </void>
+                   </object>
+                  </void>
+                 </void>
+                </void>
+               </void>
+               <void property="comments">
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>no show</string>
+                  </void>
+                  <void property="resolved">
+                   <boolean>true</boolean>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>admin</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>mission comment</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+               </void>
+               <void property="data">
+                <string>mission edit</string>
+               </void>
+              </void>
+             </object>
+            </void>
+            <void property="year">
+             <string>2019</string>
+            </void>
+           </object>
+          </void>
+          <void property="timestamp">
+           <object idref="Timestamp1"/>
+          </void>
+          <void property="username">
+           <string>user</string>
+          </void>
+         </object>
+        </void>
+        <void method="put">
+         <object class="java.sql.Timestamp" id="Timestamp2">
+          <long>1556489069214</long>
+         </object>
+         <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit2">
+          <void property="planFile">
+           <object class="businessPlannerApp.backend.PlanFile">
+            <void property="canEdit">
+             <boolean>true</boolean>
+            </void>
+            <void property="plan">
+             <object class="businessPlannerApp.backend.Centre" id="Centre2">
+              <void property="name">
+               <string>Centre_Plan_1</string>
+              </void>
+              <void id="PlanSection4" property="root">
+               <void id="ArrayList2" property="children">
+                <void id="PlanSection5" index="0">
+                 <void property="comments">
+                  <void method="add">
+                   <object class="businessPlannerApp.backend.Comment">
+                    <void property="content">
+                     <string>goal comment</string>
+                    </void>
+                    <void property="username">
+                     <string>user</string>
+                    </void>
+                   </object>
+                  </void>
+                 </void>
+                 <void property="data">
+                  <string>Go 1 content</string>
+                 </void>
+                 <void property="name">
+                  <string>Go 1</string>
+                 </void>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.PlanSection" id="PlanSection6">
+                  <void property="children">
+                   <void method="add">
+                    <object class="businessPlannerApp.backend.PlanSection" id="PlanSection7">
+                     <void property="children">
+                      <void method="add">
+                       <object class="businessPlannerApp.backend.PlanSection" id="PlanSection8">
+                        <void property="children">
+                         <void method="add">
+                          <object class="businessPlannerApp.backend.PlanSection">
+                           <void property="data">
+                            <string></string>
+                           </void>
+                           <void property="name">
+                            <string>Results</string>
+                           </void>
+                           <void property="parent">
+                            <object idref="PlanSection8"/>
+                           </void>
+                          </object>
+                         </void>
+                        </void>
+                        <void property="data">
+                         <string></string>
+                        </void>
+                        <void property="name">
+                         <string>Assessment Process</string>
+                        </void>
+                        <void property="parent">
+                         <object idref="PlanSection7"/>
+                        </void>
+                       </object>
+                      </void>
+                     </void>
+                     <void property="data">
+                      <string></string>
+                     </void>
+                     <void property="name">
+                      <string>Learning Objective</string>
+                     </void>
+                     <void property="parent">
+                      <object idref="PlanSection6"/>
+                     </void>
+                    </object>
+                   </void>
+                  </void>
+                  <void property="data">
+                   <string></string>
+                  </void>
+                  <void property="name">
+                   <string>Goal</string>
+                  </void>
+                  <void property="parent">
+                   <object idref="PlanSection4"/>
+                  </void>
+                 </object>
+                </void>
+               </void>
+               <void property="comments">
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>no show</string>
+                  </void>
+                  <void property="resolved">
+                   <boolean>true</boolean>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>admin</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>mission comment</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+               </void>
+              </void>
+             </object>
+            </void>
+            <void property="year">
+             <string>2019</string>
+            </void>
+           </object>
+          </void>
+          <void property="timestamp">
+           <object idref="Timestamp2"/>
+          </void>
+          <void property="username">
+           <string>user</string>
+          </void>
+         </object>
+        </void>
+        <void method="put">
+         <object class="java.sql.Timestamp" id="Timestamp3">
+          <long>1556489079678</long>
+         </object>
+         <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit3">
+          <void property="planFile">
+           <object class="businessPlannerApp.backend.PlanFile">
+            <void property="canEdit">
+             <boolean>true</boolean>
+            </void>
+            <void property="plan">
+             <object class="businessPlannerApp.backend.Centre" id="Centre3">
+              <void property="name">
+               <string>Centre_Plan_1</string>
+              </void>
+              <void id="PlanSection9" property="root">
+               <void property="comments">
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>no show</string>
+                  </void>
+                  <void property="resolved">
+                   <boolean>true</boolean>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>admin</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>mission comment</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.Comment">
+                  <void property="content">
+                   <string>Testing  default comment display</string>
+                  </void>
+                  <void property="username">
+                   <string>user</string>
+                  </void>
+                 </object>
+                </void>
+               </void>
+              </void>
+             </object>
+            </void>
+            <void property="year">
+             <string>2019</string>
+            </void>
+           </object>
+          </void>
+          <void property="timestamp">
+           <object idref="Timestamp3"/>
+          </void>
+          <void property="username">
+           <string>user</string>
+          </void>
+         </object>
+        </void>
+       </void>
+       <void property="edits">
+        <void method="add">
+         <object idref="PlanEdit1"/>
+        </void>
+        <void method="add">
+         <object idref="PlanEdit0"/>
+        </void>
+        <void method="add">
+         <object idref="PlanEdit2"/>
+        </void>
+        <void method="add">
+         <object idref="PlanEdit3"/>
         </void>
        </void>
       </void>
       <void method="put">
        <string>2023</string>
-       <object class="businessPlannerApp.backend.PlanFile">
+       <object class="businessPlannerApp.backend.PlanHistory" id="PlanHistory1">
         <void property="canEdit">
          <boolean>true</boolean>
         </void>
-        <void property="plan">
-         <object class="businessPlannerApp.backend.VMOSA"/>
+        <void property="editMap">
+         <void method="put">
+          <object class="java.sql.Timestamp" id="Timestamp4">
+           <long>1556489085276</long>
+          </object>
+          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit4">
+           <void property="planFile">
+            <object class="businessPlannerApp.backend.PlanFile">
+             <void property="canEdit">
+              <boolean>true</boolean>
+             </void>
+             <void property="plan">
+              <object class="businessPlannerApp.backend.VMOSA"/>
+             </void>
+             <void property="year">
+              <string>2023</string>
+             </void>
+            </object>
+           </void>
+           <void property="timestamp">
+            <object idref="Timestamp4"/>
+           </void>
+           <void property="username">
+            <string>user</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="edits">
+         <object class="java.util.Stack">
+          <void method="add">
+           <object idref="PlanEdit4"/>
+          </void>
+         </object>
         </void>
         <void property="year">
          <string>2023</string>
@@ -90,67 +496,93 @@
       </void>
       <void method="put">
        <string>20191</string>
-       <object class="businessPlannerApp.backend.PlanFile">
+       <object class="businessPlannerApp.backend.PlanHistory" id="PlanHistory2">
         <void property="canEdit">
          <boolean>true</boolean>
         </void>
-        <void property="plan">
-         <object class="businessPlannerApp.backend.Centre" id="Centre1">
-          <void property="name">
-           <string>Centre_Plan_1</string>
-          </void>
-          <void id="PlanSection3" property="root">
-           <void property="comments">
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>no show</string>
-              </void>
-              <void property="resolved">
-               <boolean>true</boolean>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>Testing  default comment display</string>
-              </void>
-              <void property="username">
-               <string>admin</string>
-              </void>
-             </object>
-            </void>
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>mission comment</string>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>Testing  default comment display</string>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
+        <void property="editMap">
+         <void method="put">
+          <object class="java.sql.Timestamp" id="Timestamp5">
+           <long>1556489097254</long>
+          </object>
+          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit5">
+           <void property="planFile">
+            <object class="businessPlannerApp.backend.PlanFile">
+             <void property="canEdit">
+              <boolean>true</boolean>
+             </void>
+             <void property="plan">
+              <object class="businessPlannerApp.backend.Centre" id="Centre4">
+               <void property="name">
+                <string>Centre_Plan_1</string>
+               </void>
+               <void id="PlanSection10" property="root">
+                <void property="comments">
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>no show</string>
+                   </void>
+                   <void property="resolved">
+                    <boolean>true</boolean>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>Testing  default comment display</string>
+                   </void>
+                   <void property="username">
+                    <string>admin</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>mission comment</string>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>Testing  default comment display</string>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                </void>
+               </void>
+              </object>
+             </void>
+             <void property="year">
+              <string>20191</string>
+             </void>
+            </object>
            </void>
-           <void property="data">
-            <string>1</string>
+           <void property="timestamp">
+            <object idref="Timestamp5"/>
            </void>
-           <void property="name">
-            <string>Mission1</string>
+           <void property="username">
+            <string>user</string>
            </void>
+          </object>
+         </void>
+        </void>
+        <void property="edits">
+         <object class="java.util.Stack">
+          <void method="add">
+           <object idref="PlanEdit5"/>
           </void>
          </object>
         </void>
@@ -161,67 +593,262 @@
       </void>
       <void method="put">
        <string>20190</string>
-       <object class="businessPlannerApp.backend.PlanFile">
+       <object class="businessPlannerApp.backend.PlanHistory" id="PlanHistory3">
         <void property="canEdit">
          <boolean>true</boolean>
         </void>
-        <void property="plan">
-         <object class="businessPlannerApp.backend.Centre" id="Centre2">
-          <void property="name">
-           <string>Centre_Plan_1</string>
+        <void property="editMap">
+         <void method="put">
+          <object class="java.sql.Timestamp" id="Timestamp6">
+           <long>1556489060297</long>
+          </object>
+          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit6">
+           <void property="planFile">
+            <object class="businessPlannerApp.backend.PlanFile">
+             <void property="canEdit">
+              <boolean>true</boolean>
+             </void>
+             <void property="plan">
+              <object class="businessPlannerApp.backend.Centre" id="Centre5">
+               <void property="name">
+                <string>Centre_Plan_1</string>
+               </void>
+               <void id="PlanSection11" property="root">
+                <void property="comments">
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>no show</string>
+                   </void>
+                   <void property="resolved">
+                    <boolean>true</boolean>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>Testing  default comment display</string>
+                   </void>
+                   <void property="username">
+                    <string>admin</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>mission comment</string>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>Testing  default comment display</string>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                </void>
+                <void property="data">
+                 <string>mission edit</string>
+                </void>
+                <void property="name">
+                 <string>Mission name field edit</string>
+                </void>
+               </void>
+              </object>
+             </void>
+             <void property="year">
+              <string>20190</string>
+             </void>
+            </object>
+           </void>
+           <void property="timestamp">
+            <object idref="Timestamp6"/>
+           </void>
+           <void property="username">
+            <string>user</string>
+           </void>
+          </object>
+         </void>
+         <void method="put">
+          <object class="java.sql.Timestamp" id="Timestamp7">
+           <long>1556489054749</long>
+          </object>
+          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit7">
+           <void property="planFile">
+            <object class="businessPlannerApp.backend.PlanFile">
+             <void property="canEdit">
+              <boolean>true</boolean>
+             </void>
+             <void property="plan">
+              <object class="businessPlannerApp.backend.Centre" id="Centre6">
+               <void property="name">
+                <string>Centre_Plan_1</string>
+               </void>
+               <void id="PlanSection12" property="root">
+                <void id="ArrayList3" property="children">
+                 <void id="PlanSection13" index="0">
+                  <void property="comments">
+                   <void method="add">
+                    <object class="businessPlannerApp.backend.Comment">
+                     <void property="content">
+                      <string>goal comment</string>
+                     </void>
+                     <void property="username">
+                      <string>user</string>
+                     </void>
+                    </object>
+                   </void>
+                  </void>
+                  <void property="name">
+                   <string>Goal original</string>
+                  </void>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.PlanSection" id="PlanSection14">
+                   <void property="children">
+                    <void method="add">
+                     <object class="businessPlannerApp.backend.PlanSection" id="PlanSection15">
+                      <void property="children">
+                       <void method="add">
+                        <object class="businessPlannerApp.backend.PlanSection" id="PlanSection16">
+                         <void property="children">
+                          <void method="add">
+                           <object class="businessPlannerApp.backend.PlanSection">
+                            <void property="data">
+                             <string></string>
+                            </void>
+                            <void property="name">
+                             <string>Results</string>
+                            </void>
+                            <void property="parent">
+                             <object idref="PlanSection16"/>
+                            </void>
+                           </object>
+                          </void>
+                         </void>
+                         <void property="data">
+                          <string></string>
+                         </void>
+                         <void property="name">
+                          <string>Assessment Process</string>
+                         </void>
+                         <void property="parent">
+                          <object idref="PlanSection15"/>
+                         </void>
+                        </object>
+                       </void>
+                      </void>
+                      <void property="data">
+                       <string></string>
+                      </void>
+                      <void property="name">
+                       <string>Learning Objective</string>
+                      </void>
+                      <void property="parent">
+                       <object idref="PlanSection14"/>
+                      </void>
+                     </object>
+                    </void>
+                   </void>
+                   <void property="data">
+                    <string></string>
+                   </void>
+                   <void property="name">
+                    <string>Goal</string>
+                   </void>
+                   <void property="parent">
+                    <object idref="PlanSection12"/>
+                   </void>
+                  </object>
+                 </void>
+                </void>
+                <void property="comments">
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>no show</string>
+                   </void>
+                   <void property="resolved">
+                    <boolean>true</boolean>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>Testing  default comment display</string>
+                   </void>
+                   <void property="username">
+                    <string>admin</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>mission comment</string>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                 <void method="add">
+                  <object class="businessPlannerApp.backend.Comment">
+                   <void property="content">
+                    <string>Testing  default comment display</string>
+                   </void>
+                   <void property="username">
+                    <string>user</string>
+                   </void>
+                  </object>
+                 </void>
+                </void>
+                <void property="data">
+                 <string>mission edit</string>
+                </void>
+                <void property="name">
+                 <string>Mission name field edit</string>
+                </void>
+               </void>
+              </object>
+             </void>
+             <void property="year">
+              <string>20190</string>
+             </void>
+            </object>
+           </void>
+           <void property="timestamp">
+            <object idref="Timestamp7"/>
+           </void>
+           <void property="username">
+            <string>user</string>
+           </void>
+          </object>
+         </void>
+        </void>
+        <void property="edits">
+         <object class="java.util.Stack">
+          <void method="add">
+           <object idref="PlanEdit7"/>
           </void>
-          <void id="PlanSection4" property="root">
-           <void property="comments">
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>no show</string>
-              </void>
-              <void property="resolved">
-               <boolean>true</boolean>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>Testing  default comment display</string>
-              </void>
-              <void property="username">
-               <string>admin</string>
-              </void>
-             </object>
-            </void>
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>mission comment</string>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
-            <void method="add">
-             <object class="businessPlannerApp.backend.Comment">
-              <void property="content">
-               <string>Testing  default comment display</string>
-              </void>
-              <void property="username">
-               <string>user</string>
-              </void>
-             </object>
-            </void>
-           </void>
-           <void property="data">
-            <string>mission edit</string>
-           </void>
-           <void property="name">
-            <string>Mission name field edit</string>
-           </void>
+          <void method="add">
+           <object idref="PlanEdit6"/>
           </void>
          </object>
         </void>

@@ -12,10 +12,14 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -25,131 +29,28 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class ServerImplementation implements Server {
-
-	/**
-	 * Attribute for singleton pattern
-	 */
-	private static Server server = null;
-
-	/**
-	 * Compares two hashes for testing
-	 *
-	 * @param map1
-	 * @param map2
-	 * @return
-	 */
-	private static <K, V> boolean hashesEqual(ConcurrentHashMap<K, V> map1, ConcurrentHashMap<K, V> map2) {
-		for (final Enumeration<K> keyList = map1.keys(); keyList.hasMoreElements();) {
-			final K key = keyList.nextElement();
-			if (!map1.containsKey(key)) return false;
-			if (!map2.containsKey(key)) return false;
-			if (!map1.get(key).equals(map2.get(key))) return false;
-		}
-		return true;
-	}
-
-	/**
-	 * Loads server from xml, called in main
-	 *
-	 * @return
-	 * @throws FileNotFoundException
-	 */
-	public static ServerImplementation load() throws FileNotFoundException {
-		final String filepath = "PlannerServer.serv";
-		XMLDecoder decoder = null;
-		decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filepath)));
-		final ServerImplementation server = (ServerImplementation) decoder.readObject();
-		decoder.close();
-		return server;
-	}
-
-	/**
-	 * Starts the server, allows clients to access it
-	 *
-	 * @param args
-	 * @throws RemoteException
-	 */
-	public static void main(String[] args) throws RemoteException { ServerImplementation.spawn(); }
-
-	/**
-	 * Helper static method that enforces a modified singleton pattern for program.
-	 * Constructor is not private because XML serialization.
-	 */
-	public static void spawn() {
-		if (server == null) {
-			System.out.println("Loading Server from Memory");
-			Registry registry = null;
-			Server stub = null;
-			try {
-				server = new ServerImplementation();
-				server.save();
-				server = ServerImplementation.load();
-				registry = LocateRegistry.createRegistry(1060);
-				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
-				registry.bind("PlannerServer", stub);
-			} catch (final RemoteException e) {
-				System.out.println("Unable to create and bind to server using rmi.");
-				System.exit(1);
-			} catch (final AlreadyBoundException e) {
-				System.out.println("Connecting to Existing Server");
-			} catch (final FileNotFoundException e) {
-				System.out.print("Cannot find file to load server from.");
-				System.exit(1);
-			}
-			return;
-		}
-		System.out.println("Connecting to Existing Server");
-	}
-
-	/**
-	 * Helper static method that allows us to use singleton pattern for testing.
-	 * Ensures server being tested is an object with known values.
-	 */
-	public static void testSpawn() {
-		if (server == null) {
-			System.out.println("Starting Test Server");
-			Registry registry = null;
-			Server stub = null;
-			try {
-				server = new ServerImplementation();
-				registry = LocateRegistry.createRegistry(1060);
-				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
-				registry.bind("PlannerServer", stub);
-			} catch (final RemoteException e) {
-				System.out.println("Unable to create and bind to server using rmi.\n"
-						+ "Likely a different server is running on this port");
-				System.exit(0);
-			} catch (final AlreadyBoundException e) {
-				System.out.println("Connecting to Existing Server");
-			}
-			return;
-		}
-		System.out.println("Connecting to Existing Test Server");
-	}
-
 	private ConcurrentHashMap<String, Account> cookieMap = new ConcurrentHashMap<>();
-
 	private ConcurrentHashMap<String, Department> departmentMap = new ConcurrentHashMap<>();
-
 	private ConcurrentHashMap<String, Account> loginMap = new ConcurrentHashMap<>();
-
 	private ConcurrentHashMap<String, PlanFile> planTemplateMap = new ConcurrentHashMap<>();
-
+	
 	/**
 	 * Initializes server with default objects for testing purposes.
 	 */
 	public ServerImplementation() throws RemoteException {
-		final Department dpt = new Department();
+		//create default department
+		Department dpt = new Department();
 		this.departmentMap.put("default", dpt);
-
+		//create default accounts
 		final Account admin = new Account("admin", "admin", "0", dpt, true);
 		final Account user = new Account("user", "user", "1", dpt, false);
 		this.loginMap.put("admin", admin);
 		this.loginMap.put("user", user);
 		this.cookieMap.put("0", admin);
 		this.cookieMap.put("1", user);
-
-		final Plan plan = new Centre();
+		//create default plans and add comments
+		Plan plan = new Centre();
+		plan.setName("Centre_Plan_1");
 		plan.getRoot().addComment(new Comment("Testing  default comment display", "user"));
 		plan.getRoot().addComment(new Comment("mission comment", "user"));
 		plan.getRoot().getChildren().get(0).addComment(new Comment("goal comment", "user"));
@@ -157,26 +58,34 @@ public class ServerImplementation implements Server {
 		Comment temp = new Comment("no show", "user");
 		temp.setResolved(true);
 		plan.getRoot().addComment(temp);
-		plan.setName("Centre_Plan_1");
-		final PlanFile planfile = new PlanFile("2019", true, plan);
-		dpt.addPlan("2019", planfile);
-
-		final Plan plan2 = new VMOSA();
+		
+		Plan plan2 = new VMOSA();
 		plan2.setName("VMOSA_Plan_1");
 		plan2.getRoot().setData("My Vision is to...");
 		plan2.getRoot().getChildren().get(0).setData("My Mission is to...");
-		final PlanFile planfile2 = new PlanFile("2020", false, plan2);
 		plan2.getRoot().addComment(new Comment("Testing  default comment display", "user"));
 		plan2.getRoot().addComment(new Comment("vision comment", "user"));
 		plan2.getRoot().getChildren().get(0).addComment(new Comment("mission comment", "user"));
 		plan2.getRoot().addComment(new Comment("Testing  default comment display", "admin"));
-		temp = new Comment("no show", "user");
-		temp.setResolved(true);
 		plan2.getRoot().addComment(temp);
-		dpt.addPlan("2020", planfile2);
+		
+		//encapsulate plans into edit objects
+		PlanFile planfile = new PlanFile("2019", true, plan);
+		PlanEdit planEdit=new PlanEdit("user",new Timestamp(1000),planfile);
+		PlanHistory planHistory=new PlanHistory(planfile.getYear(),planfile.isCanEdit());
+		planHistory.addPlanEdit(planEdit);
+		
+		PlanFile planfile2 = new PlanFile("2020", false, plan2);
+		PlanEdit planEdit2=new PlanEdit("user",new Timestamp(1000),planfile2);
+		PlanHistory planHistory2=new PlanHistory(planfile2.getYear(),planfile2.isCanEdit());
+		planHistory2.addPlanEdit(planEdit2);
+		
+		//add history object to department
+		dpt.addPlanHistory(planHistory.getYear(), planHistory);
+		dpt.addPlanHistory(planHistory2.getYear(), planHistory2);
 
-		final Plan defaultCentre = new Centre();
-		final Plan defaultVMOSA = new VMOSA();
+		Plan defaultCentre = new Centre();
+		Plan defaultVMOSA = new VMOSA();
 		this.planTemplateMap.put("Centre", new PlanFile("", true, defaultCentre));
 		this.planTemplateMap.put("VMOSA", new PlanFile("", true, defaultVMOSA));
 
@@ -290,33 +199,6 @@ public class ServerImplementation implements Server {
 		if (!this.departmentMap.containsKey(name)) throw new IllegalArgumentException("Deparment doesn't exist");
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see software_masters.planner_networking.Server#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) return true;
-		if (obj == null) return false;
-		if (this.getClass() != obj.getClass()) return false;
-		final ServerImplementation other = (ServerImplementation) obj;
-		if (this.cookieMap == null) {
-			if (other.cookieMap != null) return false;
-		} else if (!ServerImplementation.<String, Account>hashesEqual(this.cookieMap, other.cookieMap)) return false;
-		if (this.departmentMap == null) {
-			if (other.departmentMap != null) return false;
-		} else if (!ServerImplementation.<String, Department>hashesEqual(this.departmentMap, other.departmentMap))
-			return false;
-		if (this.loginMap == null) {
-			if (other.loginMap != null) return false;
-		} else if (!ServerImplementation.<String, Account>hashesEqual(this.loginMap, other.loginMap)) return false;
-		if (this.planTemplateMap == null) {
-			if (other.planTemplateMap != null) return false;
-		} else if (!ServerImplementation.<String, PlanFile>hashesEqual(this.planTemplateMap, other.planTemplateMap))
-			return false;
-		return true;
-	}
 
 	/*
 	 * (non-Javadoc)
@@ -333,7 +215,7 @@ public class ServerImplementation implements Server {
 		final Department dept = this.departmentMap.get(departmentName);
 		if (!dept.containsPlan(year)) throw new IllegalArgumentException("Plan doesn't exist");
 
-		dept.getPlan(year).setCanEdit(canEdit);
+		dept.getPlanHistory(year).setCanEdit(canEdit);
 	}
 
 	/*
@@ -370,11 +252,41 @@ public class ServerImplementation implements Server {
 	public PlanFile getPlan(String year, String cookie) {
 		cookieChecker(cookie);// checks that cookie is valid
 
-		final Account userAccount = this.cookieMap.get(cookie);
-		final Department department = userAccount.getDepartment();
+		Account userAccount = this.cookieMap.get(cookie);
+		Department department = userAccount.getDepartment();
 		if (!department.containsPlan(year))
 			throw new IllegalArgumentException("Plan doesn't exist within your department");
-		return department.getPlan(year);
+		PlanFile temp=department.getPlanHistory(year).getCurrentPlanEdit().getPlanFile();
+		//ensure planfile attributes are up to date
+		temp.setCanEdit(department.getPlanHistory(year).isCanEdit());
+		temp.setYear(department.getPlanHistory(year).getYear());
+		return temp;
+	}
+	
+	@Override
+	public Collection<PlanEdit> getEditHistory(String year, String cookie) { 
+		cookieChecker(cookie);// checks that cookie is valid
+		this.cookieMap.get(cookie).getDepartment().getPlanHistory(year);
+		
+		Collection<PlanEdit> collections = this.cookieMap.get(cookie).getDepartment().getPlanHistory(year).getEdits();
+		LinkedList<PlanEdit> list = new LinkedList<>();
+		PlanEdit temp;
+		for (Iterator<PlanEdit> iter = collections.iterator(); iter.hasNext();) {
+			temp = iter.next();
+			list.add(new PlanEdit(temp.getUsername(), temp.getTimestamp(),null));
+		}
+		collections = list;
+		return collections;
+	}
+
+	@Override
+	public PlanFile getPlanEdit(String year,Timestamp time, String cookie) { 
+		cookieChecker(cookie);// checks that cookie is valid
+		PlanHistory hist=this.cookieMap.get(cookie).getDepartment().getPlanHistory(year);
+		PlanFile file=hist.getEdit(time).getPlanFile();
+		file.setCanEdit(hist.isCanEdit());
+		file.setYear(hist.getYear());
+		return file;
 	}
 
 	/*
@@ -419,15 +331,14 @@ public class ServerImplementation implements Server {
 		final Account userAccount = this.cookieMap.get(cookie);
 		final Department department = userAccount.getDepartment();
 
-		Collection<PlanFile> collections = department.getPlanFileMap().values();
+		Collection<PlanHistory> collections = department.getPlanHistoryMap().values();
 		final LinkedList<PlanFile> list = new LinkedList<>();
-		PlanFile temp;
-		for (final Iterator<PlanFile> iter = collections.iterator(); iter.hasNext();) {
+		PlanHistory temp;
+		for (final Iterator<PlanHistory> iter = collections.iterator(); iter.hasNext();) {
 			temp = iter.next();
 			list.add(new PlanFile(temp.getYear(), temp.isCanEdit(), null));
 		}
-		collections = list;
-		return collections;
+		return (Collection<PlanFile>) list;
 	}
 
 	/*
@@ -470,25 +381,6 @@ public class ServerImplementation implements Server {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see software_masters.planner_networking.Server#save()
-	 */
-	@Override
-	public void save() {
-		final String filename = "PlannerServer.serv";
-		XMLEncoder encoder = null;
-		try {
-			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
-		} catch (final FileNotFoundException fileNotFound) {
-			System.out.println("ERROR: While Creating or Opening the File " + filename);
-		}
-		encoder.writeObject(this);
-		encoder.close();
-
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
 	 * @see software_masters.planner_networking.Server#savePlan(software_masters.
 	 * planner_networking.PlanFile, java.lang.String)
 	 */
@@ -499,15 +391,22 @@ public class ServerImplementation implements Server {
 
 		if (plan.getYear() == null) throw new IllegalArgumentException("This planFile needs a year!");
 
-		final Account userAccount = this.cookieMap.get(cookie);
-		final Department dept = userAccount.getDepartment();
+		Account userAccount = this.cookieMap.get(cookie);
+		Department dept = userAccount.getDepartment();
 
+		Timestamp time=new Timestamp((new Date()).getTime());
+		PlanEdit newEdit=new PlanEdit(this.cookieMap.get(cookie).getUsername(),time,plan);
+		
 		if (dept.containsPlan(plan.getYear())) {
-			final PlanFile oldPlan = dept.getPlan(plan.getYear());
+			PlanHistory oldPlan = dept.getPlanHistory(plan.getYear());
 			if (!oldPlan.isCanEdit()) throw new IllegalArgumentException("Not allowed to edit this plan");
-
+			dept.getPlanHistory(plan.getYear()).addPlanEdit(newEdit);
+			return;
 		}
-		dept.addPlan(plan.getYear(), plan);
+		
+		PlanHistory newHistory=new PlanHistory(plan.getYear(),plan.isCanEdit());
+		newHistory.addPlanEdit(newEdit);
+		dept.addPlanHistory(newHistory.getYear(), newHistory);
 		save();
 	}
 
@@ -552,4 +451,153 @@ public class ServerImplementation implements Server {
 	public void setPlanTemplateMap(ConcurrentHashMap<String, PlanFile> planTemplateMap) {
 		this.planTemplateMap = planTemplateMap;
 	}
+	
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see software_masters.planner_networking.Server#save()
+	 */
+	@Override
+	public void save() {
+		final String filename = "PlannerServer.serv";
+		XMLEncoder encoder = null;
+		try {
+			encoder = new XMLEncoder(new BufferedOutputStream(new FileOutputStream(filename)));
+		} catch (final FileNotFoundException fileNotFound) {
+			System.out.println("ERROR: While Creating or Opening the File " + filename);
+		}
+		encoder.writeObject(this);
+		encoder.close();
+
+	}
+	
+////////////////////////////////////////////////Spawning Server with Singleton Pattern//////////////////////////////////////////////////////////	
+	private static Server server = null;
+	
+	/**
+	 * Helper static method that enforces a modified singleton pattern for program.
+	 * Constructor is not private because XML serialization.
+	 */
+	public static void spawn() {
+		if (server == null) {
+			System.out.println("Loading Server from Memory");
+			Registry registry = null;
+			Server stub = null;
+			try {
+				server = new ServerImplementation();
+				server.save();
+				server = ServerImplementation.load();
+				registry = LocateRegistry.createRegistry(1060);
+				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
+				registry.bind("PlannerServer", stub);
+			} catch (final RemoteException e) {
+				System.out.println("Unable to create and bind to server using rmi.");
+				System.exit(1);
+			} catch (final AlreadyBoundException e) {
+				System.out.println("Connecting to Existing Server");
+			} catch (final FileNotFoundException e) {
+				System.out.print("Cannot find file to load server from.");
+				System.exit(1);
+			}
+			return;
+		}
+		System.out.println("Connecting to Existing Server");
+	}
+
+	/**
+	 * Helper static method that allows us to use singleton pattern for testing.
+	 * Ensures server being tested is an object with known values.
+	 */
+	public static void testSpawn() {
+		if (server == null) {
+			System.out.println("Starting Test Server");
+			Registry registry = null;
+			Server stub = null;
+			try {
+				server = new ServerImplementation();
+				registry = LocateRegistry.createRegistry(1060);
+				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
+				registry.bind("PlannerServer", stub);
+			} catch (final RemoteException e) {
+				System.out.println("Unable to create and bind to server using rmi.\n"
+						+ "Likely a different server is running on this port");
+				System.exit(0);
+			} catch (final AlreadyBoundException e) {
+				System.out.println("Connecting to Existing Server");
+			}
+			return;
+		}
+		System.out.println("Connecting to Existing Test Server");
+	}
+	
+	/**
+	 * Loads server from xml, called in main
+	 *
+	 * @return
+	 * @throws FileNotFoundException
+	 */
+	public static ServerImplementation load() throws FileNotFoundException {
+		final String filepath = "PlannerServer.serv";
+		XMLDecoder decoder = null;
+		decoder = new XMLDecoder(new BufferedInputStream(new FileInputStream(filepath)));
+		final ServerImplementation server = (ServerImplementation) decoder.readObject();
+		decoder.close();
+		return server;
+	}
+	
+	/**
+	 * Starts the server, allows clients to access it
+	 *
+	 * @param args
+	 * @throws RemoteException
+	 */
+	public static void main(String[] args) throws RemoteException { ServerImplementation.spawn(); }
+
+	
+/////////////////////////////////////////////////Override Equality Methods for testing/////////////////////////////////////////////////////////////////////
+	/**
+	 * Compares two hashes for testing
+	 *
+	 * @param map1
+	 * @param map2
+	 * @return
+	 */
+	private static <K, V> boolean hashesEqual(ConcurrentHashMap<K, V> map1, ConcurrentHashMap<K, V> map2) {
+		for (final Enumeration<K> keyList = map1.keys(); keyList.hasMoreElements();) {
+			final K key = keyList.nextElement();
+			if (!map1.containsKey(key)) return false;
+			if (!map2.containsKey(key)) return false;
+			if (!map1.get(key).equals(map2.get(key))) return false;
+		}
+		return true;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see software_masters.planner_networking.Server#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (this.getClass() != obj.getClass()) return false;
+		final ServerImplementation other = (ServerImplementation) obj;
+		if (this.cookieMap == null) {
+			if (other.cookieMap != null) return false;
+		} else if (!ServerImplementation.<String, Account>hashesEqual(this.cookieMap, other.cookieMap)) return false;
+		if (this.departmentMap == null) {
+			if (other.departmentMap != null) return false;
+		} else if (!ServerImplementation.<String, Department>hashesEqual(this.departmentMap, other.departmentMap))
+			return false;
+		if (this.loginMap == null) {
+			if (other.loginMap != null) return false;
+		} else if (!ServerImplementation.<String, Account>hashesEqual(this.loginMap, other.loginMap)) return false;
+		if (this.planTemplateMap == null) {
+			if (other.planTemplateMap != null) return false;
+		} else if (!ServerImplementation.<String, PlanFile>hashesEqual(this.planTemplateMap, other.planTemplateMap))
+			return false;
+		return true;
+	}
+
 }

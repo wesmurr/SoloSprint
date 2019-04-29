@@ -73,17 +73,24 @@ class PlanEditViewTest extends GuiTestBase {
 	void defaultTest() {
 		clickOn("Connect");
 		getToPlanEditView("2019");
+		defaultButtonTest();
 		this.checkBranch();
 		clickOn("Mission");
+		verifyThat(this.treeViewID,
+				(TreeView<PlanSection> tree) -> { return tree.getRoot().getValue().getName().equals("Mission"); });
+		checkPage("Mission", "", "2019");
+	}
+	
+	/**
+	 * Helper method to verify correct buttons are displayed
+	 */
+	protected void defaultButtonTest() {
 		verify(this.addButtonID, "Add Section");
 		verify(this.deleteButtonID, "Delete Section");
 		verify(this.saveID, "Save");
 		verify(this.backID, "Back to plans");
 		verify(this.yearLabelID, "Year");
 		verify(this.logoutID, "Log Out");
-		verifyThat(this.treeViewID,
-				(TreeView<PlanSection> tree) -> { return tree.getRoot().getValue().getName().equals("Mission"); });
-		checkPage("Mission", "", "2019");
 	}
 
 	/**

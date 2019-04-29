@@ -23,7 +23,6 @@ public class EditCommentsController extends EditController implements CommentCon
 	public void changeSection() {
 		super.changeSection();
 		setListView();
-		this.commentList.refresh();
 	}
 
 	@Override
@@ -46,7 +45,7 @@ public class EditCommentsController extends EditController implements CommentCon
 	@Override
 	public void hideComments() {
 		changeSection();
-		this.app.showPlanView(this.selfPath);
+		this.app.showPlanView();
 	}
 
 	/**
@@ -64,6 +63,7 @@ public class EditCommentsController extends EditController implements CommentCon
 		ObservableList<Comment> items = null;
 		items = FXCollections.observableList(this.model.getCurrNode().getUnresolvedComments());
 		this.commentList.setItems(items);
+		this.commentList.refresh();
 	}
 
 	@Override

@@ -16,6 +16,21 @@ import org.junit.jupiter.api.Test;
 class EditCommentsTest extends PlanEditViewTest {
 	private final String addComment = "#addCommentButton";
 	private final String toggleComments = "#toggleCommentsButton";
+	
+	/**
+	 * Verifies the program toggles between views well
+	 */
+	@Test
+	public void toggleViewsTest() {
+		clickOn("Connect");
+		getToPlanEditView("2019");
+		find("HideComments");
+		assertThrows(NoSuchElementException.class, () -> find("ShowComments"));
+		clickOn(this.toggleComments);
+		find("ShowComments");
+		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
+		defaultButtonTest();
+	}
 
 	/**
 	 * Makes sure the expected comments are displayed. Makes sure hidden comments
@@ -26,6 +41,11 @@ class EditCommentsTest extends PlanEditViewTest {
 	void commentUpdateWithSectionChange() {
 		clickOn("Connect");
 		getToPlanEditView("2019");
+		sleep(2000);
+		clickOn(this.toggleComments);
+		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
+		assertThrows(NoSuchElementException.class, () -> find("AddComment"));
+		clickOn(this.toggleComments);
 		doubleClickOn("Mission");
 		doubleClickOn("Goal");
 		clickOn(this.addComment);

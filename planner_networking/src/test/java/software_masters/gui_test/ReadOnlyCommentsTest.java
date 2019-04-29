@@ -8,6 +8,21 @@ import org.junit.jupiter.api.Test;
 
 class ReadOnlyCommentsTest extends ReadOnlyTest {
 	private final String toggleComments = "#toggleCommentsButton";
+	
+	/**
+	 * Verifies the program toggles between views well
+	 */
+	@Test
+	public void toggleViewsTest() {
+		getToPlanEditView("2020 Read Only");
+		clickOn(this.toggleComments);
+		find("HideComments");
+		assertThrows(NoSuchElementException.class, () -> find("ShowComments"));
+		clickOn(this.toggleComments);
+		find("ShowComments");
+		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
+		defaultItemsTest();
+	}
 
 	/**
 	 * Makes sure the expected comments are displayed. Makes sure hidden comments
@@ -17,6 +32,10 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	@Test
 	void commentUpdateWithSectionChange() {
 		getToPlanEditView("2020 Read Only");
+		clickOn(this.toggleComments);
+		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
+		assertThrows(NoSuchElementException.class, () -> find("Save"));
+		clickOn(this.toggleComments);
 		find("user: Testing  default comment display");
 		find("admin: Testing  default comment display");
 		assertThrows(NoSuchElementException.class, () -> find("user: no show"));

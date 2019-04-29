@@ -1,6 +1,9 @@
 package software_masters.gui_test;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.testfx.api.FxAssert.verifyThat;
+
+import java.util.NoSuchElementException;
 
 import org.junit.jupiter.api.Test;
 import org.testfx.matcher.control.LabeledMatchers;
@@ -110,11 +113,19 @@ class ReadOnlyTest extends GuiTestBase {
 	 * Verifies labels, buttons, and textfields are initialized with intended text.
 	 */
 	private void testDefaultValues() {
+		defaultItemsTest();
+		checkPage("Vision", "My Vision is to...", "2020");
+	}
+	
+	/**
+	 * Helper method to make sure the correct window is initialized.
+	 */
+	protected void defaultItemsTest() {
 		verifyThat(this.backID, LabeledMatchers.hasText("Back to plans"));
 		verifyThat(this.readOnlyLabel, LabeledMatchers.hasText("Local View Only - Cannot Save Changes"));
 		verifyThat(this.logoutID, LabeledMatchers.hasText("Log Out"));
 		verifyThat(this.yearLabelID, LabeledMatchers.hasText("Year"));
-		checkPage("Vision", "My Vision is to...", "2020");
+		assertThrows(NoSuchElementException.class, () -> find("Save"));
 	}
 
 	/**

@@ -90,7 +90,7 @@ public class LocalClientTest {
 		//////////////////////////////////// Centre
 		//////////////////////////////////// example/////////////////////////////////////////////
 		testClient.getPlan("2019");
-		final PlanFile test = testClient.getCurrPlanFile();
+		PlanFile test = testClient.getCurrPlanFile();
 		PlanSection root = test.getPlan().getRoot();
 		// try adding second mission should throw exception
 		testClient.setCurrNode(root);
@@ -100,9 +100,9 @@ public class LocalClientTest {
 		testBranchCopy();
 		/////////////////////////////////// VMOSA
 		/////////////////////////////////// example///////////////////////////////////////////////
-		final Plan VMOSA_test = new VMOSA();
+		Plan VMOSA_test = new VMOSA();
 		root = VMOSA_test.getRoot();
-		final PlanFile vmosaTest = new PlanFile("2018", true, VMOSA_test);
+		PlanFile vmosaTest = new PlanFile("2018", true, VMOSA_test);
 		testClient.setCurrPlanFile(vmosaTest);
 		// try adding second mission should throw exception
 		testClient.setCurrNode(root.getChildren().get(0));
@@ -112,9 +112,9 @@ public class LocalClientTest {
 		testBranchCopy();
 		/////////////////////////////////// Iowa state
 		/////////////////////////////////// example///////////////////////////////////////////////
-		final Plan IOWA_test = new IowaState();
+		Plan IOWA_test = new IowaState();
 		root = IOWA_test.getRoot();
-		final PlanFile iowaTest = new PlanFile("2017", true, IOWA_test);
+		PlanFile iowaTest = new PlanFile("2017", true, IOWA_test);
 		testClient.setCurrPlanFile(iowaTest);
 		// try adding second mission should throw exception
 		testClient.setCurrNode(root.getChildren().get(0));
@@ -208,8 +208,8 @@ public class LocalClientTest {
 		//////////////////////////////////// Centre
 		//////////////////////////////////// example/////////////////////////////////////////////
 		testClient.getPlan("2019");
-		final PlanFile test = testClient.getCurrPlanFile();
-		final PlanSection root = test.getPlan().getRoot();
+		PlanFile test = testClient.getCurrPlanFile();
+		PlanSection root = test.getPlan().getRoot();
 		// try removing mission should throw exception
 		testClient.setCurrNode(root);// mission level
 		assertThrows(IllegalArgumentException.class, () -> testClient.removeBranch());
@@ -239,7 +239,8 @@ public class LocalClientTest {
 		testClient.login("admin", "admin");
 		testClient.flagPlan("default", "2019", true);
 		final ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
-		final PlanFile file = departmentMap.get("default").getPlan("2019");
+		testClient.getPlan("2019");
+		final PlanFile file = testClient.getCurrPlanFile();
 		assertTrue(file.isCanEdit());
 
 		// tests exception is thrown if try to flag invalid file.
@@ -263,7 +264,7 @@ public class LocalClientTest {
 		// verify obtained plan is as expected
 		final ConcurrentHashMap<String, Department> departmentMap = actualServer.getDepartmentMap();
 		testClient.getPlan("2019");
-		assertEquals(departmentMap.get("default").getPlan("2019"), testClient.getCurrPlanFile());
+		assertEquals(departmentMap.get("default").getPlanHistory("2019").getCurrentPlanEdit().getPlanFile(), testClient.getCurrPlanFile());
 	}
 
 	/**

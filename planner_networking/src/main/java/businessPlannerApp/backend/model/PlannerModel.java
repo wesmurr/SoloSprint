@@ -4,17 +4,23 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Observable;
+import java.util.Observer;
 
+import businessPlannerApp.backend.PlanEdit;
 import businessPlannerApp.backend.PlanFile;
 import businessPlannerApp.backend.PlanSection;
+import businessPlannerApp.backend.RemoteObserver;
 import businessPlannerApp.backend.Server;
+import businessPlannerApp.frontend.planViews.PlanController;
 
 /**
  * @author lee kendall and wesley murray
  */
 
-public class PlannerModel {
+public class PlannerModel implements RemoteObserver {
 
 	/**
 	 * This class represents the client which users interact with. It includes
@@ -25,6 +31,7 @@ public class PlannerModel {
 	private PlanSection currNode;
 	private PlanFile currPlanFile;
 	private Server server;
+	private PlanController controller;
 
 	/**
 	 * Default constructor.
@@ -91,10 +98,11 @@ public class PlannerModel {
 	 * @throws NotBoundException
 	 */
 	public void connectToServer(String ip, int port) throws RemoteException, NotBoundException {
-		final String hostName = ip;
-		final Registry registry = LocateRegistry.getRegistry(hostName, port);
-		final Server stub = (Server) registry.lookup("PlannerServer");
+		String hostName = ip;
+		Registry registry = LocateRegistry.getRegistry(hostName, port);
+		Server stub = (Server) registry.lookup("PlannerServer");
 		this.server = stub;
+		
 	}
 
 	/**
@@ -154,6 +162,27 @@ public class PlannerModel {
 	public void getPlan(String year) throws IllegalArgumentException, RemoteException {
 		this.currPlanFile = this.server.getPlan(year, this.cookie);
 		this.currNode = this.currPlanFile.getPlan().getRoot();
+	}
+	
+	/**
+	 * Gets a representation of the edit history associated with this plan.
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws RemoteException
+	 */
+	public Collection<PlanEdit> getEditHistory() throws IllegalArgumentException, RemoteException {
+		return this.server.getEditHistory(this.currPlanFile.getYear(),this.cookie);
+	}
+	
+	/**
+	 * Returns a specific edit.
+	 * @param timestamp
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws RemoteException
+	 */
+	public PlanFile getPlanEdit(Timestamp timestamp) throws IllegalArgumentException, RemoteException {
+		return this.server.getPlanEdit(this.currPlanFile.getYear(),timestamp, this.cookie);
 	}
 
 	/**
@@ -272,5 +301,20 @@ public class PlannerModel {
 	 * @param year
 	 */
 	public void setYear(String year) { this.currPlanFile.setYear(year); }
+
+	/**
+	 * @return the controller
+	 */
+	public PlanController getController() { return controller; }
+
+	/**
+	 * @param controller the controller to set
+	 */
+	public void setController(PlanController controller) { this.controller = controller; }
+
+	@Override
+	public void updateEditHistory(){
+		this.controller.update();
+	}
 
 }

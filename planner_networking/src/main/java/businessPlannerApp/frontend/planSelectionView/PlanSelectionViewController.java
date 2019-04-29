@@ -84,14 +84,7 @@ public class PlanSelectionViewController extends ViewController {
 			this.app.showConnectToServer();
 			return;
 		}
-
-		if (selected.isCanEdit()) {
-			this.app.showPlanEditView();
-			return;
-		} else {
-			this.app.showPlanReadOnlyView();
-			return;
-		}
+		this.app.showPlanView();
 	}
 
 	/**
@@ -111,7 +104,7 @@ public class PlanSelectionViewController extends ViewController {
 			this.app.showConnectToServer();
 			return;
 		}
-		this.app.showPlanEditView();
+		this.app.showPlanView();
 		return;
 	}
 

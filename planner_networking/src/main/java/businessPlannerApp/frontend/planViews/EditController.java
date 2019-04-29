@@ -152,11 +152,19 @@ public class EditController extends PlanController {
 	/**
 	 * This method handles showing comments.
 	 */
-	@Override
 	@FXML
 	public void showComments() {
 		changeSection();
-		super.showComments();
+		this.app.showPlanViewExtension(this.selfPath.replace("View.fxml", "CommentsView.fxml"));
+	}
+	
+	/**
+	 * This method handles listing edit history
+	 */
+	@FXML
+	public void showEditHistory() {
+		changeSection();
+		this.app.showPlanViewExtension(this.selfPath.replace("View.fxml", "HistoryView.fxml"));
 	}
 
 	/**

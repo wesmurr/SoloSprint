@@ -95,6 +95,11 @@
       <HBox BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
+            <ToggleButton id="editsToggle" fx:id="editsToggle" mnemonicParsing="false" onAction="#showEditHistory" text="ShowEdits">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </HBox.margin>
+            </ToggleButton>
             <ToggleButton id="toggleCommentsButton" fx:id="commentsToggle" alignment="BOTTOM_RIGHT" minWidth="-Infinity" mnemonicParsing="false" onAction="#showComments" text="ShowComments">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />

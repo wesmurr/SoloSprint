@@ -109,7 +109,11 @@ public class Main extends Application {
 	 * Helper method for adding stage to window.
 	 */
 	private void setupDisplay() {
-		final Scene s = new Scene(this.mainView);
+		Scene s=this.primaryStage.getScene();
+		if (s==null)
+			s = new Scene(this.mainView);
+		else
+			s.setRoot(mainView);
 		this.primaryStage.setScene(s);
 		this.primaryStage.show();
 		this.primaryStage.sizeToScene();
@@ -136,16 +140,6 @@ public class Main extends Application {
 	}
 
 	/**
-	 * Shows the plan edit view
-	 */
-	public void showPlanEditView() { this.showPlanView("frontend/planViews/EditView.fxml"); }
-
-	/**
-	 * Shows the plan read-only view
-	 */
-	public void showPlanReadOnlyView() { this.showPlanView("frontend/planViews/ReadOnlyView.fxml"); }
-
-	/**
 	 * Shows the plan selection view
 	 */
 	public void showPlanSelectionView() {
@@ -156,23 +150,24 @@ public class Main extends Application {
 	}
 
 	/**
-	 * Show plan edit view based provided path.
-	 *
+	 * Load generic plan view
 	 * @param filepath
 	 */
-	public <T extends EditController> void showPlanView(String filepath) {
+	public <T extends EditController> void showPlanView() {
+		String filepath="frontend/planViews/EditView.fxml";
+		if(!this.model.getCurrPlanFile().isCanEdit()) {
+			filepath="frontend/planViews/ReadOnlyView.fxml";
+		}
 		final FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource(filepath));
-
 		try {
 			this.mainView = loader.load();
 		} catch (final IOException e) {
 			System.out.println("failed to load view: " + filepath);
 			return;
 		}
-		final T cont = loader.getController();
+		T cont = loader.getController();
 		cont.setSelfPath(filepath);
-		cont.setCommentsPath(filepath.replace("View.fxml", "CommentsView.fxml"));
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> {
@@ -182,6 +177,31 @@ public class Main extends Application {
 			else this.primaryStage.close();
 		});
 
+		setupDisplay();
+	}
+	
+	/**
+	 * Load generic plan view
+	 * @param filepath
+	 */
+	public <T extends EditController> void showPlanViewExtension(String filepath) {
+		final FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(Main.class.getResource(filepath));
+		try {
+			this.mainView = loader.load();
+		} catch (final IOException e) {
+			System.out.println("failed to load view: " + filepath);
+			return;
+		}
+		T cont = loader.getController();
+		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			e.consume();
+			cont.changeSection();
+			if (!cont.isPushed()) closeWindow(cont);
+			else this.primaryStage.close();
+		});
+		this.model.setController(cont);
 		setupDisplay();
 	}
 

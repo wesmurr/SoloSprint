@@ -10,14 +10,15 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
 public class PlanController extends ViewController {
-	protected String commentsPath = "";
+	protected String selfPath = "";
 	@FXML
 	protected ToggleButton commentsToggle;
+	@FXML
+	protected ToggleButton editsToggle;
 	@FXML
 	protected TextField dataField;
 	@FXML
 	protected TextField nameField;
-	protected String selfPath = "";
 	@FXML
 	protected TreeView<PlanSection> treeView;
 	@FXML
@@ -41,11 +42,6 @@ public class PlanController extends ViewController {
 			newRoot.getChildren().add(convertTree(root.getChildren().get(i)));
 		return newRoot;
 	}
-
-	/**
-	 * @return the commentsPath
-	 */
-	public String getCommentsPath() { return this.commentsPath; }
 
 	/**
 	 * @return the selfPath
@@ -81,11 +77,6 @@ public class PlanController extends ViewController {
 	}
 
 	/**
-	 * @param commentsPath the commentsPath to set
-	 */
-	public void setCommentsPath(String commentsPath) { this.commentsPath = commentsPath; }
-
-	/**
 	 * @param selfPath the selfPath to set
 	 */
 	public void setSelfPath(String selfPath) { this.selfPath = selfPath; }
@@ -100,10 +91,12 @@ public class PlanController extends ViewController {
 		this.treeView.refresh();
 		populateFields();
 	}
-
+	
 	/**
-	 * This method handles showing comments.
+	 * Update observer states.
 	 */
-	public void showComments() { this.app.showPlanView(this.commentsPath); }
+	public void update() {
+		
+	}
 
 }
