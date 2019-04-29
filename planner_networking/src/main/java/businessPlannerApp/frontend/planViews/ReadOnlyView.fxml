@@ -67,7 +67,17 @@
       <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="toggleCommentsButton" fx:id="commentsToggle" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#showComments" onMouseClicked="#showComments" text="ShowComments">
+            <Button id="compareToButton" mnemonicParsing="false" onAction="#compareTo" text="CompareTo">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </HBox.margin>
+            </Button>
+            <ToggleButton id="editsToggle" alignment="BOTTOM_RIGHT" mnemonicParsing="false" onAction="#showEditHistory" text="ShowEdits">
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </HBox.margin>
+            </ToggleButton>
+            <ToggleButton id="toggleCommentsButton" alignment="BOTTOM_RIGHT" layoutX="685.0" layoutY="12.0" mnemonicParsing="false" onAction="#showComments" text="ShowComments">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>

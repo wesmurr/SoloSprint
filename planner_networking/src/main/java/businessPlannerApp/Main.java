@@ -1,8 +1,10 @@
 package businessPlannerApp;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.Optional;
 
+import businessPlannerApp.backend.model.ComparisonModel;
 import businessPlannerApp.backend.model.PlannerModel;
 import businessPlannerApp.frontend.ViewController;
 import businessPlannerApp.frontend.loginView.LoginViewController;
@@ -40,10 +42,9 @@ public class Main extends Application {
 
 	/**
 	 * Handles the exit without saving popup
-	 *
 	 * @param cont plan edit view controller
 	 */
-	private void closeWindow(EditController cont) {
+	private void closeWindowPopup(EditController cont) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		String message = "You have unsaved changes. Do you wish to save before exiting?";
 		alert.setContentText(message);
@@ -53,9 +54,18 @@ public class Main extends Application {
 		alert.getButtonTypes().setAll(okButton, noButton, cancelButton);
 		Optional<ButtonType> result = alert.showAndWait();
 		if (result.get() == okButton) {
-			if (cont.push()) this.primaryStage.close();
-		} else if (result.get() == noButton) this.primaryStage.close();
+			if (cont.push()) close();
+		} else if (result.get() == noButton) close();
 
+	}
+	
+	/**
+	 * Closes window.
+	 * @param cont
+	 */
+	private void close() {
+		this.primaryStage.close();
+//		this.model.releaseObserver();
 	}
 
 	/**
@@ -73,7 +83,6 @@ public class Main extends Application {
 	private <T extends ViewController> void loadController(T cont, String filepath) {
 		final FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(Main.class.getResource(filepath));
-
 		try {
 			this.mainView = loader.load();
 		} catch (final IOException e) {
@@ -81,6 +90,7 @@ public class Main extends Application {
 		}
 		cont = loader.getController();
 		cont.setApplication(this);
+		this.model.setController(cont);
 	}
 
 	/**
@@ -95,8 +105,6 @@ public class Main extends Application {
 		alert.setTitle("Warning Dialog");
 		alert.setHeaderText(message);
 		alert.setContentText(null);
-		// alert.getButtonTypes().get(0).
-
 		alert.showAndWait();
 	}
 
@@ -123,9 +131,9 @@ public class Main extends Application {
 	 * Shows the connect to server window
 	 */
 	public void showConnectToServer() {
-		final ServerConnectionViewController cont = null;
+		ServerConnectionViewController cont = null;
 		this.loadController(cont, "frontend/serverConnectionView/serverConnectionView.fxml");
-		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.primaryStage.close(); });
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.close(); });
 		setupDisplay();
 	}
 
@@ -135,7 +143,7 @@ public class Main extends Application {
 	public void showLoginView() {
 		final LoginViewController cont = null;
 		this.loadController(cont, "frontend/loginView/loginView.fxml");
-		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.primaryStage.close(); });
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.close(); });
 		setupDisplay();
 	}
 
@@ -145,7 +153,7 @@ public class Main extends Application {
 	public void showPlanSelectionView() {
 		final PlanSelectionViewController cont = null;
 		this.loadController(cont, "frontend/planSelectionView/planSelectionView.fxml");
-		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.primaryStage.close(); });
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.close(); });
 		setupDisplay();
 	}
 
@@ -167,14 +175,15 @@ public class Main extends Application {
 			return;
 		}
 		T cont = loader.getController();
+		this.model.setController(cont);
 		cont.setSelfPath(filepath);
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			e.consume();
 			cont.changeSection();
-			if (!cont.isPushed()) closeWindow(cont);
-			else this.primaryStage.close();
+			if (!cont.isPushed()) closeWindowPopup(cont);
+			else this.close();
 		});
 
 		setupDisplay();
@@ -195,13 +204,33 @@ public class Main extends Application {
 		}
 		T cont = loader.getController();
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
+		this.model.setController(cont);
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> {
 			e.consume();
 			cont.changeSection();
-			if (!cont.isPushed()) closeWindow(cont);
-			else this.primaryStage.close();
+			if (!cont.isPushed()) closeWindowPopup(cont);
+			else this.close();
 		});
-		this.model.setController(cont);
+		setupDisplay();
+	}
+	
+	/**
+	 * Shows the compare edits window
+	 */
+	public void showCompareEdits() {
+		ServerConnectionViewController cont = null;
+		this.loadController(cont, "frontend/ComparisonViews/CompareEditsView.fxml");
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.close(); });
+		setupDisplay();
+	}
+	
+	/**
+	 * Shows the compare plans window
+	 */
+	public void showComparePlans() {
+		ServerConnectionViewController cont = null;
+		this.loadController(cont, "frontend/ComparisonViews/ComparePlansView.fxml");
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.close(); });
 		setupDisplay();
 	}
 
@@ -214,7 +243,11 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.model = new PlannerModel();
+		try {
+			this.model = new ComparisonModel();
+		} catch (RemoteException e) {
+			System.out.println("Unable to create model");
+		}
 
 		showConnectToServer();
 	}

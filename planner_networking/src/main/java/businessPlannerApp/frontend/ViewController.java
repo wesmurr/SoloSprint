@@ -17,4 +17,12 @@ public class ViewController {
 		this.app = app;
 		this.model = this.app.getModel();
 	}
+	
+	/**
+	 * This method this handling observer pattern.
+	 */
+	public void update() {
+		
+	}
+	
 }

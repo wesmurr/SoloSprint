@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessPlannerApp.frontend.ComparisonViews.ComparePlansController">
+   <top>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Button id="backButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#back" prefHeight="26.0" prefWidth="72.0" text="Back">
+               <tooltip>
+                  <Tooltip text="Return to plan selection page" />
+               </tooltip>
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </HBox.margin></Button>
+            <Separator maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
+            <Button id="logoutButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="71.0" text="Log Out">
+               <tooltip>
+                  <Tooltip text="Click to log out" />
+               </tooltip>
+               <HBox.margin>
+                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
+               </HBox.margin></Button>
+         </children>
+      </HBox>
+   </top>
+   <bottom>
+      <HBox BorderPane.alignment="CENTER">
+         <children>
+            <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <HBox prefHeight="522.0" prefWidth="978.0" BorderPane.alignment="CENTER">
+         <children>
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <left>
+                  <TreeView id="treeView" fx:id="treeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onMouseClicked="#changeSection" prefWidth="150.0" BorderPane.alignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Click to navigate between sections" />
+                     </tooltip>
+                  </TreeView>
+               </left>
+               <center>
+                  <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <top>
+                        <TextField id="nameField" fx:id="nameField" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                           <tooltip>
+                              <Tooltip text="Edit Section Title" />
+                           </tooltip>
+                        </TextField>
+                     </top>
+                     <center>
+                        <TextField id="dataField" fx:id="dataField" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                           <tooltip>
+                              <Tooltip text="Edit Section Content" />
+                           </tooltip>
+                        </TextField>
+                     </center>
+                  </BorderPane>
+               </center>
+               <top>
+                  <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label id="yearLabel" prefHeight="26.0" prefWidth="44.0" text="Year" />
+                        <TextField id="yearField" fx:id="yearField" prefHeight="26.0" prefWidth="126.0">
+                           <tooltip>
+                              <Tooltip text="Edit year">
+                                 <graphic>
+                                    <Label text="Label" />
+                                 </graphic>
+                              </Tooltip>
+                           </tooltip>
+                        </TextField>
+                        <Label id="planLabel" layoutX="10.0" layoutY="10.0" minWidth="-Infinity" prefHeight="26.0" prefWidth="115.0" text="Original Plan">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding></Label>
+                     </children>
+                  </HBox>
+               </top>
+            </BorderPane>
+            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+               <left>
+                  <TreeView id="altTreeView" fx:id="altTreeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onMouseClicked="#changeAltSection" prefHeight="429.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+                     <tooltip>
+                        <Tooltip text="Click to navigate between sections" />
+                     </tooltip>
+                  </TreeView>
+               </left>
+               <center>
+                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                     <top>
+                        <TextField id="altNameField" fx:id="altNameField" editable="false" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                           <tooltip>
+                              <Tooltip text="Edit Section Title" />
+                           </tooltip>
+                        </TextField>
+                     </top>
+                     <center>
+                        <TextField id="altDataField" fx:id="altDataField" alignment="TOP_LEFT" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="372.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                           <tooltip>
+                              <Tooltip text="Edit Section Content" />
+                           </tooltip>
+                        </TextField>
+                     </center>
+                  </BorderPane>
+               </center>
+               <top>
+                  <HBox maxWidth="1.7976931348623157E308" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label id="altYearLabel" prefHeight="26.0" prefWidth="44.0" text="Year" />
+                        <ComboBox id="altSelectPlanMenu" fx:id="altSelectPlanMenu" onAction="#populateAltPlan" prefWidth="150.0" promptText="Select Plan" />
+                        <Label id="altPlanLabel" layoutX="10.0" layoutY="10.0" minWidth="-Infinity" prefHeight="26.0" prefWidth="127.0" text="Alternate Plan">
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding></Label>
+                     </children>
+                  </HBox>
+               </top>
+            </BorderPane>
+         </children>
+      </HBox>
+   </center>
+</BorderPane>

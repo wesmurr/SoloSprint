@@ -16,12 +16,13 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	public void toggleViewsTest() {
 		getToPlanEditView("2020 Read Only");
 		clickOn(this.toggleComments);
-		find("HideComments");
-		assertThrows(NoSuchElementException.class, () -> find("ShowComments"));
-		clickOn(this.toggleComments);
 		find("ShowComments");
 		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
 		defaultItemsTest();
+		clickOn(this.toggleComments);
+		find("HideComments");
+		assertThrows(NoSuchElementException.class, () -> find("ShowComments"));
+		clickOn(this.toggleComments);
 	}
 
 	/**

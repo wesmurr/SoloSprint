@@ -7,6 +7,7 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.Serializable;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -28,7 +29,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Wesley Murray
  */
 
-public class ServerImplementation implements Server {
+public class ServerImplementation extends Observable implements Server {
 	private ConcurrentHashMap<String, Account> cookieMap = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<String, Department> departmentMap = new ConcurrentHashMap<>();
 	private ConcurrentHashMap<String, Account> loginMap = new ConcurrentHashMap<>();
@@ -90,6 +91,39 @@ public class ServerImplementation implements Server {
 		this.planTemplateMap.put("VMOSA", new PlanFile("", true, defaultVMOSA));
 
 	}
+	
+	/////////////////////////////////Observer Pattern//////////////////////////////////////////////
+	private class ProxyObserver implements Observer, Serializable {
+
+		private static final long serialVersionUID = -2218696823975948026L;
+		private RemoteObserver ro = null;
+		
+        public ProxyObserver(RemoteObserver ro) {
+            this.ro = ro;
+        }
+
+        @Override
+        public void update(Observable o, Object arg) {
+            try {
+                ro.update();
+            } catch (RemoteException e) {
+                System.out.println("Remote exception removing observer:" + this);
+                o.deleteObserver(this);
+            }
+        }
+
+    }
+	
+	@Override
+	public void addObserver(RemoteObserver obs) {
+		ProxyObserver mo = new ProxyObserver(obs);
+		super.addObserver(mo);
+	}
+	
+	@Override
+	public void deleteObserver(RemoteObserver obs) throws RemoteException { super.deleteObserver((Observer) obs); }
+
+	////////////////////////////////Server Body/////////////////////////////////////////////////
 
 	/*
 	 * (non-Javadoc)
@@ -401,6 +435,8 @@ public class ServerImplementation implements Server {
 			PlanHistory oldPlan = dept.getPlanHistory(plan.getYear());
 			if (!oldPlan.isCanEdit()) throw new IllegalArgumentException("Not allowed to edit this plan");
 			dept.getPlanHistory(plan.getYear()).addPlanEdit(newEdit);
+			this.setChanged();
+			this.notifyObservers();
 			return;
 		}
 		
@@ -408,6 +444,8 @@ public class ServerImplementation implements Server {
 		newHistory.addPlanEdit(newEdit);
 		dept.addPlanHistory(newHistory.getYear(), newHistory);
 		save();
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/*

@@ -6,6 +6,8 @@ import java.util.List;
 import businessPlannerApp.Main;
 import businessPlannerApp.backend.PlanEdit;
 import businessPlannerApp.backend.PlanFile;
+import businessPlannerApp.backend.model.ComparisonModel;
+import businessPlannerApp.frontend.ComparisonViews.CompareController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -51,15 +53,15 @@ public class EditHistoryController extends EditController implements HistoryCont
 	@Override
 	public void viewEdit() {
 		PlanEdit selected=this.editList.getSelectionModel().getSelectedItem();
-		PlanFile edit=null;
 		try {
-			edit=this.model.getPlanEdit(selected.getTimestamp());
+			PlanFile plan=this.model.getPlanEdit(selected.getTimestamp());
+			((ComparisonModel) this.model).updatePlan(plan);
+			app.showCompareEdits();
 		} catch (IllegalArgumentException e) {
 			System.out.println("You messed up your management of the time stamps");
 		} catch (RemoteException e) {
 			app.showConnectToServer();
 		}
-		System.out.println("view for edits incomplete.");
 	}
 
 	@Override

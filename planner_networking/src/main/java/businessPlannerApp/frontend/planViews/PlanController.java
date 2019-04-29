@@ -23,7 +23,18 @@ public class PlanController extends ViewController {
 	protected TreeView<PlanSection> treeView;
 	@FXML
 	protected TextField yearField;
-
+	
+	/**
+	 * Initialize view
+	 *
+	 * @param this.app
+	 */
+	@Override
+	public void setApplication(Main app) {
+		super.setApplication(app);
+		setTreeView();
+	}
+	
 	/**
 	 * Handles navigating back to plans
 	 */
@@ -36,7 +47,7 @@ public class PlanController extends ViewController {
 	 * @param root build the treeview start from root node of business plan
 	 * @return
 	 */
-	private TreeItem<PlanSection> convertTree(PlanSection root) {
+	protected TreeItem<PlanSection> convertTree(PlanSection root) {
 		final TreeItem<PlanSection> newRoot = new TreeItem<>(root);
 		for (int i = 0; i < root.getChildren().size(); i++)
 			newRoot.getChildren().add(convertTree(root.getChildren().get(i)));
@@ -63,17 +74,6 @@ public class PlanController extends ViewController {
 		this.yearField.setText(this.model.getCurrPlanFile().getYear());
 		this.nameField.setText(this.model.getCurrNode().getName());
 		this.dataField.setText(this.model.getCurrNode().getData());
-	}
-
-	/**
-	 * Initialize view
-	 *
-	 * @param this.app
-	 */
-	@Override
-	public void setApplication(Main app) {
-		super.setApplication(app);
-		setTreeView();
 	}
 
 	/**

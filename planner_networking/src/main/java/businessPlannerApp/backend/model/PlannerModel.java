@@ -1,49 +1,84 @@
 package businessPlannerApp.backend.model;
 
+import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Observable;
-import java.util.Observer;
 
 import businessPlannerApp.backend.PlanEdit;
 import businessPlannerApp.backend.PlanFile;
 import businessPlannerApp.backend.PlanSection;
 import businessPlannerApp.backend.RemoteObserver;
 import businessPlannerApp.backend.Server;
-import businessPlannerApp.frontend.planViews.PlanController;
+import businessPlannerApp.frontend.ViewController;
 
 /**
  * @author lee kendall and wesley murray
  */
 
-public class PlannerModel implements RemoteObserver {
+public class PlannerModel extends UnicastRemoteObject implements RemoteObserver {
 
 	/**
 	 * This class represents the client which users interact with. It includes
 	 * methods for retrieving and editing business plans, keeping track of the
 	 * user's cookie after login.
 	 */
+	private static final long serialVersionUID = -6954891962180722423L;
 	private String cookie;
 	private PlanSection currNode;
 	private PlanFile currPlanFile;
 	private Server server;
-	private PlanController controller;
+	private ViewController controller;
 
 	/**
 	 * Default constructor.
 	 */
-	public PlannerModel() { this.server = null; }
+	public PlannerModel() throws RemoteException { 
+		this.server = null;
+	}
 
 	/**
 	 * Sets the client's server.
-	 *
 	 * @param server
 	 */
-	public PlannerModel(Server server) { this.server = server; }
+	public PlannerModel(Server server) throws RemoteException { 
+		this.server = server; 
+	}
+	
+	////////////////////////////Observer Pattern Stuff/////////////////////////////////////////////////////
+	
+	@Override
+	public void update() {
+		this.controller.update();
+	}
+	
+	/**
+	 * Removes this client from the server.
+	 */
+	public void addObserver() {
+		try {
+			this.server.addObserver((RemoteObserver) this);
+		} catch (RemoteException e) {
+			System.out.println("Unable to add observer");
+		}
+	}
+	
+	/**
+	 * Removes this client from the server.
+	 */
+	public void releaseObserver() {
+		try {
+			this.server.deleteObserver((RemoteObserver) this);
+		} catch (RemoteException e) {
+			System.out.println("Unable to remove observer");
+		}
+	}
+	
+	//////////////////////////////Client Body/////////////////////////////////////////////////////
 
 	/**
 	 * Adds a new branch to the business plan tree if allowed
@@ -88,7 +123,6 @@ public class PlannerModel implements RemoteObserver {
 	public void backToPlans() {
 		this.currNode = null;
 		this.currPlanFile = null;
-		releaseFile();
 	}
 
 	/**
@@ -102,7 +136,7 @@ public class PlannerModel implements RemoteObserver {
 		Registry registry = LocateRegistry.getRegistry(hostName, port);
 		Server stub = (Server) registry.lookup("PlannerServer");
 		this.server = stub;
-		
+		this.addObserver();
 	}
 
 	/**
@@ -247,9 +281,8 @@ public class PlannerModel implements RemoteObserver {
 		this.cookie = null;
 		this.currNode = null;
 		this.currPlanFile = null;
-		releaseFile();
 	}
-
+	
 	/**
 	 * Saves planFile to the user's department if that planFile is marked as
 	 * editable. If not editable, an exception is thrown. An exception is also
@@ -260,10 +293,6 @@ public class PlannerModel implements RemoteObserver {
 	 */
 	public void pushPlan(PlanFile plan) throws IllegalArgumentException, RemoteException {
 		this.server.savePlan(plan, this.cookie);
-	}
-
-	private void releaseFile() {
-
 	}
 
 	/**
@@ -305,16 +334,10 @@ public class PlannerModel implements RemoteObserver {
 	/**
 	 * @return the controller
 	 */
-	public PlanController getController() { return controller; }
+	public ViewController getController() { return controller; }
 
 	/**
 	 * @param controller the controller to set
 	 */
-	public void setController(PlanController controller) { this.controller = controller; }
-
-	@Override
-	public void updateEditHistory(){
-		this.controller.update();
-	}
-
+	public void setController(ViewController controller) { this.controller = controller; }
 }

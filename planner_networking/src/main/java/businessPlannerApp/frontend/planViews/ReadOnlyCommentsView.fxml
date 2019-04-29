@@ -82,7 +82,7 @@
       <HBox BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" HBox.hgrow="ALWAYS" />
-            <ToggleButton id="toggleCommentsButton" fx:id="commentsToggle" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#hideComments" onMouseClicked="#hideComments" text="HideComments">
+            <ToggleButton id="toggleCommentsButton" alignment="BOTTOM_RIGHT" contentDisplay="CENTER" mnemonicParsing="false" onAction="#hideComments" onMouseClicked="#hideComments" text="HideComments">
                <HBox.margin>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin>

@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import businessPlannerApp.Main;
 import businessPlannerApp.backend.PlanSection;
+import businessPlannerApp.backend.model.ComparisonModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -13,8 +14,18 @@ import javafx.scene.control.TreeItem;
 
 public class EditController extends PlanController {
 
-	boolean isPushed;
+	protected boolean isPushed;
 
+	/**
+	 * Initialize view
+	 * @param this.app
+	 */
+	@Override
+	public void setApplication(Main app) {
+		super.setApplication(app);
+		this.isPushed = true;
+	}
+	
 	/**
 	 * Add a branch at the same level as current selected node to the business plan
 	 */
@@ -139,17 +150,6 @@ public class EditController extends PlanController {
 	}
 
 	/**
-	 * Initialize view
-	 *
-	 * @param this.app
-	 */
-	@Override
-	public void setApplication(Main app) {
-		super.setApplication(app);
-		this.isPushed = true;
-	}
-
-	/**
 	 * This method handles showing comments.
 	 */
 	@FXML
@@ -167,6 +167,14 @@ public class EditController extends PlanController {
 		this.app.showPlanViewExtension(this.selfPath.replace("View.fxml", "HistoryView.fxml"));
 	}
 
+	/**
+	 * This method opens the comparison view.
+	 */
+	@FXML
+	public void compareTo() {
+		this.app.showComparePlans();
+	}
+	
 	/**
 	 * Asks user if they want to save unsaved changes before leaving the plan edit
 	 * view window for the back to plans button

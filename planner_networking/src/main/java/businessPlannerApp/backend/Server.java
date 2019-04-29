@@ -13,7 +13,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author wesley murray
  */
 
-public interface Server extends Remote {
+public interface Server extends RemoteSubject {
 
 	/**
 	 * Adds a new department
