@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import businessPlannerApp.Main;
 import businessPlannerApp.backend.PlanSection;
-import businessPlannerApp.backend.model.ComparisonModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -59,7 +58,6 @@ public class EditController extends PlanController {
 
 	/**
 	 * Change the nameField and dataField to the content stored in current node
-	 *
 	 * @param item
 	 */
 	@FXML
@@ -129,9 +127,6 @@ public class EditController extends PlanController {
 	@FXML
 	public boolean push() {
 		try {
-			// set the year to which the user want
-			// This allow the user to decide which year they want to edit
-			// at editing time
 			changeSection();
 			this.model.getCurrPlanFile().setYear(this.yearField.getText());
 			this.model.pushPlan(this.model.getCurrPlanFile());

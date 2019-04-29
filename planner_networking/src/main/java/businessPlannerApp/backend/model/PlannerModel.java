@@ -51,11 +51,18 @@ public class PlannerModel extends UnicastRemoteObject implements RemoteObserver,
 	
 	////////////////////////////Observer Pattern Stuff/////////////////////////////////////////////////////
 	
+	/**
+	 * This method is necessary for preventing threading conflicts.
+	 */
 	@Override
 	public void update() {
 		Platform.runLater(this);
 	}
 	
+	/**
+	 * method so that model can be runnable.
+	 * object must be a runnable to use platform.runlater
+	 */
 	public void run() {
 		this.controller.update();
 	}

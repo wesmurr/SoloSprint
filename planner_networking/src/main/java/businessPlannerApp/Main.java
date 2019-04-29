@@ -22,22 +22,12 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- * @author lee.kendall
+ * @author Wesley Murray
  */
 public class Main extends Application {
 
-	public static void main(String[] args) { launch(args); }
-
 	Parent mainView;
-	/**
-	 * Initializes the server connection window and includes methods for changing
-	 * the window to display a new view
-	 *
-	 * @param args
-	 */
-
 	PlannerModel model;
-
 	Stage primaryStage;
 
 	/**
@@ -74,7 +64,6 @@ public class Main extends Application {
 
 	/**
 	 * Generalizes the process for loading a controller.
-	 *
 	 * @param <T>
 	 * @param cont
 	 * @param filepath
@@ -95,8 +84,7 @@ public class Main extends Application {
 	/**
 	 * This method helps to pop up error message happens when controller is
 	 * operating the model For example, delete a node that is not allowed to be
-	 * deleted
-	 *
+	 * deleted.
 	 * @param message error message from wrong operation on the model
 	 */
 	public void sendError(String message) {
@@ -214,7 +202,7 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * Shows the compare edits window
+	 * Shows the compare edits window.
 	 */
 	public void showCompareEdits() {
 		ServerConnectionViewController cont = null;
@@ -224,7 +212,7 @@ public class Main extends Application {
 	}
 	
 	/**
-	 * Shows the compare plans window
+	 * Shows the compare plans window.
 	 */
 	public void showComparePlans() {
 		ServerConnectionViewController cont = null;
@@ -250,5 +238,7 @@ public class Main extends Application {
 
 		showConnectToServer();
 	}
+	
+	public static void main(String[] args) { launch(args); }
 
 }

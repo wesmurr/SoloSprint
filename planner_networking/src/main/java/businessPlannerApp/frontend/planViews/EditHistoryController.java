@@ -28,7 +28,7 @@ public class EditHistoryController extends EditController implements HistoryCont
 	}
 
 	/**
-	 * update list view
+	 * update list view with past edits to the plan
 	 */
 	private void setListView() {
 		ObservableList<PlanEdit> items = null;
@@ -43,12 +43,18 @@ public class EditHistoryController extends EditController implements HistoryCont
 		this.editList.setItems(items);
 	}
 	
+	/**
+	 * Navigate between sections based on list view selection.
+	 */
 	@Override
 	public void changeSection() {
 		super.changeSection();
 		this.editList.refresh();
 	}
 	
+	/**
+	 * Opens view to compare a plan to a past version.
+	 */
 	@Override
 	public void viewEdit() {
 		PlanEdit selected=this.editList.getSelectionModel().getSelectedItem();
@@ -63,12 +69,18 @@ public class EditHistoryController extends EditController implements HistoryCont
 		}
 	}
 
+	/**
+	 * Method called by the observer pattern.
+	 */
 	@Override
 	public void update() {
 		setListView();
 		this.editList.refresh();
 	}
 
+	/**
+	 * Toggle button to show edit history or not.
+	 */
 	@Override
 	public void hideEdits() {
 		super.changeSection();

@@ -18,13 +18,27 @@ public class EditCommentsController extends EditController implements CommentCon
 
 	@FXML
 	ListView<Comment> commentList;
+	
+	/**
+	 * method called by the observer pattern to update controller and view
+	 */
+	@Override
+	public void update() {
+		setListView();
+	}
 
+	/**
+	 * This method ensures navigation between sections is handled properly.
+	 */
 	@Override
 	public void changeSection() {
 		super.changeSection();
 		setListView();
 	}
 
+	/**
+	 * makes a popup where users can create the comment
+	 */
 	@Override
 	public void createComment() {
 		final TextInputDialog comment = new TextInputDialog();
@@ -42,6 +56,9 @@ public class EditCommentsController extends EditController implements CommentCon
 		}
 	}
 
+	/**
+	 * hides the list of comments
+	 */
 	@Override
 	public void hideComments() {
 		changeSection();
@@ -49,8 +66,7 @@ public class EditCommentsController extends EditController implements CommentCon
 	}
 
 	/**
-	 * Let controller to know view
-	 *
+	 * Let controller to know view.
 	 * @param application
 	 */
 	@Override
@@ -59,13 +75,19 @@ public class EditCommentsController extends EditController implements CommentCon
 		setListView();
 	}
 
-	private void setListView() {
+	/**
+	 * update list view of comments.
+	 */
+	protected void setListView() {
 		ObservableList<Comment> items = null;
 		items = FXCollections.observableList(this.model.getCurrNode().getUnresolvedComments());
 		this.commentList.setItems(items);
 		this.commentList.refresh();
 	}
 
+	/**
+	 * Displays the comment in a popup window.
+	 */
 	@Override
 	public void viewComment() {
 		final Comment comment = this.commentList.getSelectionModel().getSelectedItem();

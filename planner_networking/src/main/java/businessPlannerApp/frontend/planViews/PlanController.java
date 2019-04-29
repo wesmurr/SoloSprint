@@ -25,8 +25,7 @@ public class PlanController extends ViewController {
 	protected TextField yearField;
 	
 	/**
-	 * Initialize view
-	 *
+	 * Initialize controller and view.
 	 * @param this.app
 	 */
 	@Override

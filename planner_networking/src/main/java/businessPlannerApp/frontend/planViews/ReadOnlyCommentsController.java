@@ -5,8 +5,22 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 
+/**
+ * @author Wesley Murray
+ */
 public class ReadOnlyCommentsController extends EditCommentsController {
 
+	/**
+	 * This method called by the observer pattern to update the controller and view.
+	 */
+	@Override
+	public void update() {
+		setListView();
+	}
+	
+	/**
+	 * displays the comment in a window.
+	 */
 	@Override
 	public void viewComment() {
 		final Comment comment = this.commentList.getSelectionModel().getSelectedItem();

@@ -12,6 +12,11 @@ public class ComparisonModel extends PlannerModel {
 	private PlanSection altCurrNode;
 	private PlanFile altCurrPlanFile;
 	
+	/**
+	 * Create a comparison model object from planner model object.
+	 * @param model
+	 * @throws RemoteException
+	 */
 	public ComparisonModel(PlannerModel model) throws RemoteException { 
 		super.setController(model.getController());
 		super.setCookie(model.getCookie());
@@ -20,10 +25,19 @@ public class ComparisonModel extends PlannerModel {
 		super.setServer(model.getServer());
 	}
 	
+	/**
+	 * Create a new comparison model based on the server object.
+	 * @param server
+	 * @throws RemoteException
+	 */
 	public ComparisonModel(Server server) throws RemoteException {
 		super.setServer(server);
 	}
 	
+	/**
+	 * Initialize comparison model.
+	 * @throws RemoteException
+	 */
 	public ComparisonModel() throws RemoteException {
 		
 	}

@@ -18,12 +18,18 @@ public abstract class CompareController extends EditController {
 	@FXML
 	protected TreeView<PlanSection> altTreeView;
 	
+	/**
+	 * Connect controller to view.
+	 */
 	@Override
 	public void setApplication(Main app) {
 		super.setApplication(app);
 		this.model=(ComparisonModel) super.model;
 	}
 	
+	/**
+	 * This method handles changing between sections for the alternate plan being compared to the original.
+	 */
 	@FXML
 	public void changeAltSection() {
 		TreeItem<PlanSection> item = this.altTreeView.getSelectionModel().getSelectedItem();
@@ -35,6 +41,9 @@ public abstract class CompareController extends EditController {
 		this.altTreeView.refresh();
 	}
 	
+	/**
+	 * populates fields representing the alternate plan.
+	 */
 	@FXML
 	abstract public void populateAltPlan();
 	
