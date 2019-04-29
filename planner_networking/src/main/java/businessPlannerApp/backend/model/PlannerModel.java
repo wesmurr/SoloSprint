@@ -1,6 +1,5 @@
 package businessPlannerApp.backend.model;
 
-import java.io.Serializable;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -15,12 +14,13 @@ import businessPlannerApp.backend.PlanSection;
 import businessPlannerApp.backend.RemoteObserver;
 import businessPlannerApp.backend.Server;
 import businessPlannerApp.frontend.ViewController;
+import javafx.application.Platform;
 
 /**
  * @author lee kendall and wesley murray
  */
 
-public class PlannerModel extends UnicastRemoteObject implements RemoteObserver {
+public class PlannerModel extends UnicastRemoteObject implements RemoteObserver,Runnable {
 
 	/**
 	 * This class represents the client which users interact with. It includes
@@ -53,6 +53,10 @@ public class PlannerModel extends UnicastRemoteObject implements RemoteObserver 
 	
 	@Override
 	public void update() {
+		Platform.runLater(this);
+	}
+	
+	public void run() {
 		this.controller.update();
 	}
 	

@@ -7,7 +7,6 @@ import businessPlannerApp.Main;
 import businessPlannerApp.backend.PlanEdit;
 import businessPlannerApp.backend.PlanFile;
 import businessPlannerApp.backend.model.ComparisonModel;
-import businessPlannerApp.frontend.ComparisonViews.CompareController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

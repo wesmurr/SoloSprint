@@ -15,6 +15,7 @@ import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
@@ -309,6 +310,7 @@ public class ServerImplementation extends Observable implements Server {
 			temp = iter.next();
 			list.add(new PlanEdit(temp.getUsername(), temp.getTimestamp(),null));
 		}
+		Collections.reverse(list);
 		collections = list;
 		return collections;
 	}

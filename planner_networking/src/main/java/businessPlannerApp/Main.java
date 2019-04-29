@@ -56,7 +56,6 @@ public class Main extends Application {
 		if (result.get() == okButton) {
 			if (cont.push()) close();
 		} else if (result.get() == noButton) close();
-
 	}
 	
 	/**
