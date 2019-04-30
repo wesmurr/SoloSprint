@@ -39,6 +39,7 @@ public abstract class CompareController extends EditController {
 		this.altNameField.setText(this.model.getAltCurrNode().getName());
 		this.altDataField.setText(this.model.getAltCurrNode().getData());
 		this.altTreeView.refresh();
+		populateAltFields();
 	}
 	
 	/**
@@ -59,7 +60,7 @@ public abstract class CompareController extends EditController {
 	/**
 	 * Initializes the year, name, and data text fields.
 	 */
-	private void populateAltFields() {
+	protected void populateAltFields() {
 		this.altNameField.setText(this.model.getAltCurrNode().getName());
 		this.altDataField.setText(this.model.getAltCurrNode().getData());
 	}

@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessPlannerApp.frontend.ComparisonViews.ComparePlansController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="businessPlannerApp.frontend.ComparisonViews.ComparePlansController">
    <top>
       <HBox BorderPane.alignment="CENTER">
          <children>
@@ -41,11 +41,11 @@
       </HBox>
    </bottom>
    <center>
-      <HBox prefHeight="522.0" prefWidth="978.0" BorderPane.alignment="CENTER">
+      <HBox BorderPane.alignment="CENTER">
          <children>
             <BorderPane prefHeight="200.0" prefWidth="200.0">
                <left>
-                  <TreeView id="treeView" fx:id="treeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onMouseClicked="#changeSection" prefWidth="150.0" BorderPane.alignment="CENTER">
+                  <TreeView id="treeView" fx:id="treeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" onMouseClicked="#changeSection" prefWidth="150.0" BorderPane.alignment="CENTER">
                      <tooltip>
                         <Tooltip text="Click to navigate between sections" />
                      </tooltip>
@@ -54,14 +54,14 @@
                <center>
                   <BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <top>
-                        <TextField id="nameField" fx:id="nameField" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                        <TextField id="nameField" fx:id="nameField" maxHeight="1.7976931348623157E308" minHeight="50.0" minWidth="250.0" BorderPane.alignment="CENTER">
                            <tooltip>
                               <Tooltip text="Edit Section Title" />
                            </tooltip>
                         </TextField>
                      </top>
                      <center>
-                        <TextField id="dataField" fx:id="dataField" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="372.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                        <TextField id="dataField" fx:id="dataField" alignment="TOP_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="250.0" BorderPane.alignment="CENTER">
                            <tooltip>
                               <Tooltip text="Edit Section Content" />
                            </tooltip>
@@ -93,25 +93,25 @@
                   </HBox>
                </top>
             </BorderPane>
-            <BorderPane layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0">
+            <BorderPane layoutX="10.0" layoutY="10.0">
                <left>
-                  <TreeView id="altTreeView" fx:id="altTreeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onMouseClicked="#changeAltSection" prefHeight="429.0" prefWidth="150.0" BorderPane.alignment="CENTER">
+                  <TreeView id="altTreeView" fx:id="altTreeView" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="150.0" onMouseClicked="#changeAltSection" prefWidth="150.0" BorderPane.alignment="CENTER">
                      <tooltip>
                         <Tooltip text="Click to navigate between sections" />
                      </tooltip>
                   </TreeView>
                </left>
                <center>
-                  <BorderPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <BorderPane BorderPane.alignment="CENTER">
                      <top>
-                        <TextField id="altNameField" fx:id="altNameField" editable="false" maxHeight="1.7976931348623157E308" prefHeight="57.0" prefWidth="400.0" BorderPane.alignment="CENTER">
+                        <TextField id="altNameField" fx:id="altNameField" editable="false" maxHeight="1.7976931348623157E308" minHeight="50.0" minWidth="250.0" BorderPane.alignment="CENTER">
                            <tooltip>
                               <Tooltip text="Edit Section Title" />
                            </tooltip>
                         </TextField>
                      </top>
                      <center>
-                        <TextField id="altDataField" fx:id="altDataField" alignment="TOP_LEFT" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefHeight="372.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+                        <TextField id="altDataField" fx:id="altDataField" alignment="TOP_LEFT" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" minWidth="250.0" BorderPane.alignment="CENTER">
                            <tooltip>
                               <Tooltip text="Edit Section Content" />
                            </tooltip>
