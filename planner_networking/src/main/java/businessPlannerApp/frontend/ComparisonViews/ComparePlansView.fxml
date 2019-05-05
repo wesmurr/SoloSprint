@@ -23,13 +23,6 @@
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </HBox.margin></Button>
             <Separator maxWidth="1.7976931348623157E308" prefHeight="10.0" prefWidth="150.0" HBox.hgrow="ALWAYS" />
-            <Button id="logoutButton" minWidth="-Infinity" mnemonicParsing="false" onAction="#logout" prefHeight="26.0" prefWidth="71.0" text="Log Out">
-               <tooltip>
-                  <Tooltip text="Click to log out" />
-               </tooltip>
-               <HBox.margin>
-                  <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
-               </HBox.margin></Button>
          </children>
       </HBox>
    </top>

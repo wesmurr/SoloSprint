@@ -10,7 +10,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	private final String toggleComments = "#toggleCommentsButton";
 	
 	/**
-	 * Verifies the program toggles between views well
+	 * Verifies the program toggles between views well.
 	 */
 	@Test
 	public void toggleViewsTest() {
@@ -22,6 +22,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 		clickOn(this.toggleComments);
 		find("HideComments");
 		assertThrows(NoSuchElementException.class, () -> find("ShowComments"));
+		defaultItemsTest();
 		clickOn(this.toggleComments);
 	}
 
@@ -42,7 +43,6 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
 		find("user: vision comment");
 		doubleClickOn("Vision");
-		sleep(2000);
 		clickOn("Mission");
 		find("user: mission comment");
 		assertThrows(NoSuchElementException.class, () -> find("user: vision comment"));
@@ -52,7 +52,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 * Test that you cannot create a new plan.
 	 */
 	@Test
-	void editablePlanTestNewComment() {
+	void testNewComment() {
 		getToPlanEditView("2020 Read Only");
 		find("user: Testing  default comment display");
 		find("admin: Testing  default comment display");
@@ -65,7 +65,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 * Test resolving a comment makes it hidden.
 	 */
 	@Test
-	void editablePlanTestResolvedComment() {
+	void testResolvedComment() {
 		getToPlanEditView("2020 Read Only");
 		clickOn("user: Testing  default comment display");
 		assertThrows(NoSuchElementException.class, () -> find("Resolved"));

@@ -30,7 +30,7 @@ class PlanEditViewTest extends GuiTestBase {
 	/**
 	 * Helper method that verifies plan branch structure is displayed
 	 */
-	private void checkBranch() {
+	protected void checkBranch() {
 		final String[] names = { "Mission", "Goal", "Learning Objective", "Assessment Process", "Results" };
 		this.checkBranch(names);
 	}
@@ -49,7 +49,7 @@ class PlanEditViewTest extends GuiTestBase {
 	 * @param name
 	 * @param content
 	 */
-	private void checkPage(String name, String content) {
+	protected void checkPage(String name, String content) {
 		verifyField(this.nameFieldID, name);
 		verifyField(this.dataFieldID, content);
 	}

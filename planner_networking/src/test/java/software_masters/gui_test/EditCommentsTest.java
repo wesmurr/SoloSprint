@@ -22,10 +22,15 @@ class EditCommentsTest extends PlanEditViewTest {
 	 */
 	@Test
 	public void toggleViewsTest() {
+		//navigate to view showing comments
 		clickOn("Connect");
 		getToPlanEditView("2019");
+		
+		//test correct buttons appear by default
 		find("HideComments");
 		assertThrows(NoSuchElementException.class, () -> find("ShowComments"));
+		
+		//test correct items display when commends are hidden
 		clickOn(this.toggleComments);
 		find("ShowComments");
 		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
@@ -41,7 +46,6 @@ class EditCommentsTest extends PlanEditViewTest {
 	void commentUpdateWithSectionChange() {
 		clickOn("Connect");
 		getToPlanEditView("2019");
-		sleep(2000);
 		clickOn(this.toggleComments);
 		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
 		assertThrows(NoSuchElementException.class, () -> find("AddComment"));
@@ -80,7 +84,7 @@ class EditCommentsTest extends PlanEditViewTest {
 	 * Test adding a new comment to an editable plan.
 	 */
 	@Test
-	void editablePlanTestNewComment() {
+	void testNewComment() {
 		clickOn("Connect");
 		getToPlanEditView("2019");
 		find("user: Testing  default comment display");
@@ -91,6 +95,7 @@ class EditCommentsTest extends PlanEditViewTest {
 		clickOn("Cancel");
 		assertThrows(NoSuchElementException.class, () -> find("user: New Comment"));
 		clickOn(this.addComment);
+		sleep(500);
 		write("New Comment");
 		clickOn("OK");
 		find("user: New Comment");
@@ -105,13 +110,14 @@ class EditCommentsTest extends PlanEditViewTest {
 	 * allow save.
 	 */
 	@Test
-	void editablePlanTestResolvedComment() {
+	void testResolvedComment() {
 		clickOn("Connect");
 		getToPlanEditView("2019");
 		clickOn("user: New Comment");
+		checkPopupMsg("New Comment");
 		clickOn("Resolved");
 		assertThrows(NoSuchElementException.class, () -> find("user: New Comment"));
-
+		
 		verifySavePopup(this.logoutID);
 		verifySavePopup(this.backID);
 		clickOn(this.saveID);

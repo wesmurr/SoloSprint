@@ -22,6 +22,9 @@ public class CompareEditsController extends CompareController {
 	@Override
 	public void populateAltPlan() {
 		this.setAltTreeView();
+		this.compareTrees2();
+		this.altTreeView.refresh();
+		this.treeView.refresh();
 		this.populateAltFields();
 	}
 	

@@ -50,6 +50,7 @@ public class ServerImplementation extends Observable implements Server {
 		this.loginMap.put("user", user);
 		this.cookieMap.put("0", admin);
 		this.cookieMap.put("1", user);
+		
 		//create default plans and add comments
 		Plan plan = new Centre();
 		plan.setName("Centre_Plan_1");
@@ -71,10 +72,18 @@ public class ServerImplementation extends Observable implements Server {
 		plan2.getRoot().addComment(new Comment("Testing  default comment display", "admin"));
 		plan2.getRoot().addComment(temp);
 		
+		//plan file for the edit history view
+		Plan planTemp = new Centre();
+		planTemp.setName("Centre_Plan_1");
+		planTemp.getRoot().setData("Old Edit");
+		
 		//encapsulate plans into edit objects
 		PlanFile planfile = new PlanFile("2019", true, plan);
-		PlanEdit planEdit=new PlanEdit("user",new Timestamp(1000),planfile);
+		PlanFile planfileTemp = new PlanFile("2019", true, planTemp);
+		PlanEdit planEdit=new PlanEdit("user",new Timestamp(20030),planfile);
+		PlanEdit planEditTemp=new PlanEdit("user",new Timestamp(1000),planfileTemp);
 		PlanHistory planHistory=new PlanHistory(planfile.getYear(),planfile.isCanEdit());
+		planHistory.addPlanEdit(planEditTemp);
 		planHistory.addPlanEdit(planEdit);
 		
 		PlanFile planfile2 = new PlanFile("2020", false, plan2);
