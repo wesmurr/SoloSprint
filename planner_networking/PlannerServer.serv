@@ -11,7 +11,7 @@
        <void property="editMap">
         <void method="put">
          <object class="java.sql.Timestamp" id="Timestamp0">
-          <long>1557267114931</long>
+          <long>1557267798974</long>
          </object>
          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit0">
           <void property="planFile">
@@ -25,86 +25,6 @@
                <string>Centre_Plan_1</string>
               </void>
               <void id="PlanSection0" property="root">
-               <void id="ArrayList0" property="children">
-                <void id="PlanSection1" index="0">
-                 <void property="comments">
-                  <void method="add">
-                   <object class="businessPlannerApp.backend.Comment">
-                    <void property="content">
-                     <string>goal comment</string>
-                    </void>
-                    <void property="username">
-                     <string>user</string>
-                    </void>
-                   </object>
-                  </void>
-                 </void>
-                 <void property="data">
-                  <string>Go 1 content</string>
-                 </void>
-                 <void property="name">
-                  <string>Go 1</string>
-                 </void>
-                </void>
-                <void method="add">
-                 <object class="businessPlannerApp.backend.PlanSection" id="PlanSection2">
-                  <void property="children">
-                   <void method="add">
-                    <object class="businessPlannerApp.backend.PlanSection" id="PlanSection3">
-                     <void property="children">
-                      <void method="add">
-                       <object class="businessPlannerApp.backend.PlanSection" id="PlanSection4">
-                        <void property="children">
-                         <void method="add">
-                          <object class="businessPlannerApp.backend.PlanSection">
-                           <void property="data">
-                            <string></string>
-                           </void>
-                           <void property="name">
-                            <string>Results</string>
-                           </void>
-                           <void property="parent">
-                            <object idref="PlanSection4"/>
-                           </void>
-                          </object>
-                         </void>
-                        </void>
-                        <void property="data">
-                         <string></string>
-                        </void>
-                        <void property="name">
-                         <string>Assessment Process</string>
-                        </void>
-                        <void property="parent">
-                         <object idref="PlanSection3"/>
-                        </void>
-                       </object>
-                      </void>
-                     </void>
-                     <void property="data">
-                      <string></string>
-                     </void>
-                     <void property="name">
-                      <string>Learning Objective</string>
-                     </void>
-                     <void property="parent">
-                      <object idref="PlanSection2"/>
-                     </void>
-                    </object>
-                   </void>
-                  </void>
-                  <void property="data">
-                   <string></string>
-                  </void>
-                  <void property="name">
-                   <string>Goal</string>
-                  </void>
-                  <void property="parent">
-                   <object idref="PlanSection0"/>
-                  </void>
-                 </object>
-                </void>
-               </void>
                <void property="comments">
                 <void method="add">
                  <object class="businessPlannerApp.backend.Comment">
@@ -168,7 +88,7 @@
         </void>
         <void method="put">
          <object class="java.sql.Timestamp" id="Timestamp1">
-          <long>1557267124740</long>
+          <long>1557267760781</long>
          </object>
          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit1">
           <void property="planFile">
@@ -181,7 +101,23 @@
               <void property="name">
                <string>Centre_Plan_1</string>
               </void>
-              <void id="PlanSection5" property="root">
+              <void id="PlanSection1" property="root">
+               <void id="ArrayList0" property="children">
+                <void id="PlanSection2" index="0">
+                 <void property="comments">
+                  <void method="add">
+                   <object class="businessPlannerApp.backend.Comment">
+                    <void property="content">
+                     <string>goal comment</string>
+                    </void>
+                    <void property="username">
+                     <string>user</string>
+                    </void>
+                   </object>
+                  </void>
+                 </void>
+                </void>
+               </void>
                <void property="comments">
                 <void method="add">
                  <object class="businessPlannerApp.backend.Comment">
@@ -227,6 +163,9 @@
                  </object>
                 </void>
                </void>
+               <void property="data">
+                <string>mission edit</string>
+               </void>
               </void>
              </object>
             </void>
@@ -245,7 +184,7 @@
         </void>
         <void method="put">
          <object class="java.sql.Timestamp" id="Timestamp2">
-          <long>1557267091944</long>
+          <long>1557267789125</long>
          </object>
          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit2">
           <void property="planFile">
@@ -258,9 +197,9 @@
               <void property="name">
                <string>Centre_Plan_1</string>
               </void>
-              <void id="PlanSection6" property="root">
+              <void id="PlanSection3" property="root">
                <void id="ArrayList1" property="children">
-                <void id="PlanSection7" index="0">
+                <void id="PlanSection4" index="0">
                  <void property="comments">
                   <void method="add">
                    <object class="businessPlannerApp.backend.Comment">
@@ -273,6 +212,70 @@
                    </object>
                   </void>
                  </void>
+                 <void property="data">
+                  <string>Go 1 content</string>
+                 </void>
+                 <void property="name">
+                  <string>Go 1</string>
+                 </void>
+                </void>
+                <void method="add">
+                 <object class="businessPlannerApp.backend.PlanSection" id="PlanSection5">
+                  <void property="children">
+                   <void method="add">
+                    <object class="businessPlannerApp.backend.PlanSection" id="PlanSection6">
+                     <void property="children">
+                      <void method="add">
+                       <object class="businessPlannerApp.backend.PlanSection" id="PlanSection7">
+                        <void property="children">
+                         <void method="add">
+                          <object class="businessPlannerApp.backend.PlanSection">
+                           <void property="data">
+                            <string></string>
+                           </void>
+                           <void property="name">
+                            <string>Results</string>
+                           </void>
+                           <void property="parent">
+                            <object idref="PlanSection7"/>
+                           </void>
+                          </object>
+                         </void>
+                        </void>
+                        <void property="data">
+                         <string></string>
+                        </void>
+                        <void property="name">
+                         <string>Assessment Process</string>
+                        </void>
+                        <void property="parent">
+                         <object idref="PlanSection6"/>
+                        </void>
+                       </object>
+                      </void>
+                     </void>
+                     <void property="data">
+                      <string></string>
+                     </void>
+                     <void property="name">
+                      <string>Learning Objective</string>
+                     </void>
+                     <void property="parent">
+                      <object idref="PlanSection5"/>
+                     </void>
+                    </object>
+                   </void>
+                  </void>
+                  <void property="data">
+                   <string></string>
+                  </void>
+                  <void property="name">
+                   <string>Goal</string>
+                  </void>
+                  <void property="parent">
+                   <object idref="PlanSection3"/>
+                  </void>
+                 </object>
                 </void>
                </void>
                <void property="comments">
@@ -338,7 +341,7 @@
         </void>
         <void method="put">
          <object class="java.sql.Timestamp" id="Timestamp3">
-          <long>1557267086600</long>
+          <long>1557267766145</long>
          </object>
          <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit3">
           <void property="planFile">
@@ -413,9 +416,6 @@
                  </object>
                 </void>
                </void>
-               <void property="data">
-                <string>mission edit</string>
-               </void>
               </void>
              </object>
             </void>
@@ -435,6 +435,9 @@
        </void>
        <void property="edits">
         <void method="add">
+         <object idref="PlanEdit1"/>
+        </void>
+        <void method="add">
          <object idref="PlanEdit3"/>
         </void>
         <void method="add">
@@ -442,9 +445,6 @@
         </void>
         <void method="add">
          <object idref="PlanEdit0"/>
-        </void>
-        <void method="add">
-         <object idref="PlanEdit1"/>
         </void>
        </void>
       </void>
@@ -457,7 +457,7 @@
         <void property="editMap">
          <void method="put">
           <object class="java.sql.Timestamp" id="Timestamp4">
-           <long>1557267129868</long>
+           <long>1557267804069</long>
           </object>
           <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit4">
            <void property="planFile">
@@ -503,7 +503,7 @@
         <void property="editMap">
          <void method="put">
           <object class="java.sql.Timestamp" id="Timestamp5">
-           <long>1557267140818</long>
+           <long>1557267815026</long>
           </object>
           <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit5">
            <void property="planFile">
@@ -600,7 +600,7 @@
         <void property="editMap">
          <void method="put">
           <object class="java.sql.Timestamp" id="Timestamp6">
-           <long>1557267101377</long>
+           <long>1557267775550</long>
           </object>
           <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit6">
            <void property="planFile">
@@ -760,7 +760,7 @@
          </void>
          <void method="put">
           <object class="java.sql.Timestamp" id="Timestamp7">
-           <long>1557267106666</long>
+           <long>1557267780846</long>
           </object>
           <object class="businessPlannerApp.backend.PlanEdit" id="PlanEdit7">
            <void property="planFile">
