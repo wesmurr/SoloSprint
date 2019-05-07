@@ -13,7 +13,7 @@ import javafx.scene.control.TreeItem;
 
 public class EditController extends PlanController {
 
-	protected boolean isPushed;
+	protected boolean isPushed=true;
 
 	/**
 	 * Initialize view
@@ -22,7 +22,6 @@ public class EditController extends PlanController {
 	@Override
 	public void setApplication(Main app) {
 		super.setApplication(app);
-		this.isPushed = true;
 	}
 	
 	/**
@@ -170,6 +169,11 @@ public class EditController extends PlanController {
 		this.app.showComparePlans();
 	}
 	
+	/**
+	 * @param isPushed the isPushed to set
+	 */
+	public void setPushed(boolean isPushed) { this.isPushed = isPushed; }
+
 	/**
 	 * Asks user if they want to save unsaved changes before leaving the plan edit
 	 * view window for the back to plans button

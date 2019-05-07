@@ -51,6 +51,7 @@ public class ComparePlansController extends CompareController {
 			this.app.showConnectToServer();
 		}
 		setAltTreeView();
+		super.populateAltPlan();
 	}
 	
 

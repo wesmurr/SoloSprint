@@ -9,11 +9,15 @@ import businessPlannerApp.backend.PlanSection;
 import businessPlannerApp.backend.model.ComparisonModel;
 import businessPlannerApp.frontend.planViews.EditController;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 
-public abstract class CompareController extends EditController {
+public class CompareController extends EditController {
 	protected ComparisonModel model;
 	@FXML
 	protected TextField altDataField;
@@ -50,15 +54,22 @@ public abstract class CompareController extends EditController {
 	 * populates fields representing the alternate plan.
 	 */
 	@FXML
-	abstract public void populateAltPlan();
+	public void populateAltPlan() {
+		this.compareTrees();
+		this.altTreeView.refresh();
+		this.treeView.refresh();
+	}
 	
 	/**
 	 * Navigate back from comparison view to plan edit view.
 	 */
 	@FXML
 	public void back() {
+		this.model.getCurrPlanFile().setYear(this.yearField.getText());
 		changeSection();
+		CompareController cont=(CompareController) this.model.getController();
 		this.app.showPlanView();
+		((EditController) this.model.getController()).setPushed(cont.isPushed);
 	}
 	
 	/**
@@ -76,66 +87,38 @@ public abstract class CompareController extends EditController {
 		this.altTreeView.setRoot(convertTree(this.model.getAltCurrPlanFile().getPlan().getRoot()));
 		this.altTreeView.getSelectionModel().select(this.altTreeView.getRoot());
 		this.model.setAltCurrNode(this.model.getAltCurrPlanFile().getPlan().getRoot());
-		this.altTreeView.refresh();
 		populateAltFields();
 	}
 	
-	/**
-	 * Search trees for differences using iterative deepening depth first search.
-	 */
-	private void compareTrees() {
-		Stack<TreeItem> mainPlan=new Stack<>();
-		Stack<TreeItem> altPlan=new Stack<>();
-		TreeItem altCurrent=this.altTreeView.getRoot();
-		TreeItem mainCurrent=this.treeView.getRoot();
-		
-		altPlan.add(this.altTreeView.getRoot());
-		mainPlan.add(this.treeView.getRoot());
-		int depth=0;
-		int breadth=0;
-		int size=0;
-		
-		while (!mainPlan.isEmpty() && !altPlan.isEmpty()){
-			if (!altCurrent.getValue().equals(mainCurrent.getValue())) {
-				altCurrent.getGraphic().setStyle("-fx-background-color: slateblue;");
-				mainCurrent.getGraphic().setStyle("-fx-background-color: slateblue;");
-			}
-			
-			size=mainCurrent.getChildren().size();
-			if (altCurrent.getChildren().size()>mainCurrent.getChildren().size())
-				size=altCurrent.getChildren().size();
-			
-			
-		}
-	}
-	
-	protected void compareTrees2() {
+	protected void compareTrees() {
+		System.out.println("compare trees");
+		//create indicator for differences
+		Label diffLabel=new Label("X");
+		diffLabel.setTextFill(Color.DARKRED);
+		//create queue for parsing tree using breadth first search
 		Queue<TreeItem<PlanSection>> mainPlan=new LinkedList<>();
 		Queue<TreeItem<PlanSection>> altPlan=new LinkedList<>();
 		altPlan.add(this.altTreeView.getRoot());
 		mainPlan.add(this.treeView.getRoot());
-		TreeItem<PlanSection> altCurrent=this.altTreeView.getRoot();
-		TreeItem<PlanSection> mainCurrent=this.treeView.getRoot();
-		int mainSize=0,altSize=0,maxSize=0,minSize=0;
-		
+		//track current tree item
+		TreeItem<PlanSection> altCurrent=null;
+		TreeItem<PlanSection> mainCurrent=null;
+
+		int mainSize=0,altSize=0;
 		while (!mainPlan.isEmpty() || !altPlan.isEmpty()) {
+			mainSize=0;altSize=0;
 			//get corresponding items from queue
 			altCurrent=altPlan.remove();
 			mainCurrent=mainPlan.remove();
-			
-			if (altCurrent==null && mainCurrent==null) {
-				
-			}
-			else if(altCurrent==null) {
-				mainCurrent.getGraphic().setStyle("-fx-background-color: slateblue;");
-			}
-			else if(mainCurrent==null) {
-				altCurrent.getGraphic().setStyle("-fx-background-color: slateblue;");
-			}
+			if (altCurrent==null && mainCurrent==null) {}
+			else if(altCurrent==null)
+				mainCurrent.setGraphic(diffLabel);
+			else if(mainCurrent==null)
+				altCurrent.setGraphic(diffLabel);
 			//check is the corresponding items are equal. if they are not, change view to indicate
 			else if (!altCurrent.getValue().equals(mainCurrent.getValue())) {
-				altCurrent.getGraphic().setStyle("-fx-background-color: slateblue;");
-				mainCurrent.getGraphic().setStyle("-fx-background-color: slateblue;");
+				mainCurrent.setGraphic(diffLabel);
+				altCurrent.setGraphic(diffLabel);
 			}
 			
 			//since tree structures will be significantly different, the algorithm must be able to handle fillers. In this

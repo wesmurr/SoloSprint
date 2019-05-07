@@ -7,6 +7,7 @@ import java.util.Optional;
 import businessPlannerApp.backend.model.ComparisonModel;
 import businessPlannerApp.backend.model.PlannerModel;
 import businessPlannerApp.frontend.ViewController;
+import businessPlannerApp.frontend.ComparisonViews.CompareController;
 import businessPlannerApp.frontend.loginView.LoginViewController;
 import businessPlannerApp.frontend.planSelectionView.PlanSelectionViewController;
 import businessPlannerApp.frontend.planViews.EditController;
@@ -167,9 +168,10 @@ public class Main extends Application {
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			EditController cont1=(EditController) this.model.getController();
 			e.consume();
-			cont.changeSection();
-			if (!cont.isPushed()) closeWindowPopup(cont);
+			cont1.changeSection();
+			if (!cont1.isPushed()) closeWindowPopup(cont1);
 			else this.close();
 		});
 
@@ -193,9 +195,10 @@ public class Main extends Application {
 		cont.setApplication(this); // Allows controller to access showPlanSelectionView and showLoginView
 		this.model.setController(cont);
 		this.primaryStage.setOnCloseRequest((WindowEvent e) -> {
+			EditController cont1=(EditController) this.model.getController();
 			e.consume();
-			cont.changeSection();
-			if (!cont.isPushed()) closeWindowPopup(cont);
+			cont1.changeSection();
+			if (!cont1.isPushed()) closeWindowPopup(cont1);
 			else this.close();
 		});
 		setupDisplay();
@@ -205,9 +208,19 @@ public class Main extends Application {
 	 * Shows the compare edits window.
 	 */
 	public void showCompareEdits() {
-		ServerConnectionViewController cont = null;
-		this.loadController(cont, "frontend/ComparisonViews/CompareEditsView.fxml");
-		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.close(); });
+		CompareController cont = null;
+		String filepath="frontend/ComparisonViews/CompareEditsView.fxml";
+		if(!this.model.getCurrPlanFile().isCanEdit()) {
+			filepath="frontend/ComparisonViews/ReadOnlyCompareEditsView.fxml";
+		}
+		this.loadController(cont, filepath);
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { 
+			CompareController cont1=(CompareController) this.model.getController();
+			e.consume();
+			cont1.changeSection();
+			if (!cont1.isPushed()) closeWindowPopup(cont1);
+			else this.close();
+		});
 		setupDisplay();
 	}
 	
@@ -215,9 +228,19 @@ public class Main extends Application {
 	 * Shows the compare plans window.
 	 */
 	public void showComparePlans() {
-		ServerConnectionViewController cont = null;
-		this.loadController(cont, "frontend/ComparisonViews/ComparePlansView.fxml");
-		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { this.close(); });
+		CompareController cont = null;
+		String filepath="frontend/ComparisonViews/ComparePlansView.fxml";
+		if(!this.model.getCurrPlanFile().isCanEdit()) {
+			filepath="frontend/ComparisonViews/ReadOnlyComparePlansView.fxml";
+		}
+		this.loadController(cont, filepath);
+		this.primaryStage.setOnCloseRequest((WindowEvent e) -> { 
+			CompareController cont1=(CompareController) this.model.getController();
+			e.consume();
+			cont1.changeSection();
+			if (!cont1.isPushed()) closeWindowPopup(cont1);
+			else this.close();
+		});
 		setupDisplay();
 	}
 

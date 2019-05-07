@@ -113,6 +113,10 @@ class EditCommentsTest extends PlanEditViewTest {
 	void testResolvedComment() {
 		clickOn("Connect");
 		getToPlanEditView("2019");
+		clickOn(this.addComment);
+		sleep(500);
+		write("New Comment");
+		clickOn("OK");
 		clickOn("user: New Comment");
 		checkPopupMsg("New Comment");
 		clickOn("Resolved");
