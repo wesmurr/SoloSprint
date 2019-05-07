@@ -23,21 +23,22 @@ class CompareViewTest extends GuiTestBase {
 	protected final String logoutID = "#logoutButton";
 	private final String nameFieldID = "#nameField";
 	private final String saveID = "#saveButton";
-	private final String treeViewID = "#treeView";
+	protected final String treeViewID = "#treeView";
 	private final String yearFieldID = "#yearField";
 	protected final String yearLabelID = "#yearLabel";
 	private final String altNameFieldID = "#altNameField";
 	private final String altDataFieldID = "#altDataField";
+	protected final String altTreeViewID = "#altTreeView";
 	
 	/**
-	 * Helper method that verifies plan branch structure is displayed
+	 * Helper method that verifies plan branch structure is displayed for original plan
 	 */
 	protected void checkBranch() {
 		final String[] names = { "Mission", "Goal", "Learning Objective", "Assessment Process", "Results" };
 		this.checkBranch(names);
 	}
 
-	private void checkBranch(String[] names) {
+	protected void checkBranch(String[] names) {
 		for (final String name : names) {
 			doubleClickOn(name);
 			checkPage(name, "");
@@ -71,12 +72,22 @@ class CompareViewTest extends GuiTestBase {
 	}
 	
 	/**
-	 * Helper method that checks the textfields in the alternate plans.
+	 * Helper method that verifies alternate plan branch structure is ok
+	 */
+	protected void checkAltBranch(String[] names) {
+		for (final String name : names) {
+			doubleClickOn(name);
+			checkAltPage(name, "");
+		}
+	}
+	
+	/**
+	 * Helper method that checks the textfields in the alternate plan.
 	 * @param name
 	 * @param content
 	 * @param year
 	 */
-	private void checkAltPage(String name, String content) {
+	protected void checkAltPage(String name, String content) {
 		verifyField(this.altNameFieldID,name);
 		verifyField(this.altDataFieldID,content);
 	}
@@ -84,7 +95,7 @@ class CompareViewTest extends GuiTestBase {
 	/**
 	 * moves from connect to server screen to plan edit view
 	 */
-	protected void getToPlanEditView(String item) {
+	protected void getToView(String item) {
 		clickOn("Connect");
 		((TextField) find("#usernameField")).setText("user");
 		((TextField) find("#passwordField")).setText("user");
@@ -101,12 +112,11 @@ class CompareViewTest extends GuiTestBase {
 	}
 	
 	/**
-	 * test back button
+	 * test back button for exiting comparison views
 	 */
-	@Test
 	void backTest() { 
 		//test back with no changes
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn(dataFieldID);
 		verifyField(dataFieldID, "");
 		clickOn(backID);
@@ -118,7 +128,7 @@ class CompareViewTest extends GuiTestBase {
 		
 		//test back with changes
 		this.setUpBeforeEachTest();
-		getToPlanEditView("2019");
+		getToView("2019");
 		checkPage("Mission","","2019");
 		clickOn(yearFieldID);
 		write("edit");
@@ -134,7 +144,7 @@ class CompareViewTest extends GuiTestBase {
 		
 		//test back in read only
 		this.setUpBeforeEachTest();
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		clickOn(backID);
 		//verify opens read only view not edit view
 		assertThrows(NoSuchElementException.class, () -> find(saveID));
@@ -147,11 +157,11 @@ class CompareViewTest extends GuiTestBase {
 	@Test
 	void testClose() {
 		//test close when no changes occur
-		getToPlanEditView("2019");
+		getToView("2019");
 		closeCurrentWindow();
 		//test close when changes have occurred. need popup
 		this.setUpBeforeEachTest();
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn(this.dataFieldID);
 		write("test close");
 		closeCurrentWindow();
@@ -163,34 +173,35 @@ class CompareViewTest extends GuiTestBase {
 	/**
 	 * make sure you cannot edit the alternate plan items
 	 */
-	@Test
 	void testCannotEditAlternatePlan() {
 		//edit
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn(this.altNameFieldID);
 		write("edit");
 		clickOn(this.altDataFieldID);
 		write("edit");
-		checkAltPage("Mission","Old Edit");
+		assertFalse(((TextField) find(this.altNameFieldID)).getText().contains("edit"));
+		assertFalse(((TextField) find(this.altDataFieldID)).getText().contains("edit"));
 		this.afterEachTest();
 		
 		//read only
 		this.setUpBeforeEachTest();
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		clickOn(this.altNameFieldID);
 		write("edit");
 		clickOn(this.altDataFieldID);
 		write("edit");
-		checkAltPage("Vision","My Vision is to...");
+		assertFalse(((TextField) find(this.altNameFieldID)).getText().contains("edit"));
+		assertFalse(((TextField) find(this.altDataFieldID)).getText().contains("edit"));
 	}
 	
 	/**
-	 * makes sure the user can navigate both plan trees
+	 * makes sure the user can navigate original plan trees
 	 */
 	@Test
 	void testPlanNavigation() {
 		//read only
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		doubleClickOn("Vision");
 		checkPage("Vision","My Vision is to...","2020");
 		doubleClickOn("Mission");
@@ -201,25 +212,17 @@ class CompareViewTest extends GuiTestBase {
 		
 		//editable plans
 		this.setUpBeforeEachTest();
-		getToPlanEditView("2019");
+		getToView("2019");
 		checkBranch();
 		
 	}
 	
 	/**
-	 * verifies difference detection is working
-	 */
-	@Test
-	void testDifferenceDetection() {
-		//make sure the user can change sections
-	}
-	
-	/**
-	 * make sure you cannot edit a read only plan
+	 * make sure user cannot edit a read only plan
 	 */
 	@Test
 	void testCannotEditReadOnlyPlan() {
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		clickOn(yearFieldID);
 		write("edit");
 		clickOn(nameFieldID);

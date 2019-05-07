@@ -24,7 +24,7 @@ class EditCommentsTest extends PlanEditViewTest {
 	public void toggleViewsTest() {
 		//navigate to view showing comments
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		
 		//test correct buttons appear by default
 		find("HideComments");
@@ -45,7 +45,7 @@ class EditCommentsTest extends PlanEditViewTest {
 	@Test
 	void commentUpdateWithSectionChange() {
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn(this.toggleComments);
 		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
 		assertThrows(NoSuchElementException.class, () -> find("AddComment"));
@@ -86,7 +86,7 @@ class EditCommentsTest extends PlanEditViewTest {
 	@Test
 	void testNewComment() {
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		find("user: Testing  default comment display");
 		find("admin: Testing  default comment display");
 		assertThrows(NoSuchElementException.class, () -> find("user: no show"));
@@ -112,7 +112,7 @@ class EditCommentsTest extends PlanEditViewTest {
 	@Test
 	void testResolvedComment() {
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn(this.addComment);
 		sleep(500);
 		write("New Comment");
@@ -131,8 +131,8 @@ class EditCommentsTest extends PlanEditViewTest {
 	 * moves from login screen to the plan edit window in the gui
 	 */
 	@Override
-	protected void getToPlanEditView(String item) {
-		super.getToPlanEditView(item);
+	protected void getToView(String item) {
+		super.getToView(item);
 		clickOn(this.toggleComments);
 	}
 

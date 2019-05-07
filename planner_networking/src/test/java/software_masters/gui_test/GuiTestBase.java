@@ -13,6 +13,7 @@ import org.testfx.matcher.control.LabeledMatchers;
 
 import businessPlannerApp.Main;
 import businessPlannerApp.backend.ServerImplementation;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.TextField;
@@ -25,6 +26,7 @@ import javafx.stage.Stage;
  *         of the gui tests. It is the testing super class.
  */
 public abstract class GuiTestBase extends ApplicationTest {
+	Stage stage;
 	/**
 	 * This closes the window and clears any action event after a test is executed.
 	 *
@@ -42,7 +44,13 @@ public abstract class GuiTestBase extends ApplicationTest {
 	@SuppressWarnings("deprecation")
 	@AfterEach
 	public void afterEachTest() {
-		closeCurrentWindow();
+//		try {
+//			FxToolkit.hideStage();
+//		} catch (TimeoutException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		Platform.runLater(stage::close);
 		this.release(new KeyCode[] {});
 		this.release(new MouseButton[] {});
 	}
@@ -77,7 +85,7 @@ public abstract class GuiTestBase extends ApplicationTest {
 	}
 
 	@Override
-	public void start(Stage stage) throws Exception { stage.show(); }
+	public void start(Stage stage) throws Exception { this.stage=stage; stage.show(); }
 
 	/**
 	 * Helper method that simplifies duplicate code for checking nodes with labels.

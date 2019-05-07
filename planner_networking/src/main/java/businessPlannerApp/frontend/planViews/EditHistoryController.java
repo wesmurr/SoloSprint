@@ -58,6 +58,7 @@ public class EditHistoryController extends EditController implements HistoryCont
 	@Override
 	public void viewEdit() {
 		PlanEdit selected=this.editList.getSelectionModel().getSelectedItem();
+		if (selected==null) return;
 		try {
 			PlanFile plan=this.model.getPlanEdit(selected.getTimestamp());
 			((ComparisonModel) this.model).updatePlan(plan);

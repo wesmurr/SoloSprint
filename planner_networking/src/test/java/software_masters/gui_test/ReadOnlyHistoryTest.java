@@ -14,7 +14,7 @@ class ReadOnlyHistoryTest extends ReadOnlyTest {
 	 */
 	@Test
 	public void toggleViewsTest() {
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		clickOn(this.toggleEdits);
 		find("HideEdits");
 		assertThrows(NoSuchElementException.class, () -> find("ShowEdits"));

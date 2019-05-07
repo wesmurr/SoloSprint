@@ -14,7 +14,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 */
 	@Test
 	public void toggleViewsTest() {
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		clickOn(this.toggleComments);
 		find("ShowComments");
 		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
@@ -33,7 +33,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 */
 	@Test
 	void commentUpdateWithSectionChange() {
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		clickOn(this.toggleComments);
 		assertThrows(NoSuchElementException.class, () -> find("HideComments"));
 		assertThrows(NoSuchElementException.class, () -> find("Save"));
@@ -53,7 +53,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 */
 	@Test
 	void testNewComment() {
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		find("user: Testing  default comment display");
 		find("admin: Testing  default comment display");
 		sleep(2000);
@@ -66,7 +66,7 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 */
 	@Test
 	void testResolvedComment() {
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		clickOn("user: Testing  default comment display");
 		assertThrows(NoSuchElementException.class, () -> find("Resolved"));
 		clickOn("OK");
@@ -77,8 +77,8 @@ class ReadOnlyCommentsTest extends ReadOnlyTest {
 	 * moves from login screen to the plan edit window in the gui
 	 */
 	@Override
-	protected void getToPlanEditView(String item) {
-		super.getToPlanEditView(item);
+	protected void getToView(String item) {
+		super.getToView(item);
 		clickOn(this.toggleComments);
 	}
 

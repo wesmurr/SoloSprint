@@ -72,7 +72,7 @@ class PlanEditViewTest extends GuiTestBase {
 	@Test
 	void defaultTest() {
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		defaultButtonTest();
 		this.checkBranch();
 		clickOn("Mission");
@@ -96,7 +96,7 @@ class PlanEditViewTest extends GuiTestBase {
 	/**
 	 * moves from login screen to the plan edit window in the gui
 	 */
-	protected void getToPlanEditView(String item) {
+	protected void getToView(String item) {
 		((TextField) find("#usernameField")).setText("user");
 		((TextField) find("#passwordField")).setText("user");
 		clickOn("#loginButton");
@@ -156,7 +156,7 @@ class PlanEditViewTest extends GuiTestBase {
 	void testAddSection() throws Exception {
 		// independent section
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		this.checkBranch();
 		validAddSection();
 		invalidAddSection();
@@ -170,7 +170,7 @@ class PlanEditViewTest extends GuiTestBase {
 	@Test
 	void testBackToPlans() {
 		clickOn("#connectButton");
-		getToPlanEditView("2019");
+		getToView("2019");
 		this.checkBranch();
 
 		// test that unsaved changes produce popup
@@ -218,7 +218,7 @@ class PlanEditViewTest extends GuiTestBase {
 	@Test
 	void testClose() throws Exception {
 		clickOn("#connectButton");
-		getToPlanEditView("2019");
+		getToView("2019");
 		this.checkBranch();
 		// test that unsaved changes produce popup
 		// cancel case
@@ -235,7 +235,7 @@ class PlanEditViewTest extends GuiTestBase {
 		clickOn("No");
 		setUpBeforeEachTest();
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		checkPage("Mission", "");
 		// save changes, "yes" case
 		clickOn(this.dataFieldID);
@@ -245,7 +245,7 @@ class PlanEditViewTest extends GuiTestBase {
 		clickOn("Yes");
 		setUpBeforeEachTest();
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn("2019");
 		checkPage("Mission", "mission edit");
 
@@ -256,7 +256,7 @@ class PlanEditViewTest extends GuiTestBase {
 		closeCurrentWindow();
 		setUpBeforeEachTest();
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn("2019");
 		clickOn("Mission");
 		((TextField) find("mission edit")).setText("");
@@ -267,7 +267,7 @@ class PlanEditViewTest extends GuiTestBase {
 	void testDeleteSection() throws Exception {
 		// independent section
 		clickOn("Connect");
-		getToPlanEditView("2019");
+		getToView("2019");
 		validDeleteSection();
 		invalidDeleteSection();
 		clickOn(this.saveID);
@@ -280,7 +280,7 @@ class PlanEditViewTest extends GuiTestBase {
 	@Test
 	void testLogout() {
 		clickOn("#connectButton");
-		getToPlanEditView("2019");
+		getToView("2019");
 		this.checkBranch();
 		// cancel case
 		clickOn("Mission");
@@ -294,7 +294,7 @@ class PlanEditViewTest extends GuiTestBase {
 		clickOn(this.logoutID);
 		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
 		clickOn("No");
-		getToPlanEditView("2019");
+		getToView("2019");
 		checkPage("Mission", "");
 		// save changes, "yes" case
 		clickOn(this.dataFieldID);
@@ -302,7 +302,7 @@ class PlanEditViewTest extends GuiTestBase {
 		clickOn(this.logoutID);
 		checkPopupMsg("You have unsaved changes. Do you wish to save before exiting?");
 		clickOn("Yes");
-		getToPlanEditView("2019");
+		getToView("2019");
 		checkPage("Mission", "mission edit");
 
 		// verify no changes doesn't create popup
@@ -310,7 +310,7 @@ class PlanEditViewTest extends GuiTestBase {
 		clickOn("Goal");
 		checkPage("Goal", "");
 		clickOn(this.logoutID);
-		getToPlanEditView("2019");
+		getToView("2019");
 		clickOn("Mission");
 		((TextField) find("mission edit")).setText("");
 		clickOn(this.saveID);
@@ -323,7 +323,7 @@ class PlanEditViewTest extends GuiTestBase {
 	@Test
 	void testSave() {
 		clickOn("#connectButton");
-		getToPlanEditView("2019");
+		getToView("2019");
 		this.checkBranch();
 		clickOn("Mission");
 		clickOn(this.dataFieldID);
@@ -366,7 +366,7 @@ class PlanEditViewTest extends GuiTestBase {
 	@Test
 	void testSavePopup() {
 		clickOn("#connectButton");
-		getToPlanEditView("2019");
+		getToView("2019");
 		this.checkBranch();
 
 		// Tests data field, name field, and year field
@@ -393,7 +393,7 @@ class PlanEditViewTest extends GuiTestBase {
 		clickOn(this.saveID);
 
 		clickOn(this.logoutID);
-		getToPlanEditView("2019");
+		getToView("2019");
 	}
 
 	/**
@@ -419,7 +419,7 @@ class PlanEditViewTest extends GuiTestBase {
 	@Test
 	void testTemplate() {
 		clickOn("#connectButton");
-		getToPlanEditView("VMOSA");
+		getToView("VMOSA");
 		final String[] names = { "Vision", "Mission", "Objective", "Strategy", "Action Plan" };
 		this.checkBranch(names);
 		clickOn(this.saveID);

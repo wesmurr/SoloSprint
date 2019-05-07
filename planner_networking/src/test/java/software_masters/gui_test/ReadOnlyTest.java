@@ -63,7 +63,7 @@ class ReadOnlyTest extends GuiTestBase {
 	/**
 	 * moves from login screen to the plan edit window in the gui
 	 */
-	protected void getToPlanEditView(String item) {
+	protected void getToView(String item) {
 		clickOn("Connect");
 		((TextField) find("#usernameField")).setText("user");
 		((TextField) find("#passwordField")).setText("user");
@@ -78,7 +78,7 @@ class ReadOnlyTest extends GuiTestBase {
 	 */
 	@Test
 	void mainTest() {
-		getToPlanEditView("2020 Read Only");
+		getToView("2020 Read Only");
 		testDefaultValues();
 		testNavigation();
 		testCannotEdit();

@@ -41,8 +41,8 @@ public class CompareController extends EditController {
 	@FXML
 	public void changeAltSection() {
 		TreeItem<PlanSection> item = this.altTreeView.getSelectionModel().getSelectedItem();
-		this.model.editName(this.altNameField.getText());
-		this.model.editData(this.altDataField.getText());
+		this.model.getAltCurrNode().setName(this.altNameField.getText());
+		this.model.getAltCurrNode().setData(this.altDataField.getText());
 		this.model.setAltCurrNode(item.getValue());
 		this.altNameField.setText(this.model.getAltCurrNode().getName());
 		this.altDataField.setText(this.model.getAltCurrNode().getData());
@@ -90,11 +90,12 @@ public class CompareController extends EditController {
 		populateAltFields();
 	}
 	
+	/**
+	 * method that uses breadth first search to compare two trees.
+	 * add a node graphic to treeitems to indicate there are any differences.
+	 */
 	protected void compareTrees() {
-		System.out.println("compare trees");
-		//create indicator for differences
-		Label diffLabel=new Label("X");
-		diffLabel.setTextFill(Color.DARKRED);
+		Label diffLabel=null;
 		//create queue for parsing tree using breadth first search
 		Queue<TreeItem<PlanSection>> mainPlan=new LinkedList<>();
 		Queue<TreeItem<PlanSection>> altPlan=new LinkedList<>();
@@ -111,13 +112,27 @@ public class CompareController extends EditController {
 			altCurrent=altPlan.remove();
 			mainCurrent=mainPlan.remove();
 			if (altCurrent==null && mainCurrent==null) {}
-			else if(altCurrent==null)
+			else if(altCurrent==null) {
+				//create indicator for differences
+				diffLabel=new Label("X");
+				diffLabel.setTextFill(Color.DARKRED);
 				mainCurrent.setGraphic(diffLabel);
-			else if(mainCurrent==null)
+			}
+			else if(mainCurrent==null) {
+				//create indicator for differences
+				diffLabel=new Label("X");
+				diffLabel.setTextFill(Color.DARKRED);
 				altCurrent.setGraphic(diffLabel);
+			}
 			//check is the corresponding items are equal. if they are not, change view to indicate
-			else if (!altCurrent.getValue().equals(mainCurrent.getValue())) {
+			else if (!altCurrent.getValue().getData().equals(mainCurrent.getValue().getData())
+					|| !altCurrent.getValue().getName().equals(mainCurrent.getValue().getName())) {
+				//create indicator for differences
+				diffLabel=new Label("X");
+				diffLabel.setTextFill(Color.DARKRED);
 				mainCurrent.setGraphic(diffLabel);
+				diffLabel=new Label("X");
+				diffLabel.setTextFill(Color.DARKRED);
 				altCurrent.setGraphic(diffLabel);
 			}
 			
