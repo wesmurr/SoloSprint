@@ -1,5 +1,9 @@
 This is our design document:
-https://docs.google.com/document/d/1usWl9l82Wa1OelQTavswDzb6ZTNx1EhyaA9iFIS7zCY/edit?usp=sharing
+https://docs.google.com/document/d/1WiB_NWE_kizmfUQRCmRzOWEuQfdsOMo1KnDL3HdHu9I/edit
 
 Testing Notes:
-Run ApplicationTest. It is a suite that runs all tests.
+Run Backend_Test
+Run Frontend_Test 
+
+The Frontend_Test suite will fail on some cases because the test object isnt reset correctly between class tests.
+All tests pass when ran individually.
