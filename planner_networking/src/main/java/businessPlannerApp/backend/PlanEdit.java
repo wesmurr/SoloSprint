@@ -57,6 +57,27 @@ public class PlanEdit implements Serializable{
 	
 	@Override
 	public String toString() { return username + "\n"+timestamp.toString(); }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		PlanEdit other = (PlanEdit) obj;
+		if (planFile == null) {
+			if (other.planFile != null) return false;
+		} else if (!planFile.equals(other.planFile)) return false;
+		if (timestamp == null) {
+			if (other.timestamp != null) return false;
+		} else if (!timestamp.equals(other.timestamp)) return false;
+		if (username == null) {
+			if (other.username != null) return false;
+		} else if (!username.equals(other.username)) return false;
+		return true;
+	}
 	
 
 }

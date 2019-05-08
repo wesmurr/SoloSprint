@@ -96,4 +96,27 @@ public class PlanHistory {
 	 */
 	public void setEditMap(ConcurrentHashMap<Timestamp, PlanEdit> editMap) { this.editMap = editMap; }
 
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) return true;
+		if (obj == null) return false;
+		if (getClass() != obj.getClass()) return false;
+		PlanHistory other = (PlanHistory) obj;
+		if (canEdit != other.canEdit) return false;
+		if (editMap == null) {
+			if (other.editMap != null) return false;
+		} else if (!editMap.equals(other.editMap)) return false;
+		if (edits == null) {
+			if (other.edits != null) return false;
+		} else if (!edits.equals(other.edits)) return false;
+		if (year == null) {
+			if (other.year != null) return false;
+		} else if (!year.equals(other.year)) return false;
+		return true;
+	}
+
 }

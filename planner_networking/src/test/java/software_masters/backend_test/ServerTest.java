@@ -58,6 +58,7 @@ public class ServerTest {
 	public void testSerialization() throws Exception {
 		testServer.save();
 		final Server temp = ServerImplementation.load();
+		final Server temp2=testServer;
 		assertEquals(testServer, temp);
 
 	}

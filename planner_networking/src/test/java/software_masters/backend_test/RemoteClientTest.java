@@ -372,6 +372,7 @@ public class RemoteClientTest {
 		testClient.login("user", "user");
 		testClient.pushPlan(test);
 		testClient.getPlan("2019");
+		test.setCanEdit(true);
 		assertEquals(test, testClient.getCurrPlanFile());
 
 	}

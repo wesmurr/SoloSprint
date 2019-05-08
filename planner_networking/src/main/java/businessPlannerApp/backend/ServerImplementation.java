@@ -8,7 +8,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.rmi.AccessException;
 import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -529,12 +531,12 @@ public class ServerImplementation extends Observable implements Server {
 	 */
 	public static void spawn() {
 		if (server == null) {
+			Server stub = null;
 			System.out.println("Loading Server from Memory");
 			Registry registry = null;
-			Server stub = null;
 			try {
-				server = new ServerImplementation();
-				server.save();
+//				server = new ServerImplementation();
+//				server.save();
 				server = ServerImplementation.load();
 				registry = LocateRegistry.createRegistry(1060);
 				stub = (Server) UnicastRemoteObject.exportObject(server, 0);
@@ -558,10 +560,10 @@ public class ServerImplementation extends Observable implements Server {
 	 * Ensures server being tested is an object with known values.
 	 */
 	public static void testSpawn() {
+		Server stub = null;
+		Registry registry=null;
 		if (server == null) {
 			System.out.println("Starting Test Server");
-			Registry registry = null;
-			Server stub = null;
 			try {
 				server = new ServerImplementation();
 				registry = LocateRegistry.createRegistry(1060);
@@ -575,7 +577,7 @@ public class ServerImplementation extends Observable implements Server {
 				System.out.println("Connecting to Existing Server");
 			}
 			return;
-		}
+		} 
 		System.out.println("Connecting to Existing Test Server");
 	}
 	
