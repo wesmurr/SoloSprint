@@ -5,5 +5,5 @@ Testing Notes:
 Run Backend_Test
 Run Frontend_Test 
 
-The Frontend_Test suite will fail on some cases because the Server object isnt being reset after each test.
-All tests pass when ran individually.
+The Frontend_Test suite will fail on some cases because the testServer object isnt being reset after each test.
+All tests pass when ran individually except one. The specific method can be rerun and it will work.
