@@ -1,9 +1,15 @@
 This is our design document:
 https://docs.google.com/document/d/1WiB_NWE_kizmfUQRCmRzOWEuQfdsOMo1KnDL3HdHu9I/edit
 
+Running Normally:
+run ServerImplementation  located in businessPlannerApp.backend
+Run Main  located in businessPlannerApp
+
 Testing Notes:
 Run Backend_Test
 Run Frontend_Test 
 
 The Frontend_Test suite will fail on some cases because the testServer object isnt being reset after each test.
-All tests pass when ran individually except one. The specific method can be rerun and it will work.
+All tests pass when ran individually except one. The specific method (testObserver) can be rerun and it will work.
+The observer pattern can also be tested manually by opening two different windows and editing the same file while both are open.
+When edit history is shown it will automatically update.
